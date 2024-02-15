@@ -32,7 +32,7 @@ public class MyController {
     }
 
 
-    public void testIng(){
+    public void testPerson(){
         CasinoMembers newCasinoAI = new CasinoAI();
         System.out.println(newCasinoAI);
     }

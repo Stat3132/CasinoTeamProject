@@ -6,12 +6,7 @@ import org.example.Controller.MyController;
 public class Main {
     public static void main(String[] args) {
         MyController testing = new MyController();
-        testing.testIng();
-
-
-
-
-
+        testing.testPerson();
         HorseRace test = new HorseRace();
         test.horseStable();
     }
