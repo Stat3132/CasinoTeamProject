@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 public class BlackJack implements Casino, Probability {
 
 
- // i love diegos weiner
+ // i love diegos horse
 
     @Override
     public int betAmount() {
@@ -22,5 +22,5 @@ public class BlackJack implements Casino, Probability {
     public int jackPot() {
         return 0;
     }
-//weiner
+
 }
