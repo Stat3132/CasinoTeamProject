@@ -1,13 +1,11 @@
 package org.example.Controller;
 
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class BlackJack implements Casino, Probability {
 
 
- // i love diegos horse
-
+ //Test
     @Override
     public int betAmount() {
         return 0;
