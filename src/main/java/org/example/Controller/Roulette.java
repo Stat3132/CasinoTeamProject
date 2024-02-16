@@ -1,6 +1,32 @@
 package org.example.Controller;
 
+import java.util.HashMap;
+import java.util.Random;
+
 public class Roulette implements Casino, Probability{
+
+    private Random rouletteRandom;
+    private HashMap<Integer, Integer> payouts;
+
+    public Roulette(){
+        this.rouletteRandom = new Random();
+        this.payouts = new HashMap<>();
+        //The payout for betting on all reds/odds, 2x payout
+        payouts.put(1,2);
+        //The payout for betting on all blacks/evens, 2x payout
+        payouts.put(2,2);
+        //The payout for betting on all triples, 35x payout
+        payouts.put(3,35);
+        //The payout for betting on one single number, 50x payout
+        payouts.put(4,50);
+    }
+
+
+    public int spin(){
+        return rouletteRandom.nextInt(36);
+    }
+
+
 
 
     @Override
@@ -9,8 +35,23 @@ public class Roulette implements Casino, Probability{
     }
 
     @Override
-    public int cashOut() {
-        return 0;
+    public int cashOut(int betType,int playerBet) {
+        int outcome = spin();
+        int payoutMult = payouts.getOrDefault(betType, 0);
+        int payout = playerBet * payoutMult;
+
+        if (betType == 1 && outcome != 0 && outcome % 2 == 1 || betType == 2 && outcome != 0 && outcome % 2 == 1) {
+
+            payout = playerBet * payouts.get(1);
+        } else if (betType == 3 && outcome == betType) {
+
+            payout = playerBet * payouts.get(3);
+        } else if (betType == 4 && outcome == betType) {
+
+            payout = playerBet * payouts.get(4);
+            return payout;
+        }
+        return payout;
     }
 
     @Override
