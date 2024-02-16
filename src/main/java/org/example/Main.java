@@ -5,8 +5,8 @@ import org.example.Controller.MyController;
 
 public class Main {
     public static void main(String[] args) {
-        MyController testing = new MyController();
-        testing.testPerson();
+//       MyController testing = new MyController();
+//        testing.testPerson();
         HorseRace test = new HorseRace();
         test.horseStable();
     }

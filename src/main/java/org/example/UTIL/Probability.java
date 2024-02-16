@@ -9,10 +9,5 @@ public class Probability {
         int returnedInt = rand.nextInt(min, max + 1);
         return returnedInt;
     }
-
-    public void randomizingArray(){
-
-
-    }
     int[][] newArray = new int[6][7];
 }

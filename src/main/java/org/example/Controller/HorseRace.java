@@ -1,19 +1,21 @@
 package org.example.Controller;
 
 import org.example.Model.Horse;
-
-import javax.naming.Name;
+import org.example.UTIL.Name;
 
 public class HorseRace implements Casino, Probability{
 
 
     public void randomizingHorses(){
-        Name[] allNames = new Name[24];
-        for (int i = 0; i < allNames.length; i++) {
-            if (allNames != null){
-                allNames[i] = org.example.UTIL.Name._0;
+        Name[] baseNames = new Name[26];
+        Name[] numbericalValueOfName = Name.values();
+        for (int i = 0; i < baseNames.length; i++) {
+            if (i != baseNames.length - 1){
+                baseNames[i] = numbericalValueOfName[i];
+                System.out.println(baseNames[i]);
+            } else {
+                return;
             }
-
         }
     }
 
@@ -32,7 +34,7 @@ public class HorseRace implements Casino, Probability{
         return 0;
     }
     public void horseStable(){
-        Horse newHorse = new Horse("Lucky", "Brown");
+        Horse newHorse = new Horse( "Brown");
         System.out.println(newHorse);
     }
 
