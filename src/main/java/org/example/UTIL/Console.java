@@ -1,6 +1,7 @@
 package org.example.UTIL;
 
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -279,7 +280,7 @@ public class Console {
                     return num;
 
                 }
-                System.out.println("{INVALID INPUT}, Please try again!");
+                Console.write("{INVALID INPUT}, Please try again!", TextColor.RED);
             }
         }
         return num;
@@ -308,7 +309,7 @@ public class Console {
                 if (num == 0 && isRequired == false) {
                     return num;
                 }
-                System.out.println("{INVALID INPUT}, Please try again!");
+                Console.write("{INVALID INPUT}, Please try again!", TextColor.RED);
             }
         }
         return num;

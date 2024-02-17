@@ -2,14 +2,16 @@ package org.example.Controller;
 
 import org.example.Model.CasinoAI;
 import org.example.Model.CasinoMembers;
+import org.example.UTIL.Console;
 import org.example.View.CasinoInterface;
 
 public class Controller {
     //TODO: method to detect if player exists from an arraylist
     //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
     //TODO: logic behind PLAY & LEADERBOARD options for each game menu
-    
+
     CasinoInterface UI = new CasinoInterface();
+    Console IO = new Console();
     private boolean userExists;
     public boolean doesUserExists() {
         return userExists;
@@ -25,6 +27,8 @@ public class Controller {
         int roulette = 2;
         int blackjack = 3;
         int horseRacing = 4;
+        //FIXME:
+        setUserExists(true);
 
         //do while loop for game menu
         if(doesUserExists()) {
@@ -60,7 +64,7 @@ public class Controller {
             switch(game){ //switch for game int provided on casinoOutput function
                 case 1: //slots
                     do {
-                        System.out.println("\n-- Slots Machine! --");
+                        Console.write("-- Slots! --\n", Console.TextColor.BLUE);
                         switch (UI.gamePrompt()) { //nested switch for slot chosen by gameOption
                             case 1: // slots play option
                                 //TODO: slots game play
@@ -74,7 +78,7 @@ public class Controller {
                     }while (true);
                 case 2: //roulette
                     do {
-                        System.out.println("\n-- Roulette! --");
+                        Console.write("-- Roulette! --\n", Console.TextColor.RED);
                         switch (UI.gamePrompt()) { //nested switch for roulette chosen by gameOption
                             case 1: // roulette play option
                                 //TODO: roulette game play
@@ -88,7 +92,7 @@ public class Controller {
                     }while (true);
                 case 3: //black-jack
                     do {
-                        System.out.println("\n-- Black-Jack! --");
+                        Console.write("-- Black-Jack! --\n", Console.TextColor.PURPLE);
                         switch (UI.gamePrompt()) { //nested switch for black-jack chosen by gameOption
                             case 1: // black-jack play option
                                 //TODO: black-jack game play
@@ -102,7 +106,7 @@ public class Controller {
                     }while (true);
                 case 4: //horse-racing
                     do {
-                        System.out.println("\n-- Horse-Racing! --");
+                        Console.write("-- Horse-Racing! --\n", Console.TextColor.CYAN);
                         switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                             case 1: // horse-racing play option
                                 //TODO: slots game play

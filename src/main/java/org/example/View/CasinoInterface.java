@@ -11,7 +11,7 @@ public class CasinoInterface {
     }
     public int casinoMenu(){
         //casino menu prompt for game choosing
-        System.out.println("\n-- Variables in Vegas! --");
+        Console.write("\n-- Variables in Vegas! --\n", Console.TextColor.GREEN);
         return IO.getUserInt("1) Slot Machines \n2) Roulette \n3) Black-Jack \n4) Horse-Racing \n5) Casino Settings \n6) EXIT",true);
     }
 
@@ -24,7 +24,7 @@ public class CasinoInterface {
         return IO.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
     }
     public void exitPrompt(){
-        System.out.println("Thanks for visiting \"Variables in Vegas\"!");
+        Console.write("THANKS for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
     }
 
 }
