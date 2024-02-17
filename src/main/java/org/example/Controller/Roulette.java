@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Roulette implements Casino, Probability{
-
+    //FIXME
     private Random rouletteRandom;
     private HashMap<Integer, Integer> payouts;
 
@@ -20,15 +20,9 @@ public class Roulette implements Casino, Probability{
         //The payout for betting on one single number, 50x payout
         payouts.put(4,50);
     }
-
-
     public int spin(){
         return rouletteRandom.nextInt(36);
     }
-
-
-
-
     @Override
     public int betAmount() {
         return 0;
@@ -58,6 +52,9 @@ public class Roulette implements Casino, Probability{
     public int jackPot() {
         return 0;
     }
+    @Override
+    public void play() {
 
+    }
 
 }

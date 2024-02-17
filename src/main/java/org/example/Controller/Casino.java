@@ -9,5 +9,6 @@ public interface Casino {
     int betAmount();
     int cashOut(int betType, int playerBet);
     int jackPot();
+    void play();
 
 }

@@ -8,10 +8,9 @@ public class Controller {
     //TODO: method to detect if player exists from an arraylist
     //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
     //TODO: logic behind PLAY & LEADERBOARD options for each game menu
-    //TODO:
+    
     CasinoInterface UI = new CasinoInterface();
     private boolean userExists;
-
     public boolean doesUserExists() {
         return userExists;
     }

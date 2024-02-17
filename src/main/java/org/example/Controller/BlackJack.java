@@ -3,8 +3,7 @@ package org.example.Controller;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 public class BlackJack implements Casino, Probability {
-
-
+    //TODO:
     @Override
     public int betAmount() {
         return 0;
@@ -18,6 +17,10 @@ public class BlackJack implements Casino, Probability {
     @Override
     public int jackPot() {
         return 0;
+    }
+    @Override
+    public void play() {
+
     }
 
 }

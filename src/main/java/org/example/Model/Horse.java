@@ -3,13 +3,13 @@ package org.example.Model;
 import org.example.UTIL.Probability;
 
 public class Horse extends CasinoMembers {
-    String horseName;
-    String horseColor;
+    String horseName, horseColor;
     int horseSpeed;
     float horseWeight;
 
-    public Horse( String horseColor) {
-        super("Hello",1,1,1,1,1);
+    public Horse(String horseColor) {
+        //FIXME
+        super("TEST",1);
         this.horseName = randomizingNames().toString();
         this.horseColor = horseColor;
         this.horseSpeed = probably.randomValues(0,10);

@@ -1,16 +1,15 @@
 package org.example.Model;
 
 public class Player extends CasinoMembers{
-    //FIXME:
-    public Player(String name, int totalWinnings, int currentMoneyCount, int gamesPlayed, int gamesWon, int gamesLost) {
-        super(name, totalWinnings, currentMoneyCount, gamesPlayed, gamesWon, gamesLost);
+
+    int defaultMoney = 500;
+
+    public Player(String name, int currentMoneyCount) {
+        super(name, currentMoneyCount);
     }
     public Player(String name){
-        super(name,0,0,0,0,0);
-
-    }
-    public Player(){
-        this("NAME",1,1,1,1,1);
+        super(name,0);
+        this.setCurrentMoneyCount(defaultMoney);
     }
 
 }
