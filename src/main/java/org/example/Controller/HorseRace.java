@@ -21,6 +21,7 @@ public class HorseRace implements Casino, Probability{
     }
 
     public void horseStable(){
+        //FIXME
         Horse newHorse = new Horse("Lucky", "Brown");
         System.out.println(newHorse);
     }

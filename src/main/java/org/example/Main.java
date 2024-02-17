@@ -1,13 +1,15 @@
 package org.example;
 
 import org.example.Controller.HorseRace;
-import org.example.Controller.MyController;
+import org.example.Controller.Controller;
+import org.example.Model.Horse;
 
 public class Main {
     public static void main(String[] args) {
-        MyController testing = new MyController();
-        testing.testPerson();
-        HorseRace test = new HorseRace();
-        test.horseStable();
+        new Controller().testPerson();
+        new HorseRace().horseStable();
+
+        new Controller().casinoOutput();
+
     }
 }
