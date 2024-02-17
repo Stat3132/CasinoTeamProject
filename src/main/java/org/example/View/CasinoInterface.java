@@ -19,7 +19,6 @@ public class CasinoInterface {
         // game prompt for every game
         return casinoIO.getUserInt("1) PLAY \n2) LEADERBOARD \n3) EXIT",true);
     }
-
     public int horseRacingPrompt(){
         //horse racing game prompt that includes list of horses
         return casinoIO.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
