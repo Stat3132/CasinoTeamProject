@@ -7,5 +7,4 @@ public class Probability {
         Random rand = new Random();
         return rand.nextInt(min, max + 1);
     }
-    int[][] newArray = new int[6][7];
 }

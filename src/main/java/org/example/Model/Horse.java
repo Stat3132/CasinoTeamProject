@@ -17,6 +17,8 @@ public class Horse extends CasinoMembers {
     }
 
 
+
+
     @Override
     public String toString() {
         StringBuilder horseBuilder = new StringBuilder();
