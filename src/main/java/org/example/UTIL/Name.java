@@ -25,7 +25,9 @@ public enum Name {
     _21("Rose"),
     _22("Trevor"),
     _23("Tommy"),
-    _24("Chester");
+    _24("Chester"),
+    _25("Antonio"),
+    _26("Ethan");
 
     String friendlyString;
     Name(String friendlyString) {
