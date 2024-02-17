@@ -38,7 +38,6 @@ public enum Name {
 
     @Override
     public String toString() {
-
         return friendlyString;
     }
 }
