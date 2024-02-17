@@ -1,5 +1,6 @@
 package org.example.Model;
 
+import org.example.UTIL.HorseColor;
 import org.example.UTIL.Name;
 import org.example.UTIL.Probability;
 
@@ -39,6 +40,7 @@ public class CasinoMembers {
 
             return baseNames[probably.randomValues(0,26)];
         }
+
 
 
 

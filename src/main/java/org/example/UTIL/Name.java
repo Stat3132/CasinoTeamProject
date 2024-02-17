@@ -28,10 +28,6 @@ public enum Name {
     _24("Chester");
 
     String friendlyString;
-
-    public void randomizeName(){
-
-    }
     Name(String friendlyString) {
         this.friendlyString = friendlyString;
     }

@@ -11,7 +11,7 @@ public class HorseRace implements Casino, Probability{
     }
 
     @Override
-    public int cashOut() {
+    public int cashOut(int betType, int playerBet) {
         return 0;
     }
 
@@ -22,7 +22,7 @@ public class HorseRace implements Casino, Probability{
 
     public void horseStable(){
         //FIXME
-        Horse newHorse = new Horse("Lucky", "Brown");
+        Horse newHorse = new Horse( "Brown");
         System.out.println(newHorse);
     }
 
