@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 public interface Casino {
     int betAmount();
-    int cashOut();
+    int cashOut(int betType, int playerBet);
     int jackPot();
 
 }

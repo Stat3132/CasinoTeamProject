@@ -9,7 +9,7 @@ public class SlotMachine implements Casino, Probability {
     }
 
     @Override
-    public int cashOut() {
+    public int cashOut(int betType, int playerBet) {
         return 0;
     }
 

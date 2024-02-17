@@ -2,14 +2,15 @@ package org.example.Model;
 
 import org.example.UTIL.Probability;
 
-public class Horse extends CasinoObjects {
+public class Horse extends CasinoMembers {
     String horseName;
     String horseColor;
     int horseSpeed;
     float horseWeight;
 
-    public Horse(String horseName, String horseColor) {
-        this.horseName = horseName;
+    public Horse( String horseColor) {
+        super("Hello",1,1,1,1,1);
+        this.horseName = randomizingNames().toString();
         this.horseColor = horseColor;
         this.horseSpeed = probably.randomValues(0,10);
         this.horseWeight = probably.randomValues(900,1200);

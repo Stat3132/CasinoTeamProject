@@ -4,30 +4,43 @@ import org.example.UTIL.Name;
 import org.example.UTIL.Probability;
 
 public class CasinoMembers {
-    String name;
-    int totalWinnings;
-    int currentMoneyCount;
-    int gamesPlayed;
-    int gamesWon;
-    int gamesLost;
+        String name;
+        int totalWinnings;
+        int currentMoneyCount;
+        int gamesPlayed;
+        int gamesWon;
+        int gamesLost;
 
-    //FIXME: blah blah blah
-    Probability probably = new Probability();
+        //FIXME: blah blah blah
+        Probability probably = new Probability();
 
 
-    public CasinoMembers(String name, int totalWinnings, int currentMoneyCount, int gamesPlayed, int gamesWon, int gamesLost) {
-        this.name = name;
-        this.totalWinnings = totalWinnings;
-        this.currentMoneyCount = currentMoneyCount;
-        this.gamesPlayed = gamesPlayed;
-        this.gamesWon = gamesWon;
-        this.gamesLost = gamesLost;
-    }
+        public CasinoMembers(String name, int totalWinnings, int currentMoneyCount, int gamesPlayed, int gamesWon, int gamesLost) {
+            this.name = name;
+            this.totalWinnings = totalWinnings;
+            this.currentMoneyCount = currentMoneyCount;
+            this.gamesPlayed = gamesPlayed;
+            this.gamesWon = gamesWon;
+            this.gamesLost = gamesLost;
+        }
 
-    protected String randomizingNames(){
-        Name[] nameLess = {Name.ALEX, Name.DUSTIN, Name.LIDIYA, Name.CONNER, Name.HENRY, Name.OLIVER, Name.ERIC, Name.CARTER, Name.JASMIN, Name.CARTER, Name.JOSE};
-        return nameLess[probably.randomValues(0, nameLess.length - 1)].toString();
-    }
+        protected Name randomizingNames() {
+            // This is just an array of names;
+            Name[] baseNames = new Name[26];
+            Name[] numbericalValueOfName = Name.values();
+            for (int i = 0; i < baseNames.length; i++) {
+                if (i != baseNames.length - 1) {
+                    baseNames[i] = numbericalValueOfName[i];
+                    System.out.println(baseNames[i]);
+                } else {
+                    break;
+                }
+            }
+
+            return baseNames[probably.randomValues(0,26)];
+        }
+
+
 
     public String getName() {
         return name;
@@ -38,7 +51,7 @@ public class CasinoMembers {
             this.name = name;
         }
         if (name == ""){
-             this.name = randomizingNames();
+            this.name = randomizingNames().toString();
         }
     }
 
@@ -93,4 +106,5 @@ public class CasinoMembers {
         casinoMemberBuilder.append("\n");
         return casinoMemberBuilder.toString();
     }
+
 }
