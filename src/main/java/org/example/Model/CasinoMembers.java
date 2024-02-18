@@ -2,14 +2,14 @@ package org.example.Model;
 
 import org.example.UTIL.HorseColor;
 import org.example.UTIL.Name;
-import org.example.UTIL.Probability;
+import org.example.UTIL.ProbabilityForValue;
 
 import java.util.ArrayList;
 
 public class CasinoMembers {
         String name;
         int totalWinnings, currentMoneyCount, gamesPlayed, gamesWon, gamesLost;
-        Probability probably = new Probability();
+        ProbabilityForValue probably = new ProbabilityForValue();
 
         // getters & setters
 

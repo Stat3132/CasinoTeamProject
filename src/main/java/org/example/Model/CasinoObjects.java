@@ -1,10 +1,10 @@
 package org.example.Model;
 
-import org.example.UTIL.Probability;
+import org.example.UTIL.ProbabilityForValue;
 
 public abstract class CasinoObjects{
     /**
      * CLASS IS BEING DELETED IF NO IMPLEMENTATION IS NECESSARY.
      */
-    protected Probability probably = new Probability();
+    protected ProbabilityForValue probably = new ProbabilityForValue();
 }

@@ -72,4 +72,9 @@ public class Roulette implements Casino {
 
     }
 
+    @Override
+    public int whatAreTheOdds() {
+        return 0;
+    }
+
 }

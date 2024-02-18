@@ -1,10 +1,5 @@
 package org.example.Controller;
 
-import org.example.UTIL.Probability;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 public interface Casino {
     /** Bet amount info:
      * Bet amount is the bet amount as all games need to bet money.
@@ -30,5 +25,7 @@ public interface Casino {
      * This is for all other games, as they will be able to play and will encapsulate all these other methods.
      */
     void play();
+
+    int whatAreTheOdds();
 
 }

@@ -1,7 +1,5 @@
 package org.example.Model;
 
-import org.example.UTIL.Probability;
-
 public class Horse extends CasinoMembers {
     String horseName, horseColor;
     int horseSpeed;

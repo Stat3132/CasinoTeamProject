@@ -6,7 +6,7 @@ public class SlotMachine implements Casino {
     /**
      * 10 for base then we will have x 10 x 100 and x 1000.
      * This is the base amount so 10, 100, 1000, 10,000 so slots go as so
-     * 4 of a kind will give you your base value maybe, i actually cant make SUDO values as i don't know the complete logic for it
+     * 4 of a kind will give you your base value maybe, I actually cant make SUDO values as I don't know the complete logic for it
      *
      * @return
      */
@@ -28,5 +28,10 @@ public class SlotMachine implements Casino {
      */
     public void play() {
 
+    }
+
+    @Override
+    public int whatAreTheOdds() {
+        return 0;
     }
 }

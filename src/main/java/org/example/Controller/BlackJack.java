@@ -48,4 +48,9 @@ public class BlackJack implements Casino {
 
     }
 
+    @Override
+    public int whatAreTheOdds() {
+        return 0;
+    }
+
 }

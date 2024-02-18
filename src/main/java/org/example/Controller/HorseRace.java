@@ -1,5 +1,6 @@
 package org.example.Controller;
 
+import org.example.Model.CasinoMembers;
 import org.example.Model.Horse;
 
 public class HorseRace implements Casino {
@@ -12,7 +13,21 @@ public class HorseRace implements Casino {
      */
     @Override
     public int betAmount() {
-        return 0;
+        //TODO: SUDO CODE
+        //FIXME: CODE IS NOT DONE!!!
+        int playerBet = 100;
+        switch (playerBet){
+            case 100:
+                playerBet = playerBet - 100;
+                break;
+            case 200:
+                playerBet = playerBet - 200;
+                break;
+            case 300:
+                playerBet = playerBet - 300;
+                break;
+        }
+        return playerBet;
     }
 
     /**
@@ -54,5 +69,10 @@ public class HorseRace implements Casino {
     @Override
     public void play() {
 
+    }
+
+    @Override
+    public int whatAreTheOdds() {
+        return 0;
     }
 }
