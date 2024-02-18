@@ -4,12 +4,15 @@ import org.example.UTIL.HorseColor;
 import org.example.UTIL.Name;
 import org.example.UTIL.Probability;
 
+import java.util.ArrayList;
+
 public class CasinoMembers {
         String name;
         int totalWinnings, currentMoneyCount, gamesPlayed, gamesWon, gamesLost;
         Probability probably = new Probability();
 
         // getters & setters
+
         public String getName() {
             return name;
         }
@@ -17,11 +20,15 @@ public class CasinoMembers {
             if (name != null && name.length() > 2) {
                 this.name = name;
             }
+            // I set up an extra setter so if the people inputting informtion decide to keep it blank " " or put numbers
+            //It will randomize names
+            //TODO: NO NUMBERS AS NAMES!!!
             if (name == ""){
                 this.name = randomizingNames().toString();
             }
         }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //TODO: GETTER AND SETTERS
         public int getTotalWinnings() {
             return totalWinnings;
         }
@@ -56,16 +63,22 @@ public class CasinoMembers {
         public void setGamesLost(int gamesLost) {
             this.gamesLost = gamesLost;
         }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * This is a method that ranodmizes names. This is "casino members" so this logic is extending to other class objects that need their names to be randomized.
+     * I have an array and I use a Loop that takes values from the names and assigns them to a new array index.
+     * After putting all names into an array I then return a random name by using "probably" Which is a instance of Probability that
+     * gives me a random number from lower bound to upper bound.
+     * @return
+     */
 
-        // name
-        protected Name randomizingNames() {
+    protected Name randomizingNames() {
             // This is just an array of names;
-            Name[] baseNames = new Name[26];
+            Name[] baseNames = new Name[27];
             Name[] numbericalValueOfName = Name.values();
             for (int i = 0; i < baseNames.length; i++) {
-                if (i != baseNames.length - 1) {
+                if (i != baseNames.length) {
                     baseNames[i] = numbericalValueOfName[i];
-                    System.out.println(baseNames[i]);
                 } else {
                     break;
                 }
@@ -73,35 +86,45 @@ public class CasinoMembers {
             return baseNames[probably.randomValues(0,26)];
         }
 
-
-            //TODO: SUDO PLACEMENT( WILL BE CHANGED)
+    /**
+     * This is a duplication of the code above.
+     * @return
+     */
+    //TODO: SUDO PLACEMENT( WILL BE CHANGED)
             //TODO: Probable better method implementation as it is NOT DRY
             protected HorseColor randomizeHorseColor() {
-                HorseColor[] baseHorseColor = new HorseColor[26];
+                ArrayList<HorseColor> horseList = new ArrayList<HorseColor>();
+                HorseColor[] baseHorseColor = new HorseColor[15];
                 HorseColor[] numbericalValueOfHorseColor = HorseColor.values();
                 for (int i = 0; i < baseHorseColor.length; i++) {
-                    if (i != baseHorseColor.length - 1) {
+                    if (i != baseHorseColor.length) {
                         baseHorseColor[i] = numbericalValueOfHorseColor[i];
-                        System.out.println(baseHorseColor[i]);
                     } else {
                         break;
                     }
                 }
-                return baseHorseColor[probably.randomValues(0, 26)];
+                return baseHorseColor[probably.randomValues(0, 14)];
             }
 
 
+    /**
+     * This is a constructor for what needs to be implemented for other objects using this constructor.
+     * @param name
+     * @param currentMoneyCount
+     */
 
-
-
-
-        // constructor
+    // constructor
         public CasinoMembers(String name, int currentMoneyCount) {
             this.name = name;
             this.currentMoneyCount = currentMoneyCount;
         }
 
         // toString
+
+    /**
+     * Making code cleaner
+     * @return
+     */
         @Override
         public String toString() {
             StringBuilder casinoMemberBuilder = new StringBuilder();

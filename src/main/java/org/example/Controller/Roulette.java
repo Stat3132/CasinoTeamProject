@@ -20,14 +20,29 @@ public class Roulette implements Casino {
         //The payout for betting on one single number, 50x payout
         payouts.put(4,50);
     }
+
+
+
     public int spin(){
         return rouletteRandom.nextInt(36);
     }
+
+    /**
+     * The amount that is being bet, maybe this method and roulette should have correlation as it seems like the roulette
+     * method is putting the values for payout which is what bet amount should be doing.
+     * @return
+     */
     @Override
     public int betAmount() {
         return 0;
     }
 
+    /**
+     * The determining factor of how much money will be gotten from different bet types that are given.
+     * @param betType
+     * @param playerBet
+     * @return
+     */
     @Override
     public int cashOut(int betType,int playerBet) {
         int outcome = spin();

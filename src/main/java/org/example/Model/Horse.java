@@ -7,6 +7,10 @@ public class Horse extends CasinoMembers {
     int horseSpeed;
     float horseWeight;
 
+    /**
+     * Horse object is created by the game and not by the player. There can be future implementation for adding horses but that
+     * would just use another constructor. That takes in values given from the user.
+     */
     public Horse() {
         //FIXME
         super("TEST",1);
@@ -32,6 +36,7 @@ public class Horse extends CasinoMembers {
         this.horseWeight = horseWeight;
     }
 
+    //TO STRING
     @Override
     public String toString() {
         StringBuilder horseBuilder = new StringBuilder();
