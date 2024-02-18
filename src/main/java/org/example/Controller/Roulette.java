@@ -3,7 +3,7 @@ package org.example.Controller;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Roulette implements Casino, Probability{
+public class Roulette implements Casino {
     //FIXME
     private Random rouletteRandom;
     private HashMap<Integer, Integer> payouts;

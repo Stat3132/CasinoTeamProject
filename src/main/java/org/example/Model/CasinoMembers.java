@@ -1,5 +1,6 @@
 package org.example.Model;
 
+import org.example.UTIL.HorseColor;
 import org.example.UTIL.Name;
 import org.example.UTIL.Probability;
 
@@ -58,20 +59,41 @@ public class CasinoMembers {
 
         // name
         protected Name randomizingNames() {
-        // This is just an array of names;
-        Name[] baseNames = new Name[26];
-        Name[] numbericalValueOfName = Name.values();
-        for (int i = 0; i < baseNames.length; i++) {
-            if (i != baseNames.length - 1) {
-                baseNames[i] = numbericalValueOfName[i];
-                System.out.println(baseNames[i]);
-            } else {
-                break;
+            // This is just an array of names;
+            Name[] baseNames = new Name[26];
+            Name[] numbericalValueOfName = Name.values();
+            for (int i = 0; i < baseNames.length; i++) {
+                if (i != baseNames.length - 1) {
+                    baseNames[i] = numbericalValueOfName[i];
+                    System.out.println(baseNames[i]);
+                } else {
+                    break;
+                }
             }
+            return baseNames[probably.randomValues(0,26)];
         }
 
-        return baseNames[probably.randomValues(0,26)];
-    }
+
+            //TODO: SUDO PLACEMENT( WILL BE CHANGED)
+            //TODO: Probable better method implementation as it is NOT DRY
+            protected HorseColor randomizeHorseColor() {
+                HorseColor[] baseHorseColor = new HorseColor[26];
+                HorseColor[] numbericalValueOfHorseColor = HorseColor.values();
+                for (int i = 0; i < baseHorseColor.length; i++) {
+                    if (i != baseHorseColor.length - 1) {
+                        baseHorseColor[i] = numbericalValueOfHorseColor[i];
+                        System.out.println(baseHorseColor[i]);
+                    } else {
+                        break;
+                    }
+                }
+                return baseHorseColor[probably.randomValues(0, 26)];
+            }
+
+
+
+
+
 
         // constructor
         public CasinoMembers(String name, int currentMoneyCount) {

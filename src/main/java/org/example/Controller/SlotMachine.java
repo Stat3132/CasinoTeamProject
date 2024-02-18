@@ -1,6 +1,6 @@
 package org.example.Controller;
 
-public class SlotMachine implements Casino, Probability {
+public class SlotMachine implements Casino {
     //TODO:
     @Override
     public int betAmount() {

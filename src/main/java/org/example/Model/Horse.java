@@ -7,17 +7,30 @@ public class Horse extends CasinoMembers {
     int horseSpeed;
     float horseWeight;
 
-    public Horse(String horseColor) {
+    public Horse() {
         //FIXME
         super("TEST",1);
         this.horseName = randomizingNames().toString();
-        this.horseColor = horseColor;
+        this.horseColor = randomizeHorseColor().toString();
         this.horseSpeed = probably.randomValues(0,10);
         this.horseWeight = probably.randomValues(900,1200);
     }
 
+    public int getHorseSpeed() {
+        return horseSpeed;
+    }
 
+    public void setHorseSpeed(int horseSpeed) {
+        this.horseSpeed = horseSpeed;
+    }
 
+    public float getHorseWeight() {
+        return horseWeight;
+    }
+
+    public void setHorseWeight(float horseWeight) {
+        this.horseWeight = horseWeight;
+    }
 
     @Override
     public String toString() {

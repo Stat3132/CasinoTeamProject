@@ -2,7 +2,7 @@ package org.example.Controller;
 
 import org.example.Model.Horse;
 
-public class HorseRace implements Casino, Probability{
+public class HorseRace implements Casino {
     //TODO:
     @Override
     public int betAmount() {
@@ -18,10 +18,19 @@ public class HorseRace implements Casino, Probability{
         return 0;
     }
 
-    public void horseStable(){
-        //FIXME
-//        Horse newHorse = new Horse("Lucky", "Brown");
-//        System.out.println(newHorse);
+    public void populatingStable(){
+        Horse[] racingHorses = new Horse[20];
+        for (int i = 0; i < racingHorses.length; i++) {
+                if (i < racingHorses.length - 1){
+                    racingHorses[i] = new Horse();
+                    System.out.println(racingHorses[i].toString());
+                }
+                else {
+                    return;
+                }
+
+        }
+
     }
     @Override
     public void play() {

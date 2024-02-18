@@ -1,8 +1,6 @@
 package org.example.Controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-public class BlackJack implements Casino, Probability {
+public class BlackJack implements Casino {
     //TODO:
     @Override
     public int betAmount() {
