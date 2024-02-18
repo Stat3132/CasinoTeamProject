@@ -74,7 +74,7 @@ public class CasinoMembers {
 
     protected Name randomizingNames() {
             // This is just an array of names;
-            Name[] baseNames = new Name[61];
+            Name[] baseNames = new Name[122];
             Name[] numbericalValueOfName = Name.values();
             for (int i = 0; i < baseNames.length; i++) {
                 if (i != baseNames.length) {
@@ -83,7 +83,7 @@ public class CasinoMembers {
                     break;
                 }
             }
-            return baseNames[probably.randomValues(0,60)];
+            return baseNames[probably.randomValues(0,120)];
         }
 
     /**
@@ -95,6 +95,7 @@ public class CasinoMembers {
             protected HorseColor randomizeHorseColor() {
                 ArrayList<HorseColor> horseList = new ArrayList<HorseColor>();
                 HorseColor[] baseHorseColor = new HorseColor[15];
+                // Making an array that takes in Enum values so that i can iterate and add enums into specific spots in an array.
                 HorseColor[] numbericalValueOfHorseColor = HorseColor.values();
                 for (int i = 0; i < baseHorseColor.length; i++) {
                     if (i != baseHorseColor.length) {

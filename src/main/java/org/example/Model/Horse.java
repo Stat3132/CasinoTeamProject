@@ -14,7 +14,7 @@ public class Horse extends CasinoMembers {
         super("TEST",1);
         this.horseName = randomizingNames().toString();
         this.horseColor = randomizeHorseColor().toString();
-        this.horseSpeed = probably.randomValues(0,10);
+        this.horseSpeed = probably.randomValues(1,10);
         this.horseWeight = probably.randomValues(900,1200);
     }
 
@@ -22,7 +22,7 @@ public class Horse extends CasinoMembers {
         return horseSpeed;
     }
 
-    public void setHorseSpeed(int horseSpeed) {
+    private void setHorseSpeed(int horseSpeed) {
         this.horseSpeed = horseSpeed;
     }
 
@@ -30,7 +30,7 @@ public class Horse extends CasinoMembers {
         return horseWeight;
     }
 
-    public void setHorseWeight(float horseWeight) {
+    private void setHorseWeight(float horseWeight) {
         this.horseWeight = horseWeight;
     }
 
