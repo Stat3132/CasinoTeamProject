@@ -9,7 +9,8 @@ public class Controller {
     //TODO: method to detect if player exists from an arraylist
     //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
     //TODO: logic behind PLAY & LEADERBOARD options for each game menu
-
+    //GAME INSTANCES:
+    HorseRace horseRaceControl = new HorseRace();
     CasinoInterface UI = new CasinoInterface();
     Console IO = new Console();
     private boolean userExists;
@@ -109,13 +110,13 @@ public class Controller {
                         Console.write("-- Horse-Racing! --\n", Console.TextColor.CYAN);
                         switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                             case 1: // horse-racing play option
-                                //TODO: slots game play
+                                //TODO: horse race game play
                                 break;
                             case 2: // horse-racing leaderboard option
-                                //TODO: slots leaderboard
+                                //TODO: horse racing leaderboard
                                 break;
                             case 3: // horse names
-                                //TODO: horse name list
+                                horseRaceControl.populatingStable();
                                 break;
                             case 4: // exit
                                 return;

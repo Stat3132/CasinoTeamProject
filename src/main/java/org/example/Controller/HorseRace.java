@@ -3,6 +3,7 @@ package org.example.Controller;
 import org.example.Model.Horse;
 
 public class HorseRace implements Casino {
+    Horse[] racingHorses = new Horse[20];
     //TODO:
 
     /**
@@ -40,15 +41,9 @@ public class HorseRace implements Casino {
      * We begin with 20 horses displayed
      */
     public void populatingStable(){
-        Horse[] racingHorses = new Horse[20];
         for (int i = 0; i < racingHorses.length; i++) {
-                if (i < racingHorses.length){
                     racingHorses[i] = new Horse();
                     System.out.println(racingHorses[i].toString());
-                }
-                else {
-                    return;
-                }
         }
     }
 

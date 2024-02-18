@@ -1,6 +1,10 @@
 package org.example.View;
 
+import org.example.Model.Horse;
 import org.example.UTIL.Console;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class CasinoInterface {
     Console IO = new Console();

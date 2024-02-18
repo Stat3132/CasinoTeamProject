@@ -44,6 +44,7 @@ public class Horse extends CasinoMembers {
        horseBuilder.append("\nHorse coat color: ").append(horseColor);
        horseBuilder.append("\nHorse speed: ").append(horseSpeed);
        horseBuilder.append("\nHorse weight: ").append(horseWeight);
+       horseBuilder.append("\n");
        return horseBuilder.toString();
     }
 }

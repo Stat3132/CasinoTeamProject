@@ -74,7 +74,7 @@ public class CasinoMembers {
 
     protected Name randomizingNames() {
             // This is just an array of names;
-            Name[] baseNames = new Name[27];
+            Name[] baseNames = new Name[61];
             Name[] numbericalValueOfName = Name.values();
             for (int i = 0; i < baseNames.length; i++) {
                 if (i != baseNames.length) {
@@ -83,7 +83,7 @@ public class CasinoMembers {
                     break;
                 }
             }
-            return baseNames[probably.randomValues(0,26)];
+            return baseNames[probably.randomValues(0,60)];
         }
 
     /**
