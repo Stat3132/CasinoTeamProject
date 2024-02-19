@@ -27,6 +27,11 @@ public class CasinoInterface {
         //horse racing game prompt that includes list of horses
         return IO.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
     }
+    public void displayingStable(Horse[] stable){
+        for (int i = 0; i < stable.length; i++) {
+            System.out.println(stable[i].toString());
+        }
+    }
     public void exitPrompt(){
         Console.write("THANKS for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
     }

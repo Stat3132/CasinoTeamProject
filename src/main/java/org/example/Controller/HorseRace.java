@@ -1,11 +1,13 @@
 package org.example.Controller;
 
-import org.example.Model.CasinoMembers;
 import org.example.Model.Horse;
+import org.example.UTIL.ProbabilityForValue;
 
 public class HorseRace implements Casino {
-    Horse fixedHorse = new Horse();
-    Horse[] racingHorses = new Horse[20];
+
+    Horse[] fullStableOfRacerHorses = new Horse[20];
+    Horse[] pickedRacingHorses = new Horse[7];
+    ProbabilityForValue probable = new ProbabilityForValue();
     int horseOdds;
     //TODO:
 
@@ -61,10 +63,10 @@ public class HorseRace implements Casino {
      * We begin with 20 horses displayed
      */
     public void populatingStable() {
-        for (int i = 0; i < racingHorses.length; i++) {
-            racingHorses[i] = new Horse();
-            System.out.println(racingHorses[i].toString());
+        for (int i = 0; i < fullStableOfRacerHorses.length; i++) {
+            fullStableOfRacerHorses[i] = new Horse();
         }
+        inputtingOddsIntoHorseStable();
     }
 
     /**
@@ -73,124 +75,148 @@ public class HorseRace implements Casino {
      */
     @Override
     public void play() {
+        //Something horse racing related
+        //TODO:CHECKS!!!
+        populatingStable();
+        // pickingRaceHorses are the final 7 horses being picked randomly out of the stable of 20 horses. No check for repeating horses
+        //FIXME: ADD LOGIC TO PREVENT DUPLICATE HORSES BEING ADDED TO ARRAY
+        for (int i = 0; i < pickedRacingHorses.length; i++) {
+            pickedRacingHorses[i] = fullStableOfRacerHorses[probable.randomValues(0, 19)];
+            System.out.println(pickedRacingHorses[i]);
+        }
 
 
     }
 
+    /**
+     * This method is supposed to be used to have a variable called "horse odds". I want to assign this value to a horse as like a
+     *
+     * @return
+     */
     @Override
     public int whatAreTheOdds() {
-        switch (fixedHorse.getHorseSpeed()) {
-            case 1:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 1;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 2;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 3;
-                }
-                break;
-            case 2:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 4;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 5;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 6;
-                }
-                break;
-            case 3:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 7;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 8;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 9;
-                }
-                break;
-            case 4:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 10;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 11;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 12;
-                }
-                break;
-            case 5:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 13;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 14;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 15;
-                }
-                break;
-            case 6:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 16;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 17;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 18;
-                }
-                break;
-            case 7:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 19;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 20;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 21;
-                }
-                break;
-            case 8:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 22;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 23;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 24;
-                }
-                break;
-            case 9:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 25;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 26;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 27;
-                }
-                break;
-            case 10:
-                if (fixedHorse.getHorseWeight() >= 1100) {
-                    horseOdds = 28;
-                }
-                if (fixedHorse.getHorseWeight() >= 1000 && fixedHorse.getHorseWeight() < 1100) {
-                    horseOdds = 29;
-                }
-                if (fixedHorse.getHorseWeight() >= 900 && fixedHorse.getHorseWeight() < 1000){
-                    horseOdds = 30;
-                }
-                break;
-        }
+
         return 0;
+    }
+
+    /**
+     * This method looks at an array of horses and sets odds to them based on speed and weight. This will make it easier to determine a winner because it simply means "higher number more likely to win"
+     * There are 3 Ifs for every switch for every branch of weight it can have, so that determining factors for winning is based on speed and weight.
+     */
+    public void inputtingOddsIntoHorseStable() {
+        for (int i = 0; i < 20; i++) {
+            switch (fullStableOfRacerHorses[i].getHorseSpeed()) {
+                case 1:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(1);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(2);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(3);
+                    }
+                    break;
+                case 2:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(4);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(5);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(6);
+                    }
+                    break;
+                case 3:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(7);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(8);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(9);
+                    }
+                    break;
+                case 4:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(10);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(11);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(12);
+                    }
+                    break;
+                case 5:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(13);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(14);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(15);
+                    }
+                    break;
+                case 6:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(16);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(17);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(18);
+                    }
+                    break;
+                case 7:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(19);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(20);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(21);
+                    }
+                    break;
+                case 8:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(22);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(23);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(24);
+                    }
+                    break;
+                case 9:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(25);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(26);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(27);
+                    }
+                    break;
+                case 10:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(28);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                        fullStableOfRacerHorses[i].setHorseOdds(29);
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(30);
+                    }
+                    break;
+            }
+        }
     }
 }

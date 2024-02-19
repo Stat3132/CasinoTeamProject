@@ -3,7 +3,9 @@ package org.example.Model;
 public class Horse extends CasinoMembers {
     String horseName, horseColor;
     int horseSpeed;
+    //FIXME: CHANGE THIS TO INT (No need for float)
     float horseWeight;
+    int horseOdds;
 
     /**
      * Horse object is created by the game and not by the player. There can be future implementation for adding horses but that
@@ -34,6 +36,14 @@ public class Horse extends CasinoMembers {
         this.horseWeight = horseWeight;
     }
 
+    public int getHorseOdds() {
+        return horseOdds;
+    }
+
+    public void setHorseOdds(int horseOdds) {
+        this.horseOdds = horseOdds;
+    }
+
     //TO STRING
     @Override
     public String toString() {
@@ -43,6 +53,8 @@ public class Horse extends CasinoMembers {
        horseBuilder.append("\nHorse speed: ").append(horseSpeed);
        horseBuilder.append("\nHorse weight: ").append(horseWeight);
        horseBuilder.append("\n");
+       //FIXME: FOR TESTING ONLY!!!!!!!!
+        horseBuilder.append("Horses odds: ").append(horseOdds);
        return horseBuilder.toString();
     }
 }

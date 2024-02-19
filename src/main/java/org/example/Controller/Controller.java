@@ -117,6 +117,7 @@ public class Controller {
                                 break;
                             case 3: // horse names
                                 horseRaceControl.populatingStable();
+                                UI.displayingStable(horseRaceControl.fullStableOfRacerHorses);
                                 break;
                             case 4: // exit
                                 return;
