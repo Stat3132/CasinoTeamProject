@@ -1,9 +1,12 @@
 package org.example.View;
 
+import org.example.Model.CasinoMembers;
 import org.example.Model.Horse;
+import org.example.Model.Player;
 import org.example.UTIL.Console;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CasinoInterface {
@@ -21,7 +24,45 @@ public class CasinoInterface {
     public int casinoSettings(){
         //casino menu prompt for game choosing
         Console.write("\n-- CASINO SETTINGS! --\n", Console.TextColor.GREEN);
-        return IO.getUserInt("1) Change [CURRENT USER] \n2) List ALL Existing Users! \n3) List ALL Horses \n4) EXIT",true);
+        return IO.getUserInt("1) Change [CURRENT USER] \n2) List ALL Existing Users! \n3) EXIT",true);
+    }
+    public int getUserBet(int totalUserMoney){
+        int userBet;
+        do {
+            System.out.println("Total User Money: $" + totalUserMoney);
+            userBet = IO.getUserInt("Enter your bet amount!", true);
+            if (userBet > totalUserMoney) {
+                System.out.println("Your bet is too high! \nTRY AGAIN!");
+            } else {
+                break;
+            }
+        } while(true);
+        System.out.println("You've bet $" + userBet);
+        return userBet;
+    }
+    public void displayAllUsers(ArrayList<CasinoMembers> allUsers){
+        for (int i = 0; i < allUsers.size(); i++) {
+            System.out.println((i + 1) + " " + allUsers.get(i).getName());
+        }
+    }
+    public void displayCurrentUser(Player currentPlayer){
+        System.out.println("[CURRENT USER] " + currentPlayer.getName());
+    }
+    public void displayGameHeader(int game){
+        switch(game){
+            case 1: // slots header
+                Console.write("-- Slots! --\n", Console.TextColor.BLUE);
+                break;
+            case 2: // roulette header
+                Console.write("-- Roulette! --\n", Console.TextColor.RED);
+                break;
+            case 3: // black-jack header
+                Console.write("-- Black-Jack! --\n", Console.TextColor.PURPLE);
+                break;
+            case 4: // horse-racing header
+                Console.write("-- Horse-Racing! --\n", Console.TextColor.CYAN);
+                break;
+        }
     }
     public int gamePrompt(){
         // game prompt for every game
