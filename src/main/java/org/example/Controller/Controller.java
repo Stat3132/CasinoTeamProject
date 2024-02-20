@@ -18,7 +18,9 @@ public class Controller {
     private boolean userExists;
     ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
     Player currentPlayer;
+    int slots = 1, roulette = 2, blackjack = 3, horseRacing = 4;
 
+    // user & all user array functionality
     public boolean doesUserExists() {
         //loops through array to check if exists, if null = false, if once true, stop loop and return value true;
         for (int i = 0; i < allCasinoPlayers.size(); i++) {
@@ -45,14 +47,18 @@ public class Controller {
     public void populateAI(){
         //populates array with "AI" or fake players that have their values randomizes
     }
+    public void getUserBet(){
+        UI.getUserBet(currentPlayer.getCurrentMoneyCount());
+    }
+
+    public ArrayList<CasinoMembers> getAllCasinoPlayers() {
+        return allCasinoPlayers;
+    }
     //Main method used to display all main information
 
     public void casinoOutput(){
         // games that are assigned designated integers.
-        int slots = 1;
-        int roulette = 2;
-        int blackjack = 3;
-        int horseRacing = 4;
+
         //FIXME:
 
         //do while loop for game menu
@@ -74,6 +80,7 @@ public class Controller {
                         gameOutput(horseRacing);
                         break;
                     case 5: // info
+                        gameSettings();
                         break;
                     case 6: //exit
                         UI.exitPrompt();
@@ -91,9 +98,10 @@ public class Controller {
             switch(game){ //switch for game int provided on casinoOutput function
                 case 1: //slots
                     do {
-                        Console.write("-- Slots! --\n", Console.TextColor.BLUE);
+                        UI.displayGameHeader(1);
                         switch (UI.gamePrompt()) { //nested switch for slot chosen by gameOption
                             case 1: // slots play option
+                                getUserBet();
                                 //TODO: slots game play
                                 break;
                             case 2: // slots leaderboard option
@@ -105,9 +113,10 @@ public class Controller {
                     }while (true);
                 case 2: //roulette
                     do {
-                        Console.write("-- Roulette! --\n", Console.TextColor.RED);
+                        UI.displayGameHeader(2);
                         switch (UI.gamePrompt()) { //nested switch for roulette chosen by gameOption
                             case 1: // roulette play option
+                                getUserBet();
                                 //TODO: roulette game play
                                 break;
                             case 2: // roulette leaderboard option
@@ -119,9 +128,10 @@ public class Controller {
                     }while (true);
                 case 3: //black-jack
                     do {
-                        Console.write("-- Black-Jack! --\n", Console.TextColor.PURPLE);
+                        UI.displayGameHeader(3);
                         switch (UI.gamePrompt()) { //nested switch for black-jack chosen by gameOption
                             case 1: // black-jack play option
+                                getUserBet();
                                 //TODO: black-jack game play
                                 break;
                             case 2: // black-jack leaderboard option
@@ -133,9 +143,10 @@ public class Controller {
                     }while (true);
                 case 4: //horse-racing
                     do {
-                        Console.write("-- Horse-Racing! --\n", Console.TextColor.CYAN);
+                        UI.displayGameHeader(4);
                         switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                             case 1: // horse-racing play option
+                                getUserBet();
                                 //TODO: horse race game play
                                 break;
                             case 2: // horse-racing leaderboard option
@@ -151,5 +162,21 @@ public class Controller {
                     }while (true);
             }
     }
+    public void gameSettings(){
+        do {
+            switch (UI.casinoSettings()) {
+                case 1: //change current user
+                    UI.displayCurrentUser(currentPlayer);
+                    UI.displayAllUsers(allCasinoPlayers);
+                    break;
+                case 2: //list all users
+                    UI.displayAllUsers(allCasinoPlayers);
+                    break;
+                case 3: //exit back to gameoutput
+                    return;
+            }
+        } while(true);
+    }
+
 
 }

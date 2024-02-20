@@ -3,6 +3,10 @@ package org.example.Model;
 public class Player extends CasinoMembers{
 
     int defaultMoney = 500;
+    int totalHorseMoney;
+    int totalRouletteMoney;
+    int totalSlotMoney;
+    int totalBlackJackMoney;
 
     /**
      * Here we are setting some values that the player will begin with. These values are set by the user.
