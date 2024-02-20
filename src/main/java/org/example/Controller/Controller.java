@@ -2,8 +2,11 @@ package org.example.Controller;
 
 import org.example.Model.CasinoAI;
 import org.example.Model.CasinoMembers;
+import org.example.Model.Player;
 import org.example.UTIL.Console;
 import org.example.View.CasinoInterface;
+
+import java.util.ArrayList;
 
 public class Controller {
     //TODO: method to detect if player exists from an arraylist
@@ -12,13 +15,35 @@ public class Controller {
     //GAME INSTANCES:
     HorseRace horseRaceControl = new HorseRace();
     CasinoInterface UI = new CasinoInterface();
-    Console IO = new Console();
     private boolean userExists;
+    ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
+    Player currentPlayer;
+
     public boolean doesUserExists() {
+        //loops through array to check if exists, if null = false, if once true, stop loop and return value true;
+        for (int i = 0; i < allCasinoPlayers.size(); i++) {
+            if(allCasinoPlayers.get(i) == null){
+                setUserExists(false);
+            } else {
+                setUserExists(true);
+                return userExists;
+            }
+        }
         return userExists;
     }
     public void setUserExists(boolean oneUserExists) {
         this.userExists = oneUserExists;
+    }
+    public void createFirstUser(){
+        String username = UI.firstUserPrompt();
+        Player newPlayer = new Player(username);
+        currentPlayer = newPlayer;
+        allCasinoPlayers.add(newPlayer);
+        setUserExists(true);
+        System.out.println(username + " Has been created!");
+    }
+    public void populateAI(){
+        //populates array with "AI" or fake players that have their values randomizes
     }
     //Main method used to display all main information
 
@@ -29,10 +54,10 @@ public class Controller {
         int blackjack = 3;
         int horseRacing = 4;
         //FIXME:
-        setUserExists(true);
 
         //do while loop for game menu
-        if(doesUserExists()) {
+        doesUserExists(); //checks if a user exists
+        if(userExists) {
             do {
                 int gameChoosen = UI.casinoMenu();
                 switch (gameChoosen) {
@@ -56,8 +81,9 @@ public class Controller {
                 }
             } while (true);
         } else {
-            String username = UI.firstUserPrompt();
-            //FIXME cannot run until resolve player creation
+            // creates a user as no user has been detected within the array list
+            createFirstUser();
+            casinoOutput(); //recalls the method to loop
         }
     }
     public void gameOutput(int game){
@@ -126,9 +152,4 @@ public class Controller {
             }
     }
 
-
-    public void testPerson(){
-        CasinoMembers newCasinoAI = new CasinoAI();
-        System.out.println(newCasinoAI);
-    }
 }
