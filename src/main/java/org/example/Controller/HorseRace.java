@@ -4,7 +4,7 @@ import org.example.Model.Horse;
 import org.example.Model.Player;
 import org.example.UTIL.ProbabilityForValue;
 
-public class HorseRace implements Casino{
+public class HorseRace implements Casino {
 
     Horse[] fullStableOfRacerHorses = new Horse[20];
     Horse[] pickedRacingHorses = new Horse[7];
@@ -48,7 +48,15 @@ public class HorseRace implements Casino{
      */
     @Override
     public int cashOut(int betType, int playerBet) {
-        return 0;
+        switch (betType) {
+            case 1:
+
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
     }
 
     /**
@@ -89,7 +97,7 @@ public class HorseRace implements Casino{
         }
 
         for (int i = 0; incrementingHorseArray < 7; i++) {
-            if (pickedRacingHorses[incrementingHorseArray].getHorseOdds() == i){
+            if (pickedRacingHorses[incrementingHorseArray].getHorseOdds() == i) {
                 finalsLineUp[incrementingHorseArray] = pickedRacingHorses[incrementingHorseArray];
                 incrementingHorseArray++;
                 i = 0;
@@ -98,11 +106,11 @@ public class HorseRace implements Casino{
 
         }
 
-
     }
 
     /**
      * This method is supposed to be used to have a variable called "horse odds". I want to assign this value to a horse as like a
+     *
      * @return
      */
     @Override
