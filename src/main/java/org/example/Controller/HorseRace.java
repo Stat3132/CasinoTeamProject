@@ -8,7 +8,10 @@ public class HorseRace implements Casino{
 
     Horse[] fullStableOfRacerHorses = new Horse[20];
     Horse[] pickedRacingHorses = new Horse[7];
+    Horse[] finalsLineUp = new Horse[7];
+    int incrementingHorseArray = 0;
     ProbabilityForValue probable = new ProbabilityForValue();
+    boolean gameWon;
     //TODO:
 
     /**
@@ -23,13 +26,13 @@ public class HorseRace implements Casino{
         int playerBet = currentPlayer.getCurrentMoneyCount();
         switch (playerBet) {
             case 100:
-                playerBet = playerBet - 100;
+                playerBet -= 100;
                 break;
             case 200:
-                playerBet = playerBet - 200;
+                playerBet -= 200;
                 break;
             case 300:
-                playerBet = playerBet - 300;
+                playerBet -= 300;
                 break;
         }
         return playerBet;
@@ -83,6 +86,16 @@ public class HorseRace implements Casino{
         for (int i = 0; i < pickedRacingHorses.length; i++) {
             pickedRacingHorses[i] = fullStableOfRacerHorses[probable.randomValues(0, 19)];
             System.out.println(pickedRacingHorses[i]);
+        }
+
+        for (int i = 0; incrementingHorseArray < 7; i++) {
+            if (pickedRacingHorses[incrementingHorseArray].getHorseOdds() == i){
+                finalsLineUp[incrementingHorseArray] = pickedRacingHorses[incrementingHorseArray];
+                incrementingHorseArray++;
+                i = 0;
+                System.out.println(finalsLineUp[incrementingHorseArray]);
+            }
+
         }
 
 
