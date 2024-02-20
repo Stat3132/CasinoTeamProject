@@ -1,11 +1,13 @@
 package org.example.Controller;
 
+import org.example.Model.Player;
+
 public interface Casino {
     /** Bet amount info:
      * Bet amount is the bet amount as all games need to bet money.
      * @return
      */
-    int betAmount();
+    int betAmount(Player currentPlayer);
 
     /**
      * Cash out is the money received if they win the game. This method will be different for all other classes so its in an interface

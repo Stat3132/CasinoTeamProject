@@ -1,5 +1,7 @@
 package org.example.Controller;
 
+import org.example.Model.Player;
+
 public class SlotMachine implements Casino {
     //TODO:
 
@@ -11,7 +13,7 @@ public class SlotMachine implements Casino {
      * @return
      */
     @Override
-    public int betAmount() {
+    public int betAmount(Player currentPlayer) {
         return 0;
     }
     @Override

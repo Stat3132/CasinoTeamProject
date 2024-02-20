@@ -1,14 +1,14 @@
 package org.example.Controller;
 
 import org.example.Model.Horse;
+import org.example.Model.Player;
 import org.example.UTIL.ProbabilityForValue;
 
-public class HorseRace implements Casino {
+public class HorseRace implements Casino{
 
     Horse[] fullStableOfRacerHorses = new Horse[20];
     Horse[] pickedRacingHorses = new Horse[7];
     ProbabilityForValue probable = new ProbabilityForValue();
-    int horseOdds;
     //TODO:
 
     /**
@@ -17,10 +17,10 @@ public class HorseRace implements Casino {
      * @return
      */
     @Override
-    public int betAmount() {
+    public int betAmount(Player currentPlayer) {
         //TODO: SUDO CODE
         //FIXME: CODE IS NOT DONE!!!
-        int playerBet = 100;
+        int playerBet = currentPlayer.getCurrentMoneyCount();
         switch (playerBet) {
             case 100:
                 playerBet = playerBet - 100;
@@ -90,7 +90,6 @@ public class HorseRace implements Casino {
 
     /**
      * This method is supposed to be used to have a variable called "horse odds". I want to assign this value to a horse as like a
-     *
      * @return
      */
     @Override

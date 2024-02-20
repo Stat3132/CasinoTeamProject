@@ -1,5 +1,7 @@
 package org.example.Controller;
 
+import org.example.Model.Player;
+
 public class BlackJack implements Casino {
     //TODO:
     /** * Pretty self-explanatory method "Bet Amount". This is how much money is being bet.
@@ -11,7 +13,7 @@ public class BlackJack implements Casino {
      * "multiplier" are set then this will funnel into If statements determining that the bet returned is correct.
      **/
     @Override
-    public int betAmount() {
+    public int betAmount(Player currentPlayer) {
         return 0;
     }
 

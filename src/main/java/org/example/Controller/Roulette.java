@@ -1,5 +1,7 @@
 package org.example.Controller;
 
+import org.example.Model.Player;
+
 import java.util.HashMap;
 import java.util.Random;
 
@@ -33,7 +35,7 @@ public class Roulette implements Casino {
      * @return
      */
     @Override
-    public int betAmount() {
+    public int betAmount(Player currentPlayer) {
         return 0;
     }
 
