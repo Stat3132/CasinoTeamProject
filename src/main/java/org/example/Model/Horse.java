@@ -54,7 +54,7 @@ public class Horse extends CasinoMembers {
        horseBuilder.append("\nHorse weight: ").append(horseWeight);
        horseBuilder.append("\n");
        //FIXME: FOR TESTING ONLY!!!!!!!!
-        horseBuilder.append("Horses odds: ").append(horseOdds);
+        horseBuilder.append("Horses odds: ").append(horseOdds).append(",");
        return horseBuilder.toString();
     }
 }

@@ -3,15 +3,14 @@ package org.example.Controller;
 import org.example.Model.Horse;
 import org.example.Model.Player;
 import org.example.UTIL.ProbabilityForValue;
+import org.example.View.CasinoInterface;
 
 public class HorseRace implements Casino {
 
     Horse[] fullStableOfRacerHorses = new Horse[20];
-    Horse[] pickedRacingHorses = new Horse[7];
     Horse[] finalsLineUp = new Horse[7];
-    int incrementingHorseArray = 0;
-    int incrementingNumberCounter = 1;
-    ProbabilityForValue probable = new ProbabilityForValue();
+    CasinoInterface UI = new CasinoInterface();
+    ProbabilityForValue horseProbabiltyFactor = new ProbabilityForValue();
     boolean gameWon;
     //TODO:
 
@@ -24,19 +23,20 @@ public class HorseRace implements Casino {
     public int betAmount(Player currentPlayer) {
         //TODO: SUDO CODE
         //FIXME: CODE IS NOT DONE!!!
+        System.out.println(currentPlayer.getCurrentMoneyCount());
         int playerBet = currentPlayer.getCurrentMoneyCount();
-        switch (playerBet) {
-            case 100:
-                playerBet -= 100;
+        switch (UI.horseBetAmount()) {
+            case 1:
+                playerBet = 100;
                 break;
-            case 200:
-                playerBet -= 200;
+            case 2:
+                playerBet = 200;
                 break;
-            case 300:
-                playerBet -= 300;
+            case 3:
+                playerBet = 300;
                 break;
         }
-        return playerBet;
+        return currentPlayer.getCurrentMoneyCount() - playerBet;
     }
 
     /**
@@ -51,14 +51,16 @@ public class HorseRace implements Casino {
     //Instead of taking in a player bet it should take in a Person, so it can add the money after the player bet is done.
     @Override
     public int cashOut(int betType, int playerBet) {
+
         switch (betType) {
             case 1:
                 playerBet = 100;
-
                 break;
             case 2:
+                playerBet = 200;
                 break;
             case 3:
+                playerBet = 300;
                 break;
         }
         return playerBet;
@@ -91,20 +93,54 @@ public class HorseRace implements Casino {
      */
     @Override
     public void play(Player currentPlayer) {
-              betAmount(currentPlayer);
-        //Something horse racing related
-        //TODO:CHECKS!!!
+        betAmount(currentPlayer);
+        //TODO:HORSE POPULATING/////////////////////////////////////////////////////////////////////////////////////////
+        //This populates an array of 20 with horses. These are all the horses that will be displayed to the user that will then be narrowed down to 7 then put in order from 7th place to first.
         populatingStable();
         // pickingRaceHorses are the final 7 horses being picked randomly out of the stable of 20 horses. No check for repeating horses
-        //FIXME: ADD LOGIC TO PREVENT DUPLICATE HORSES BEING ADDED TO ARRAY
+        //FIXME: Temporary fix still trying to find a more solidified solution
+        Horse[] pickedRacingHorses = new Horse[7];
         for (int i = 0; i < pickedRacingHorses.length; i++) {
-            int tempValue = probable.randomValues(0, 19);
+            int tempValue = horseProbabiltyFactor.randomValues(0, 19);
             pickedRacingHorses[i] = fullStableOfRacerHorses[tempValue];
             fullStableOfRacerHorses[tempValue] = null;
-            if (pickedRacingHorses[i] == null){
+            if (pickedRacingHorses[i] == null) {
                 i--;
             }
         }
+        //TODO://///////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Selection of 7 horses has been picked, now ordering them by the odds of them winning. Lowest odds to the highest odds
+        // of the horses winning.
+        //TODO:USER INTERACTION ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+        switch (UI.bettingOnHorse(pickedRacingHorses)){
+            //FIXME: TEMPORARY UI
+            case 1:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 0);
+                break;
+            case 2:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 1);
+                break;
+            case 3:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 2);
+                break;
+            case 4:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 3);
+                break;
+            case 5:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 4);
+                break;
+            case 6:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 5);
+                break;
+            case 7:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 6);
+                break;
+        }
+
+
+        //TODO:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+        int incrementingHorseArray = 0;
+        int incrementingNumberCounter = 1;
         for (int i = 0; i < 7; i++) {
             if (pickedRacingHorses[i].getHorseOdds() == incrementingNumberCounter) {
                 finalsLineUp[incrementingHorseArray] = pickedRacingHorses[i];
@@ -113,18 +149,16 @@ public class HorseRace implements Casino {
                 i = -1;
                 continue;
             }
-            if (i == 6){
+            if (i == 6) {
                 incrementingNumberCounter++;
                 i = -1;
             }
-            if (incrementingNumberCounter == 30){
+            if (incrementingNumberCounter == 30) {
                 break;
             }
         }
-        for (int i = 0; i < finalsLineUp.length; i++) {
-            System.out.println(finalsLineUp[i]);
+            System.out.println("The winner is!" + "\n\n" + finalsLineUp[6]);
 
-        }
     }
 
     /**

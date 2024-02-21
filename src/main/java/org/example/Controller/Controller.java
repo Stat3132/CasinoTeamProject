@@ -146,7 +146,6 @@ public class Controller {
                         UI.displayGameHeader(4);
                         switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                             case 1: // horse-racing play option
-                                getUserBet();
                                 //TODO: horse race game play
                                 horseRaceControl.play(currentPlayer);
                                 break;

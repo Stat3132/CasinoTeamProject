@@ -68,15 +68,34 @@ public class CasinoInterface {
         // game prompt for every game
         return IO.getUserInt("1) PLAY \n2) LEADERBOARD \n3) EXIT",true);
     }
+    //TODO: HORSE UI ///////////////////////////////////////////////////////////////////////////////////////////////////
     public int horseRacingPrompt(){
         //horse racing game prompt that includes list of horses
         return IO.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
+    }
+    public int horseBetAmount(){
+        return IO.getUserInt("1) bet $100 \n 2) bet $200 \n 3) bet $300", true);
+    }
+    public int bettingOnHorse(Horse[] displayingBetableHorses){
+        System.out.println("\t\t\tCURRENT HORSES TO BET ON: \n\n ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        for (int i = 0; i < displayingBetableHorses.length; i++) {
+            System.out.println(displayingBetableHorses[i]);
+        }
+        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        return IO.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
+
+
+
+    }
+    public void displayingHorseBettedOn(Horse[] bettedHorse, int index){
+        System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n");
     }
     public void displayingStable(Horse[] stable){
         for (int i = 0; i < stable.length; i++) {
             System.out.println(stable[i].toString());
         }
     }
+    //TODO://///////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void exitPrompt(){
         Console.write("THANKS for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
     }
