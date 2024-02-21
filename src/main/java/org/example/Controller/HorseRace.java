@@ -10,6 +10,7 @@ public class HorseRace implements Casino {
     Horse[] pickedRacingHorses = new Horse[7];
     Horse[] finalsLineUp = new Horse[7];
     int incrementingHorseArray = 0;
+    int incrementingNumberCounter = 1;
     ProbabilityForValue probable = new ProbabilityForValue();
     boolean gameWon;
     //TODO:
@@ -46,10 +47,13 @@ public class HorseRace implements Casino {
      * @param playerBet
      * @return
      */
+
+    //Instead of taking in a player bet it should take in a Person, so it can add the money after the player bet is done.
     @Override
     public int cashOut(int betType, int playerBet) {
         switch (betType) {
             case 1:
+                playerBet = 100;
 
                 break;
             case 2:
@@ -57,6 +61,7 @@ public class HorseRace implements Casino {
             case 3:
                 break;
         }
+        return playerBet;
     }
 
     /**
@@ -85,7 +90,7 @@ public class HorseRace implements Casino {
      * an instiller of logic.
      */
     @Override
-    public void play() {
+    public void play(Player currentPlayer) {
         //Something horse racing related
         //TODO:CHECKS!!!
         populatingStable();
@@ -93,19 +98,23 @@ public class HorseRace implements Casino {
         //FIXME: ADD LOGIC TO PREVENT DUPLICATE HORSES BEING ADDED TO ARRAY
         for (int i = 0; i < pickedRacingHorses.length; i++) {
             pickedRacingHorses[i] = fullStableOfRacerHorses[probable.randomValues(0, 19)];
-            System.out.println(pickedRacingHorses[i]);
         }
-
-        for (int i = 0; incrementingHorseArray < 7; i++) {
-            if (pickedRacingHorses[incrementingHorseArray].getHorseOdds() == i) {
-                finalsLineUp[incrementingHorseArray] = pickedRacingHorses[incrementingHorseArray];
+        for (int i = 0; i < 7; i++) {
+            if (pickedRacingHorses[i].getHorseOdds() == incrementingNumberCounter) {
+                finalsLineUp[incrementingHorseArray] = pickedRacingHorses[i];
                 incrementingHorseArray++;
-                i = 0;
-                System.out.println(finalsLineUp[incrementingHorseArray]);
+                incrementingNumberCounter++;
+                i = -1;
+                continue;
             }
-
+            if (i == 6){
+                incrementingNumberCounter++;
+                i = -1;
+            }
+            if (incrementingNumberCounter == 30){
+                i = 7;
+            }
         }
-
     }
 
     /**

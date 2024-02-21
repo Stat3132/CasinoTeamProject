@@ -46,7 +46,7 @@ public class BlackJack implements Casino {
      * Play method is how the game will play. Essentially extracting all factors of probability and probably will call both bet amount and cash out.
      */
     @Override
-    public void play() {
+    public void play(Player currentPlayer) {
 
     }
 

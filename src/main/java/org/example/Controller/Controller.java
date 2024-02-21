@@ -148,6 +148,7 @@ public class Controller {
                             case 1: // horse-racing play option
                                 getUserBet();
                                 //TODO: horse race game play
+                                horseRaceControl.play(currentPlayer);
                                 break;
                             case 2: // horse-racing leaderboard option
                                 //TODO: horse racing leaderboard

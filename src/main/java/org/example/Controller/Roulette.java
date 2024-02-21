@@ -69,8 +69,9 @@ public class Roulette implements Casino {
     public int jackPot() {
         return 0;
     }
+
     @Override
-    public void play() {
+    public void play(Player currentPlayer) {
 
     }
 
