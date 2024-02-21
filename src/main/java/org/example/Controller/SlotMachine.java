@@ -28,7 +28,7 @@ public class SlotMachine implements Casino {
     /**
      * Implementation of all previously established methods.
      */
-    public void play() {
+    public void play(Player currentPlayer) {
 
     }
 

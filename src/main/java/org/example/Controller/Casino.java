@@ -27,7 +27,7 @@ public interface Casino {
      * Play method is the actual playing of the game. After all logic has been inputted it will go through checks and validation and make sure the game runs how it should. Keep in mind NO UI
      * should be displayed in this or any Controller method.
      */
-    void play();
+    void play(Player currentPlayer);
 
     /**
      * Odds and probability are different for every game. By returning a set "odd" for the games it will make it easier to move through our code and this method will coincide with

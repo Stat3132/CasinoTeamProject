@@ -6,6 +6,7 @@ import org.example.Model.Player;
 import org.example.UTIL.Console;
 
 import java.lang.reflect.Array;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -67,15 +68,40 @@ public class CasinoInterface {
         // game prompt for every game
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) EXIT",true);
     }
+    //TODO: HORSE UI ///////////////////////////////////////////////////////////////////////////////////////////////////
     public int horseRacingPrompt(){
         //horse racing game prompt that includes list of horses
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
+    }
+    public int horseBetAmount(){
+        return IO.getUserInt("\t\tBET AMOUNT FOR HORSE RACING:\n 1) $100 horse racing bet \n 2) $200 horse racing bet \n 3) $300 horse racing bet", true);
+    }
+    public int bettingOnHorse(Horse[] displayingBetableHorses){
+        System.out.println("\t\t\tCURRENT HORSES TO BET ON: \n\n ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        for (int i = 0; i < displayingBetableHorses.length; i++) {
+            System.out.println(displayingBetableHorses[i]);
+        }
+        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        return IO.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
+    }
+    public void displayingWinner(Horse[] winnerHorse, boolean winnerEvaluation, int betAmount){
+        System.out.println("After careful evaluation the winner is: \n\n" + winnerHorse[6]);
+        if (winnerEvaluation){
+            System.out.println("You have picked the correct horse and you get $" + betAmount);
+        }
+        if (!winnerEvaluation){
+            System.out.println("You have picked the wrong horse and you LOSE $" + betAmount);
+        }
+    }
+    public void displayingHorseBettedOn(Horse[] bettedHorse, int index){
+        System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n");
     }
     public void displayingStable(Horse[] stable){
         for (int i = 0; i < stable.length; i++) {
             System.out.println(stable[i].toString());
         }
     }
+    //TODO://///////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void exitPrompt(){
         Console.write("THANKS for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
     }
