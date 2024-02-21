@@ -74,7 +74,7 @@ public class CasinoInterface {
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
     }
     public int horseBetAmount(){
-        return IO.getUserInt("\t\tBET AMOUNT FOR HORSE RACING:\n 1) $100 horse racing bet \n 2) $200 horse racing bet \n 3) $300 horse racing bet", true);
+        return Console.getUserInt("\t\tBET AMOUNT FOR HORSE RACING:\n 1) $100 horse racing bet \n 2) $200 horse racing bet \n 3) $300 horse racing bet", true);
     }
     public int bettingOnHorse(Horse[] displayingBetableHorses){
         System.out.println("\t\t\tCURRENT HORSES TO BET ON: \n\n ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
@@ -82,7 +82,7 @@ public class CasinoInterface {
             System.out.println(displayingBetableHorses[i]);
         }
         System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        return IO.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
+        return Console.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
     }
     public void displayingWinner(Horse[] winnerHorse, boolean winnerEvaluation, int betAmount){
         System.out.println("After careful evaluation the winner is: \n\n" + winnerHorse[6]);
