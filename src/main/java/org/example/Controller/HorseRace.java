@@ -91,13 +91,19 @@ public class HorseRace implements Casino {
      */
     @Override
     public void play(Player currentPlayer) {
+              betAmount(currentPlayer);
         //Something horse racing related
         //TODO:CHECKS!!!
         populatingStable();
         // pickingRaceHorses are the final 7 horses being picked randomly out of the stable of 20 horses. No check for repeating horses
         //FIXME: ADD LOGIC TO PREVENT DUPLICATE HORSES BEING ADDED TO ARRAY
         for (int i = 0; i < pickedRacingHorses.length; i++) {
-            pickedRacingHorses[i] = fullStableOfRacerHorses[probable.randomValues(0, 19)];
+            int tempValue = probable.randomValues(0, 19);
+            pickedRacingHorses[i] = fullStableOfRacerHorses[tempValue];
+            fullStableOfRacerHorses[tempValue] = null;
+            if (pickedRacingHorses[i] == null){
+                i--;
+            }
         }
         for (int i = 0; i < 7; i++) {
             if (pickedRacingHorses[i].getHorseOdds() == incrementingNumberCounter) {
@@ -112,8 +118,12 @@ public class HorseRace implements Casino {
                 i = -1;
             }
             if (incrementingNumberCounter == 30){
-                i = 7;
+                break;
             }
+        }
+        for (int i = 0; i < finalsLineUp.length; i++) {
+            System.out.println(finalsLineUp[i]);
+
         }
     }
 

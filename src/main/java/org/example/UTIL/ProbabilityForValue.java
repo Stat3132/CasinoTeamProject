@@ -40,8 +40,13 @@ public class ProbabilityForValue {
                 return randomValues(0, 23);
             case 6:
                 return randomValues(0,28);
-            default:
-                return randomValues(0, 1);
+            case 7:
+                if(randomValues(0, 1) == 1){
+                    return 3;
+                }
+
         }
+        //FIXME: TEMPORARY VALUE
+        return 1;
     }
 }
