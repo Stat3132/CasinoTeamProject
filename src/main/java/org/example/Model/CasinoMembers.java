@@ -10,6 +10,7 @@ public class CasinoMembers {
         String name;
         int totalWinnings, currentMoneyCount, gamesPlayed, gamesWon, gamesLost;
         ProbabilityForValue probably = new ProbabilityForValue();
+        int totalHorseMoney, totalRouletteMoney, totalSlotMoney, totalBlackJackMoney;
 
         // getters & setters
 
@@ -28,7 +29,6 @@ public class CasinoMembers {
             }
         }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //TODO: GETTER AND SETTERS
         public int getTotalWinnings() {
             return totalWinnings;
         }
@@ -63,7 +63,35 @@ public class CasinoMembers {
         public void setGamesLost(int gamesLost) {
             this.gamesLost = gamesLost;
         }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public int getTotalHorseMoney() {
+        return totalHorseMoney;
+    }
+        public void setTotalHorseMoney(int totalHorseMoney) {
+            this.totalHorseMoney = totalHorseMoney;
+        }
+
+        public int getTotalRouletteMoney() {
+            return totalRouletteMoney;
+        }
+        public void setTotalRouletteMoney(int totalRouletteMoney) {
+            this.totalRouletteMoney = totalRouletteMoney;
+        }
+
+        public int getTotalSlotMoney() {
+            return totalSlotMoney;
+        }
+        public void setTotalSlotMoney(int totalSlotMoney) {
+            this.totalSlotMoney = totalSlotMoney;
+        }
+
+        public int getTotalBlackJackMoney() {
+            return totalBlackJackMoney;
+        }
+        public void setTotalBlackJackMoney(int totalBlackJackMoney) {
+            this.totalBlackJackMoney = totalBlackJackMoney;
+        }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * This is a method that ranodmizes names. This is "casino members" so this logic is extending to other class objects that need their names to be randomized.
      * I have an array and I use a Loop that takes values from the names and assigns them to a new array index.

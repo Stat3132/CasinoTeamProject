@@ -246,10 +246,10 @@ public class Console {
     public static int getIntInput(String message) {
         return getIntInput(message, TextColor.DEFAULT);
     }
-    public final BufferedReader bread = new BufferedReader(new InputStreamReader(System.in));
+    public static final BufferedReader bread = new BufferedReader(new InputStreamReader(System.in));
 
     // myIO getUserInput str, int, & float
-    public String getUserStr(String prompt, boolean isRequired) {
+    public static String getUserStr(String prompt, boolean isRequired) {
         String strReturn = null;
         boolean bLoop = true;
         // loop until value is given if required
@@ -268,7 +268,7 @@ public class Console {
         }
         return strReturn;
     }
-    public int getUserInt(String prompt, boolean isRequired) {
+    public static int getUserInt(String prompt, boolean isRequired) {
         boolean bloop = true;
         int num = 0;
         while (bloop) {
@@ -285,7 +285,7 @@ public class Console {
         }
         return num;
     }
-    public int getUserInt(String prompt, boolean isRequired, int min, int max) {
+    public static int getUserInt(String prompt, boolean isRequired, int min, int max) {
         boolean bloop = true;
         int num2 = 0;
         while (bloop) {
@@ -295,10 +295,10 @@ public class Console {
         return num2;
 
     }
-    public int getUserInt() {
+    public static int getUserInt() {
         return getUserInt(null, false);
     }
-    public float getUserFloat(String prompt, boolean isRequired) {
+    public static float getUserFloat(String prompt, boolean isRequired) {
         boolean bloop = true;
         float num = 0;
         while (bloop) {
