@@ -85,13 +85,13 @@ public class CasinoInterface {
         System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         return IO.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
     }
-    public void displayingWinner(Horse[] winnerHorse, boolean winnerEvaluation){
+    public void displayingWinner(Horse[] winnerHorse, boolean winnerEvaluation, int betAmount){
         System.out.println("After careful evaluation the winner is: \n\n" + winnerHorse[6]);
         if (winnerEvaluation){
-            System.out.println("You have picked the correct horse and you get 1 dollar");
+            System.out.println("You have picked the correct horse and you get $" + betAmount);
         }
         if (!winnerEvaluation){
-            System.out.println("You have picked the wrong horse and you get 0 dollar");
+            System.out.println("You have picked the wrong horse and you LOSE $" + betAmount);
         }
     }
     public void displayingHorseBettedOn(Horse[] bettedHorse, int index){
