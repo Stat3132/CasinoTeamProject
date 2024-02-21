@@ -16,6 +16,7 @@ import java.util.Date;
 //CTRL SHIFT +  = Expand all code
 @SuppressWarnings("unused")
 public class Console {
+
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     //region TextColors (expand)
