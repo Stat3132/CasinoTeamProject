@@ -23,20 +23,18 @@ public class HorseRace implements Casino {
     public int betAmount(Player currentPlayer) {
         //TODO: SUDO CODE
         //FIXME: CODE IS NOT DONE!!!
-        System.out.println(currentPlayer.getCurrentMoneyCount());
-        int playerBet = currentPlayer.getCurrentMoneyCount();
         switch (UI.horseBetAmount()) {
             case 1:
-                playerBet = 100;
+                 currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - 100);
                 break;
             case 2:
-                playerBet = 200;
+                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - 200);
                 break;
             case 3:
-                playerBet = 300;
+                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - 300);
                 break;
         }
-        return currentPlayer.getCurrentMoneyCount() - playerBet;
+        return currentPlayer.getCurrentMoneyCount();
     }
 
     /**
@@ -93,8 +91,11 @@ public class HorseRace implements Casino {
      */
     @Override
     public void play(Player currentPlayer) {
+        //TODO://////////////////////////////////////SETTING BET////////////////////////////////////////////////////////
+        System.out.println(currentPlayer.getCurrentMoneyCount());
         betAmount(currentPlayer);
-        //TODO:HORSE POPULATING/////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println(currentPlayer.getCurrentMoneyCount());
+        //TODO://////////////////////////////////////HORSE POPULATING///////////////////////////////////////////////////
         //This populates an array of 20 with horses. These are all the horses that will be displayed to the user that will then be narrowed down to 7 then put in order from 7th place to first.
         populatingStable();
         // pickingRaceHorses are the final 7 horses being picked randomly out of the stable of 20 horses. No check for repeating horses
@@ -108,37 +109,6 @@ public class HorseRace implements Casino {
                 i--;
             }
         }
-        //TODO://///////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Selection of 7 horses has been picked, now ordering them by the odds of them winning. Lowest odds to the highest odds
-        // of the horses winning.
-        //TODO:USER INTERACTION ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-        switch (UI.bettingOnHorse(pickedRacingHorses)){
-            //FIXME: TEMPORARY UI
-            case 1:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 0);
-                break;
-            case 2:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 1);
-                break;
-            case 3:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 2);
-                break;
-            case 4:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 3);
-                break;
-            case 5:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 4);
-                break;
-            case 6:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 5);
-                break;
-            case 7:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 6);
-                break;
-        }
-
-
-        //TODO:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         int incrementingHorseArray = 0;
         int incrementingNumberCounter = 1;
         for (int i = 0; i < 7; i++) {
@@ -157,8 +127,57 @@ public class HorseRace implements Casino {
                 break;
             }
         }
-            System.out.println("The winner is!" + "\n\n" + finalsLineUp[6]);
-
+        //TODO://///////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Selection of 7 horses has been picked, now ordering them by the odds of them winning. Lowest odds to the highest odds
+        // of the horses winning.
+        //TODO:||||||||||||||||||||||||||USER INTERACTION|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+        switch (UI.bettingOnHorse(pickedRacingHorses)){
+            //FIXME: UI
+            case 1:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 0);
+                if (pickedRacingHorses[0] == finalsLineUp[6]){
+                    UI.displayingWinner(finalsLineUp,true);
+                }
+                break;
+            case 2:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 1);
+                if (pickedRacingHorses[1] == finalsLineUp[6]){
+                    UI.displayingWinner(finalsLineUp,true);
+                }
+                break;
+            case 3:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 2);
+                if (pickedRacingHorses[2] == finalsLineUp[6]){
+                    UI.displayingWinner(finalsLineUp,true);
+                }
+                break;
+            case 4:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 3);
+                if (pickedRacingHorses[3] == finalsLineUp[6]){
+                    UI.displayingWinner(finalsLineUp,true);
+                }
+                break;
+            case 5:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 4);
+                if (pickedRacingHorses[4] == finalsLineUp[6]){
+                    UI.displayingWinner(finalsLineUp,true);
+                }
+                break;
+            case 6:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 5);
+                if (pickedRacingHorses[5] == finalsLineUp[6]){
+                    UI.displayingWinner(finalsLineUp,true);
+                }
+                break;
+            case 7:
+                UI.displayingHorseBettedOn(pickedRacingHorses, 6);
+                if (pickedRacingHorses[6] == finalsLineUp[6]){
+                    UI.displayingWinner(finalsLineUp,true);
+                }
+                break;
+        }
+        UI.displayingWinner(finalsLineUp,false);
+        //TODO:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     }
 
     /**

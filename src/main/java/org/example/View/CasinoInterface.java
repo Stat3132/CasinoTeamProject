@@ -6,6 +6,7 @@ import org.example.Model.Player;
 import org.example.UTIL.Console;
 
 import java.lang.reflect.Array;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -74,7 +75,7 @@ public class CasinoInterface {
         return IO.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
     }
     public int horseBetAmount(){
-        return IO.getUserInt("1) bet $100 \n 2) bet $200 \n 3) bet $300", true);
+        return IO.getUserInt("\t\tBET AMOUNT FOR HORSE RACING:\n 1) $100 horse racing bet \n 2) $200 horse racing bet \n 3) $300 horse racing bet", true);
     }
     public int bettingOnHorse(Horse[] displayingBetableHorses){
         System.out.println("\t\t\tCURRENT HORSES TO BET ON: \n\n ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
@@ -83,9 +84,15 @@ public class CasinoInterface {
         }
         System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         return IO.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
-
-
-
+    }
+    public void displayingWinner(Horse[] winnerHorse, boolean winnerEvaluation){
+        System.out.println("After careful evaluation the winner is: \n\n" + winnerHorse[6]);
+        if (winnerEvaluation){
+            System.out.println("You have picked the correct horse and you get 1 dollar");
+        }
+        if (!winnerEvaluation){
+            System.out.println("You have picked the wrong horse and you get 0 dollar");
+        }
     }
     public void displayingHorseBettedOn(Horse[] bettedHorse, int index){
         System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n");
