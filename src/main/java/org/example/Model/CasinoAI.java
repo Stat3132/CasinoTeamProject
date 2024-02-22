@@ -1,5 +1,7 @@
 package org.example.Model;
 
+import org.example.UTIL.ProbabilityForValue;
+
 public class CasinoAI extends CasinoMembers{
 
 
@@ -9,8 +11,8 @@ public class CasinoAI extends CasinoMembers{
      * than just the player being the only moving cog in the casino.
      */
     public CasinoAI(){
-        super("",1);
-        this.currentMoneyCount = probably.randomValues(500,2000);
+        super(" ",1);
+        this.currentMoneyCount = ProbabilityForValue.randomValues(500,2000);
         this.setAI(true);
     }
 

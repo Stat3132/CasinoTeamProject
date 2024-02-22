@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class CasinoMembers {
     String name;
     int totalWinnings, currentMoneyCount, gamesPlayed, gamesWon, gamesLost;
-    ProbabilityForValue probably = new ProbabilityForValue();
     private int totalHorseMoney, totalRouletteMoney, totalSlotMoney, totalBlackJackMoney;
     private boolean isAI;
 
@@ -22,10 +21,9 @@ public class CasinoMembers {
         if (name != null && name.length() > 2) {
             this.name = name;
         }
-        // I set up an extra setter so if the people inputting informtion decide to keep it blank " " or put numbers
+        // I set up an extra setter so if the people inputting information decide to keep it blank " " or put numbers
         //It will randomize names
-        //TODO: NO NUMBERS AS NAMES!!!
-        if (name == ""){
+        if (name == " "){
             this.name = randomizingNames().toString();
         }
     }
@@ -115,13 +113,13 @@ public class CasinoMembers {
             Name[] baseNames = new Name[122];
             Name[] numbericalValueOfName = Name.values();
             for (int i = 0; i < baseNames.length; i++) {
-                if (i != baseNames.length) {
+                if (i != baseNames.length - 1) {
                     baseNames[i] = numbericalValueOfName[i];
                 } else {
                     break;
                 }
             }
-            return baseNames[probably.randomValues(0,120)];
+            return baseNames[ProbabilityForValue.randomValues(0,120)];
         }
 
 
@@ -143,7 +141,7 @@ public class CasinoMembers {
                         break;
                     }
                 }
-                return baseHorseColor[probably.randomValues(0, 14)];
+                return baseHorseColor[ProbabilityForValue.randomValues(0, 14)];
             }
 
 

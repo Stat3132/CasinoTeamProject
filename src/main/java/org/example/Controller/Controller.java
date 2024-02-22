@@ -61,7 +61,7 @@ public class Controller {
         } else {
             int totalAI = ProbabilityForValue.randomValues(1,10);
             for (int i = 0; i < totalAI; i++) {
-                CasinoAI playerAI = new CasinoAI();
+                CasinoMembers playerAI = new CasinoAI();
                 allCasinoPlayers.add(playerAI);
             }
         }
@@ -181,7 +181,7 @@ public class Controller {
                     }while (true);
             }
     }
-    public void gameSettings(){
+    public void gameSettings() {
         do {
             switch (UI.casinoSettings()) {
                 case 1: //change current user
@@ -196,7 +196,7 @@ public class Controller {
                 case 4: //exit back to gameoutput
                     return;
             }
-        } while(true);
+        } while (true);
     }
 
 

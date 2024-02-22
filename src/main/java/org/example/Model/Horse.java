@@ -1,5 +1,7 @@
 package org.example.Model;
 
+import org.example.UTIL.ProbabilityForValue;
+
 public class Horse extends CasinoMembers {
     String horseName, horseColor;
     int horseSpeed;
@@ -16,8 +18,8 @@ public class Horse extends CasinoMembers {
         super("TEST",1);
         this.horseName = randomizingNames().toString();
         this.horseColor = randomizeHorseColor().toString();
-        this.horseSpeed = probably.randomValues(1,10);
-        this.horseWeight = probably.randomValues(900,1200);
+        this.horseSpeed = ProbabilityForValue.randomValues(1,10);
+        this.horseWeight = ProbabilityForValue.randomValues(900,1200);
     }
 
     public int getHorseSpeed() {
