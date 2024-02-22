@@ -154,7 +154,7 @@ public class CasinoMembers {
 
     // constructor
         public CasinoMembers(String name, int currentMoneyCount) {
-            this.name = name;
+            setName(name);
             this.currentMoneyCount = currentMoneyCount;
         }
 

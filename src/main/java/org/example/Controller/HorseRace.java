@@ -14,7 +14,6 @@ public class HorseRace implements Casino {
     ProbabilityForValue horseProbabilityFactor = new ProbabilityForValue();
 
     int betAmount;
-    int betType;
     //TODO:
 
     /**
@@ -23,29 +22,6 @@ public class HorseRace implements Casino {
      * @return
      */
     //TODO: NOT CURRENTLY BEING USED!!!!
-    @Override
-    public int betAmount(Player currentPlayer) {
-        //TODO: SUDO CODE
-        //FIXME: CODE IS NOT DONE!!!
-        switch (UI.horseBetAmount()) {
-            case 1:
-                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - 100);
-                betAmount = 100;
-                betType = 1;
-                break;
-            case 2:
-                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - 200);
-                betAmount = 200;
-                betType = 2;
-                break;
-            case 3:
-                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - 300);
-                betAmount = 300;
-                betType = 3;
-                break;
-        }
-        return currentPlayer.getCurrentMoneyCount();
-    }
 
     /**
      * Cash out is how much money you will get back from it. There is no jack pot for horse racing.So for cash out I think I will keep it simple,
@@ -58,21 +34,8 @@ public class HorseRace implements Casino {
     //Instead of taking in a player bet it should take in a Person, so it can add the money after the player bet is done.
     @Override
     public void cashOut(int playerBet, Player currentPlayer) {
-        switch (betType) {
-            case 1:
                 currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
                 currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-                break;
-            case 2:
-                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-                currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-                break;
-            case 3:
-                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-                currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-                break;
-        }
-        currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
     }
 
     /**
@@ -176,7 +139,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp, true, betAmount * 2);
                     cashOut(betAmount, currentPlayer);
 
-                else{
+                } else{
                         UI.displayingWinner(finalsLineUp, false, betAmount * 2);
                     }
                     break;
@@ -208,7 +171,7 @@ public class HorseRace implements Casino {
                         }
                         break;
                 }
-        }
+
 
         UI.finalPromptInHorseRacing(currentPlayer);
         //TODO:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||

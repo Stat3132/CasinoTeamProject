@@ -10,7 +10,6 @@ public interface Casino {
 
     /**
      * Cash out is the money received if they win the game. This method will be different for all other classes so its in an interface
-     * @param betType
      * @param playerBet
      * @return
      */
