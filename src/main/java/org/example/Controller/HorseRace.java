@@ -149,6 +149,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp,true, 1);
                     cashOut(betType, betAmount, currentPlayer);
                 }
+                UI.displayingWinner(finalsLineUp,false, betAmount * 2);
                 break;
             case 2:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 1);
@@ -156,6 +157,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp,true, betAmount * 2);
                     cashOut(betType, betAmount, currentPlayer);
                 }
+                UI.displayingWinner(finalsLineUp,false, betAmount * 2);
                 break;
             case 3:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 2);
@@ -163,6 +165,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp,true, betAmount * 2);
                     cashOut(betType, betAmount, currentPlayer);
                 }
+                UI.displayingWinner(finalsLineUp,false, betAmount * 2);
                 break;
             case 4:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 3);
@@ -170,6 +173,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp,true, betAmount * 2);
                     cashOut(betType, betAmount, currentPlayer);
                 }
+                UI.displayingWinner(finalsLineUp,false, betAmount * 2);
                 break;
             case 5:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 4);
@@ -177,6 +181,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp,true, betAmount * 2);
                     cashOut(betType, betAmount, currentPlayer);
                 }
+                UI.displayingWinner(finalsLineUp,false, betAmount * 2);
                 break;
             case 6:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 5);
@@ -184,6 +189,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp,true, betAmount * 2);
                     cashOut(betType, betAmount, currentPlayer);
                 }
+                UI.displayingWinner(finalsLineUp,false, betAmount * 2);
                 break;
             case 7:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 6);
@@ -191,14 +197,13 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp,true, betAmount * 2);
                     cashOut(betType, betAmount, currentPlayer);
                 }
+                UI.displayingWinner(finalsLineUp,false, betAmount * 2);
                 break;
         }
-        UI.displayingWinner(finalsLineUp,false, betAmount * 2);
 
         UI.finalPromptInHorseRacing(currentPlayer);
         //TODO:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     }
-
     /**
      * This method is supposed to be used to have a variable called "horse odds". I want to assign this value to a horse as like a
      *
@@ -219,10 +224,10 @@ public class HorseRace implements Casino {
         for (int i = 0; i < 20; i++) {
             switch (fullStableOfRacerHorses[i].getHorseSpeed()) {
                 case 1:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(1);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(2);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
@@ -230,10 +235,10 @@ public class HorseRace implements Casino {
                     }
                     break;
                 case 2:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1020) {
                         fullStableOfRacerHorses[i].setHorseOdds(4);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1020) {
                         fullStableOfRacerHorses[i].setHorseOdds(5);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
@@ -241,10 +246,10 @@ public class HorseRace implements Casino {
                     }
                     break;
                 case 3:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(7);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(8);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
@@ -252,10 +257,10 @@ public class HorseRace implements Casino {
                     }
                     break;
                 case 4:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(10);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(11);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
@@ -263,10 +268,10 @@ public class HorseRace implements Casino {
                     }
                     break;
                 case 5:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(13);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(14);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
@@ -274,10 +279,10 @@ public class HorseRace implements Casino {
                     }
                     break;
                 case 6:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(16);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(17);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
@@ -285,10 +290,10 @@ public class HorseRace implements Casino {
                     }
                     break;
                 case 7:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(19);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(20);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
@@ -296,10 +301,10 @@ public class HorseRace implements Casino {
                     }
                     break;
                 case 8:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(22);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(23);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
@@ -307,10 +312,10 @@ public class HorseRace implements Casino {
                     }
                     break;
                 case 9:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(25);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(26);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
@@ -318,10 +323,10 @@ public class HorseRace implements Casino {
                     }
                     break;
                 case 10:
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(28);
                     }
-                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1100) {
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
                         fullStableOfRacerHorses[i].setHorseOdds(29);
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
