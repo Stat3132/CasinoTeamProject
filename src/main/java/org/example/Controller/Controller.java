@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Controller {
-    //TODO: method to detect if player exists from an arraylist
     //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
     //TODO: logic behind PLAY & LEADERBOARD options for each game menu
     //GAME INSTANCES:
@@ -55,7 +54,7 @@ public class Controller {
             for (int i = 0; i < allCasinoPlayers.size(); i++) {
                 if (allCasinoPlayers.get(i).isAI()){
                     allCasinoPlayers.remove(i);
-                    Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]", Console.TextColor.RED);
+                    Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]\n", Console.TextColor.RED);
                 }
             }
         } else { //add new AI members
@@ -63,6 +62,7 @@ public class Controller {
             for (int i = 0; i < totalAI; i++) {
                 CasinoMembers playerAI = new CasinoAI();
                 allCasinoPlayers.add(playerAI);
+                Console.write("ADDED " + allCasinoPlayers.get(i).getName() + "[AI]\n", Console.TextColor.GREEN);
             }
         }
     }

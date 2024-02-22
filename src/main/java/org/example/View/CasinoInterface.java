@@ -44,9 +44,9 @@ public class CasinoInterface {
         String textAI; //placeholder string
         if(isAiEnabled){
             //enable or disable for AI population check
-            textAI = "Enable";
-        } else {
             textAI = "Disable";
+        } else {
+            textAI = "Enable";
         }
         return Console.getUserInt("1) Change [CURRENT USER] \n2) List [ALL] Existing Users! \n3) " + textAI + " AI \n4) EXIT",true);
     }
@@ -101,9 +101,9 @@ public class CasinoInterface {
     public void populateAI(boolean isAiEnabled){
         //"populate" AI text
         if(isAiEnabled){
-            Console.write("ENABLING AI", Console.TextColor.GREEN);
+            Console.write("ENABLING AI...\n\n", Console.TextColor.GREEN);
         } else {
-            Console.write("DISABLING AI", Console.TextColor.RED);
+            Console.write("DISABLING AI...\n\n", Console.TextColor.RED);
         }
     }
     //displays different game header depending on the game int provided
