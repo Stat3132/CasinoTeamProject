@@ -17,13 +17,12 @@ public class Controller {
     //GAME INSTANCES:
     HorseRace horseRaceControl = new HorseRace();
     CasinoInterface UI = new CasinoInterface();
-    boolean userExists;
-    boolean aiEnabled = false;
+    boolean userExists, aiEnabled = false;
     ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
     Player currentPlayer;
     int slots = 1, roulette = 2, blackjack = 3, horseRacing = 4;
 
-    // user & all user array functionality
+    // getter & setter does atleast ONE user exist functionality.
     public boolean doesUserExists() {
         //loops through array to check if exists, if null = false, if once true, stop loop and return value true;
         for (int i = 0; i < allCasinoPlayers.size(); i++) {
@@ -39,26 +38,27 @@ public class Controller {
     public void setUserExists(boolean oneUserExists) {
         this.userExists = oneUserExists;
     }
+    //create your first OR another user.
     public void createUser(){
-        String username = UI.userPrompt(doesUserExists());
-        Player newPlayer = new Player(username);
-        currentPlayer = newPlayer;
-        allCasinoPlayers.add(newPlayer);
-        setUserExists(true);
+        String username = UI.userPrompt(doesUserExists()); //username prompt
+        Player newPlayer = new Player(username); //create new player
+        currentPlayer = newPlayer; //set new player to current player
+        allCasinoPlayers.add(newPlayer); //add new player to array
+        setUserExists(true); //atleast one user exists
         System.out.println(username + " Has been created!");
     }
     public void populateAI(){
-        aiEnabled = !aiEnabled;
+        aiEnabled = !aiEnabled; //flip the boolean around
         //populates array with "AI" or fake players that have their values randomizes
         UI.populateAI(aiEnabled);
-        if(!aiEnabled){
+        if(!aiEnabled){ //if boolean is false, delete AI members
             for (int i = 0; i < allCasinoPlayers.size(); i++) {
                 if (allCasinoPlayers.get(i).isAI()){
                     allCasinoPlayers.remove(i);
                     Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]", Console.TextColor.RED);
                 }
             }
-        } else {
+        } else { //add new AI members
             int totalAI = ProbabilityForValue.randomValues(1,10);
             for (int i = 0; i < totalAI; i++) {
                 CasinoMembers playerAI = new CasinoAI();
@@ -66,20 +66,15 @@ public class Controller {
             }
         }
     }
+
+    //gets user bet UI text
     public void getUserBet(){
         UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
     }
 
-    public ArrayList<CasinoMembers> getAllCasinoPlayers() {
-        return allCasinoPlayers;
-    }
-    //Main method used to display all main information
 
     public void casinoOutput(){
         // games that are assigned designated integers.
-
-        //FIXME:
-
         //do while loop for game menu
         doesUserExists(); //checks if a user exists
         if(userExists) {
@@ -182,6 +177,7 @@ public class Controller {
             }
     }
     public void gameSettings() {
+        // game settings functionality
         do {
             switch (UI.casinoSettings(aiEnabled)) {
                 case 1: //change current user

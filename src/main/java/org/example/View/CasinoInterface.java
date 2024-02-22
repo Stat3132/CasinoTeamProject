@@ -9,58 +9,84 @@ import java.util.ArrayList;
 
 public class CasinoInterface {
 
+    //create your first or a new user.
     public String userPrompt(boolean doesUserExist){
         //user prompt to create a user
-        String username;
+        String username; //placeholder username
         do {
             if (doesUserExist) {
+                //if passed in boolean (e.g. user exists):
                 username = Console.getStringInput("Create another user! \nEnter a username: ", true);
             } else {
+                // else create your FIRST user
                 username = Console.getStringInput("Create Your First user! \nEnter a username: ", true);
             }
             if(!username.isEmpty() && !username.contains(" ")){
+                //if username is not empty and does not contain space, break out of loop
                 break;
             } else {
+                //else error message
                 Console.write("Your username cannot be empty or contain spaces!\n\n", Console.TextColor.RED);
             }
         } while(true);
         return username;
     }
+    //menu prompts
     public int casinoMenu(){
         //casino menu prompt for game choosing
-        Console.write("\n-- Variables in Vegas! --\n", Console.TextColor.GREEN);
+        Console.write("\n-- Variables in Vegas! --\n", Console.TextColor.GREEN); //header
         return Console.getUserInt("1) Slot Machines \n2) Roulette \n3) Black-Jack \n4) Horse-Racing \n5) Casino Settings \n6) EXIT",true);
     }
+    //settings prompts
     public int casinoSettings(boolean isAiEnabled){
         //casino menu prompt for game choosing
-        Console.write("\n-- CASINO SETTINGS! --\n", Console.TextColor.GREEN);
-        String textAI;
+        Console.write("\n-- CASINO SETTINGS! --\n", Console.TextColor.GREEN); //header
+        String textAI; //placeholder string
         if(isAiEnabled){
+            //enable or disable for AI population check
             textAI = "Enable";
         } else {
             textAI = "Disable";
         }
         return Console.getUserInt("1) Change [CURRENT USER] \n2) List [ALL] Existing Users! \n3) " + textAI + " AI \n4) EXIT",true);
     }
+
+    //prompt when player exits the app
+    public void exitPrompt(){
+        Console.write("THANKS for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
+    }
+
+    //gets the user bet as well as the player.
     public int getUserBet(int totalUserMoney, Player currentPlayer){
-        int userBet;
+        int userBet; //placeholder int
         do {
+            //loop grabs a bet amount from player:
             System.out.println("Total User Money: $" + totalUserMoney);
             userBet = Console.getUserInt("Enter your bet amount!", true);
             if (userBet > totalUserMoney) {
+                //if bet is too high or too low, loop; else break
                 System.out.println("Your bet is too high! \nTRY AGAIN!");
+            } else if(userBet < 0){
+                System.out.println("Your bet is too low! \nTRY AGAIN!");
             } else {
                 break;
             }
         } while(true);
-        System.out.println("You've bet $" + userBet);
-        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - userBet);
+        System.out.println("You've bet $" + userBet); //confirmation bet amount
+        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - userBet); //subtract bet from currentuser totalmoney
         return userBet;
     }
+    //display the current user that is being controller by the player
+    public void displayCurrentUser(Player currentPlayer){
+        System.out.println("[CURRENT USER] " + currentPlayer.getName());
+    }
+    //display ALL users.
     public void displayAllUsers(ArrayList<CasinoMembers> allUsers, Player currentPlayer){
-        System.out.println("--- ALL USERS ---");
+        System.out.println("--- ALL USERS ---"); //header
         for (int i = 0; i < allUsers.size(); i++) {
+            //loops through allUsers array
             if(allUsers.get(i).isAI()) {
+                //adds 'tags' to each user if boolean AI check is true or matches currentPlayer.
                 System.out.println((i + 1) + " " + allUsers.get(i).getName() + " [AI]");
             } else if (allUsers.get(i) == currentPlayer){
                 System.out.println((i + 1) + " " + allUsers.get(i).getName() + " [CURRENT USER]");
@@ -68,18 +94,19 @@ public class CasinoInterface {
                 System.out.println((i + 1) + " " + allUsers.get(i).getName());
             }
         }
-        System.out.println("--- --------- ---");
+        System.out.println("--- --------- ---"); //footer
     }
+    //"populates" AI text
+
     public void populateAI(boolean isAiEnabled){
+        //"populate" AI text
         if(isAiEnabled){
             Console.write("ENABLING AI", Console.TextColor.GREEN);
         } else {
             Console.write("DISABLING AI", Console.TextColor.RED);
         }
     }
-    public void displayCurrentUser(Player currentPlayer){
-        System.out.println("[CURRENT USER] " + currentPlayer.getName());
-    }
+    //displays different game header depending on the game int provided
     public void displayGameHeader(int game){
         switch(game){
             case 1: // slots header
@@ -100,11 +127,6 @@ public class CasinoInterface {
         // game prompt for every game
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) EXIT",true);
     }
-    public void exitPrompt(){
-        Console.write("THANKS for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
-    }
-
-
 
 
     //TODO: HORSE UI ///////////////////////////////////////////////////////////////////////////////////////////////////
