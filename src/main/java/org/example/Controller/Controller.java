@@ -17,8 +17,8 @@ public class Controller {
     //GAME INSTANCES:
     HorseRace horseRaceControl = new HorseRace();
     CasinoInterface UI = new CasinoInterface();
-    private boolean userExists;
-    private boolean aiEnabled = false;
+    boolean userExists;
+    boolean aiEnabled = false;
     ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
     Player currentPlayer;
     int slots = 1, roulette = 2, blackjack = 3, horseRacing = 4;
@@ -55,7 +55,7 @@ public class Controller {
             for (int i = 0; i < allCasinoPlayers.size(); i++) {
                 if (allCasinoPlayers.get(i).isAI()){
                     allCasinoPlayers.remove(i);
-                    Console.write("REMOVED " + allCasinoPlayers.get(i) + " [AI]", Console.TextColor.RED);
+                    Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]", Console.TextColor.RED);
                 }
             }
         } else {
@@ -183,7 +183,7 @@ public class Controller {
     }
     public void gameSettings() {
         do {
-            switch (UI.casinoSettings()) {
+            switch (UI.casinoSettings(aiEnabled)) {
                 case 1: //change current user
                     UI.displayCurrentUser(currentPlayer);
                     UI.displayAllUsers(allCasinoPlayers, currentPlayer);
@@ -193,6 +193,7 @@ public class Controller {
                     break;
                 case 3: //populate AI
                     populateAI();
+                    break;
                 case 4: //exit back to gameoutput
                     return;
             }

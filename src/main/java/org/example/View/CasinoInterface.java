@@ -31,10 +31,16 @@ public class CasinoInterface {
         Console.write("\n-- Variables in Vegas! --\n", Console.TextColor.GREEN);
         return Console.getUserInt("1) Slot Machines \n2) Roulette \n3) Black-Jack \n4) Horse-Racing \n5) Casino Settings \n6) EXIT",true);
     }
-    public int casinoSettings(){
+    public int casinoSettings(boolean isAiEnabled){
         //casino menu prompt for game choosing
         Console.write("\n-- CASINO SETTINGS! --\n", Console.TextColor.GREEN);
-        return Console.getUserInt("1) Change [CURRENT USER] \n2) List ALL Existing Users! \n3) Populate AI \n4) EXIT",true);
+        String textAI;
+        if(isAiEnabled){
+            textAI = "Enable";
+        } else {
+            textAI = "Disable";
+        }
+        return Console.getUserInt("1) Change [CURRENT USER] \n2) List [ALL] Existing Users! \n3) " + textAI + " AI \n4) EXIT",true);
     }
     public int getUserBet(int totalUserMoney, Player currentPlayer){
         int userBet;
