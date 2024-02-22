@@ -48,7 +48,7 @@ public class Controller {
         //populates array with "AI" or fake players that have their values randomizes
     }
     public void getUserBet(){
-        UI.getUserBet(currentPlayer.getCurrentMoneyCount());
+        UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
     }
 
     public ArrayList<CasinoMembers> getAllCasinoPlayers() {

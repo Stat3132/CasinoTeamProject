@@ -15,7 +15,7 @@ public interface Casino {
      * @param playerBet
      * @return
      */
-    int cashOut(int betType, int playerBet);
+    int cashOut(int betType, int playerBet, Player currentPlayer);
 
     /**
      * Jack pot is the BIG WIN for most of the games. Each of them have different ways to get to this method while some (like horse racing) have no implementation of it.

@@ -26,7 +26,7 @@ public class CasinoInterface {
         Console.write("\n-- CASINO SETTINGS! --\n", Console.TextColor.GREEN);
         return Console.getUserInt("1) Change [CURRENT USER] \n2) List ALL Existing Users! \n3) EXIT",true);
     }
-    public int getUserBet(int totalUserMoney){
+    public int getUserBet(int totalUserMoney, Player currentPlayer){
         int userBet;
         do {
             System.out.println("Total User Money: $" + totalUserMoney);
@@ -38,6 +38,7 @@ public class CasinoInterface {
             }
         } while(true);
         System.out.println("You've bet $" + userBet);
+        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - userBet);
         return userBet;
     }
     public void displayAllUsers(ArrayList<CasinoMembers> allUsers){
@@ -100,6 +101,9 @@ public class CasinoInterface {
         for (int i = 0; i < stable.length; i++) {
             System.out.println(stable[i].toString());
         }
+    }
+    public void finalPromptInHorseRacing(Player currentPlayer){
+        System.out.println("You ended with: " + currentPlayer.getCurrentMoneyCount() + "\n\n" + "Money gained from horse racing so far: " + currentPlayer.getTotalHorseMoney());
     }
     //TODO://///////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void exitPrompt(){

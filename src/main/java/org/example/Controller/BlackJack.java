@@ -26,7 +26,7 @@ public class BlackJack implements Casino {
      * @return
      */
     @Override
-    public int cashOut(int betType, int playerBet) {
+    public int cashOut(int betType, int playerBet, Player currentPlayer) {
         return 0;
     }
 
