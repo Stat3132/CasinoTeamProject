@@ -1,6 +1,7 @@
 package org.example.Controller;
 
 import org.example.Model.Player;
+import org.example.View.CasinoInterface;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -9,6 +10,9 @@ public class Roulette implements Casino {
     //FIXME
     private Random rouletteRandom;
     private HashMap<Integer, Integer> payouts;
+    protected int betType;
+    protected int betAmount;
+    CasinoInterface UI = new CasinoInterface();
 
     public Roulette(){
         this.rouletteRandom = new Random();
@@ -35,30 +39,15 @@ public class Roulette implements Casino {
      * @return
      */
 
+
     /**
      * The determining factor of how much money will be gotten from different bet types that are given.
-     * @param betType
      * @param playerBet
      * @return
      */
     @Override
     public void cashOut(int playerBet, Player currentPlayer) {
-        int outcome = spin();
-        int payoutMult = payouts.getOrDefault(betType, 0);
-        int payout = playerBet * payoutMult;
-
-        if (betType == 1 && outcome != 0 && outcome % 2 == 1 || betType == 2 && outcome != 0 && outcome % 2 == 1) {
-
-            payout = playerBet * payouts.get(1);
-        } else if (betType == 3 && outcome == betType) {
-
-            payout = playerBet * payouts.get(3);
-        } else if (betType == 4 && outcome == betType) {
-
-            payout = playerBet * payouts.get(4);
-            return payout;
-        }
-        return payout;
+        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
     }
 
     @Override
@@ -68,6 +57,21 @@ public class Roulette implements Casino {
 
     @Override
     public void play(Player currentPlayer) {
+        int selection = UI.gamePrompt();
+        switch (selection){
+            case 1:
+                betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(),currentPlayer);
+                betType = UI.displayRouletteBetTypes();
+                spin();
+                cashOut(betType,currentPlayer);
+                UI.displayRouletteWin(true,betAmount);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+
+        }
 
     }
 
