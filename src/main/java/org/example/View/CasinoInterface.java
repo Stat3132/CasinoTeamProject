@@ -88,14 +88,14 @@ public class CasinoInterface {
     public void displayingWinner(Horse[] winnerHorse, boolean winnerEvaluation, int betAmount){
         System.out.println("After careful evaluation the winner is: \n\n" + winnerHorse[6]);
         if (winnerEvaluation){
-            System.out.println("You have picked the correct horse and you get $" + betAmount);
+            System.out.println("\nYou have picked the correct horse and you get $" + betAmount);
         }
         if (!winnerEvaluation){
-            System.out.println("You have picked the wrong horse and you LOSE $" + betAmount);
+            System.out.println("\nYou have picked the wrong horse and you LOSE $" + betAmount);
         }
     }
     public void displayingHorseBettedOn(Horse[] bettedHorse, int index){
-        System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n");
+        System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n" + "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
     }
     public void displayingStable(Horse[] stable){
         for (int i = 0; i < stable.length; i++) {
