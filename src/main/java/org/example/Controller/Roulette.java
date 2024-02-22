@@ -55,6 +55,7 @@ public class Roulette implements Casino {
         return 0;
     }
 
+
     @Override
     public void play(Player currentPlayer) {
         int selection = UI.gamePrompt();
