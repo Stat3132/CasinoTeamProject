@@ -71,6 +71,7 @@ public class HorseRace implements Casino {
                  currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
                  break;
          }
+        currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
          return playerBet;
     }
 
@@ -192,7 +193,7 @@ public class HorseRace implements Casino {
                 }
                 break;
         }
-        UI.displayingWinner(finalsLineUp,false, betAmount);
+        UI.displayingWinner(finalsLineUp,false, betAmount * 2);
 
         UI.finalPromptInHorseRacing(currentPlayer);
         //TODO:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -213,6 +214,7 @@ public class HorseRace implements Casino {
      * This method looks at an array of horses and sets odds to them based on speed and weight. This will make it easier to determine a winner because it simply means "higher number more likely to win"
      * There are 3 Ifs for every switch for every branch of weight it can have, so that determining factors for winning is based on speed and weight.
      */
+    //TODO: NEED TO FIND A WAY TO MAKE ODDS COMPLETELY DIFFERENT. SIMILAR ODDS RUINS!!! THE ARRAY!!!!
     public void inputtingOddsIntoHorseStable() {
         for (int i = 0; i < 20; i++) {
             switch (fullStableOfRacerHorses[i].getHorseSpeed()) {
