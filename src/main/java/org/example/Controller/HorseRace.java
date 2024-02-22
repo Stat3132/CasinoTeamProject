@@ -135,7 +135,7 @@ public class HorseRace implements Casino {
                 incrementingNumberCounter++;
                 i = -1;
             }
-            if (incrementingNumberCounter == 90) {
+            if (incrementingNumberCounter == 100) {
                 break;
             }
         }
@@ -237,137 +237,141 @@ public class HorseRace implements Casino {
      */
     //TODO: NEED TO FIND A WAY TO MAKE ODDS COMPLETELY DIFFERENT. SIMILAR ODDS RUINS!!! THE ARRAY!!!!
     public void inputtingOddsIntoHorseStable() {
-        int stableCounter = 0;
-        for (int horseSpeedCounter = 1; horseSpeedCounter < 11; horseSpeedCounter++) {
-            if (fullStableOfRacerHorses[stableCounter].getHorseSpeed() == horseSpeedCounter){
-                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= 1150) {
-                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseProbabilityFactor.randomValues(1,30));
-                }
-                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= 1000 && fullStableOfRacerHorses[stableCounter].getHorseWeight() < 1150) {
-                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseProbabilityFactor.randomValues(31,60));
-                }
-                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= 900 && fullStableOfRacerHorses[stableCounter].getHorseWeight() < 1000) {
-                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseProbabilityFactor.randomValues(61,90));
-                }
-                horseSpeedCounter = -1;
-                stableCounter++;
-                if (stableCounter == 19){
-                    return;
-                }
-            }
-
-//            switch (fullStableOfRacerHorses[i].getHorseSpeed()) {
-//                case 1:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(1);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(2);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(3);
-//                    }
-//                    break;
-//                case 2:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1020) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(4);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1020) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(5);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(6);
-//                    }
-//                    break;
-//                case 3:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(7);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(8);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(9);
-//                    }
-//                    break;
-//                case 4:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(10);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(11);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(12);
-//                    }
-//                    break;
-//                case 5:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(13);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(14);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(15);
-//                    }
-//                    break;
-//                case 6:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(16);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(17);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(18);
-//                    }
-//                    break;
-//                case 7:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(19);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(20);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(21);
-//                    }
-//                    break;
-//                case 8:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(22);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(23);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(24);
-//                    }
-//                    break;
-//                case 9:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(25);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(26);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(27);
-//                    }
-//                    break;
-//                case 10:
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(28);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(29);
-//                    }
-//                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-//                        fullStableOfRacerHorses[i].setHorseOdds(30);
-//                    }
-//                    break;
+//        int stableCounter = 0;
+//        for (int horseSpeedCounter = 1; horseSpeedCounter < 11; horseSpeedCounter++) {
+//            if (fullStableOfRacerHorses[stableCounter].getHorseSpeed() == horseSpeedCounter){
+//                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= 1150) {
+//                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseProbabilityFactor.randomValues(1,30));
+//                }
+//                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= 1000 && fullStableOfRacerHorses[stableCounter].getHorseWeight() < 1150) {
+//                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseProbabilityFactor.randomValues(31,60));
+//                }
+//                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= 900 && fullStableOfRacerHorses[stableCounter].getHorseWeight() < 1000) {
+//                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseProbabilityFactor.randomValues(61,90));
+//                }
+//                horseSpeedCounter = -1;
+//                stableCounter++;
+//                if (stableCounter == 19){
+//                    return;
+//                }
 //            }
+
+        for (int i = 0; i < 20; i++) {
+
+
+            switch (fullStableOfRacerHorses[i].getHorseSpeed()) {
+                case 1:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(1,3));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(4,6));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(7,9));
+                    }
+                    break;
+                case 2:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1020) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(10,12));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1020) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(13,16));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(17,19));
+                    }
+                    break;
+                case 3:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(20,23));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(24,26));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(27,30));
+                    }
+                    break;
+                case 4:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(30,33));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(34,36));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(37,40));
+                    }
+                    break;
+                case 5:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(40,43));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(44,46));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(47,50));
+                    }
+                    break;
+                case 6:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(51,53));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(54,56));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(57,60));
+                    }
+                    break;
+                case 7:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(61,63));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(64,66));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(67,70));
+                    }
+                    break;
+                case 8:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(71,73));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(74,76));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(77,80));
+                    }
+                    break;
+                case 9:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(81,83));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(84,86));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(87,90));
+                    }
+                    break;
+                case 10:
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(91,93));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(94,96));
+                    }
+                    if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(97,100));
+                    }
+                    break;
+            }
         }
     }
+
 }
