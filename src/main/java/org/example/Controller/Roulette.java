@@ -46,7 +46,7 @@ public class Roulette implements Casino {
      * @return
      */
     @Override
-    public int cashOut(int betType,int playerBet, Player currentPlayer) {
+    public void cashOut(int playerBet, Player currentPlayer) {
         int outcome = spin();
         int payoutMult = payouts.getOrDefault(betType, 0);
         int payout = playerBet * payoutMult;

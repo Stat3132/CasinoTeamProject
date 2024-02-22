@@ -29,8 +29,8 @@ public class HorseRace implements Casino {
         //FIXME: CODE IS NOT DONE!!!
         switch (UI.horseBetAmount()) {
             case 1:
-                 currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - 100);
-                 betAmount = 100;
+                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - 100);
+                betAmount = 100;
                 betType = 1;
                 break;
             case 2:
@@ -51,30 +51,28 @@ public class HorseRace implements Casino {
      * Cash out is how much money you will get back from it. There is no jack pot for horse racing.So for cash out I think I will keep it simple,
      * It will just be x 2 for the horse that won. There can be more complexity but this is just a rough draft of what these classes ARE.
      *
-     * @param betType
      * @param playerBet
      * @return
      */
 
     //Instead of taking in a player bet it should take in a Person, so it can add the money after the player bet is done.
     @Override
-    public int cashOut(int betType,int playerBet, Player currentPlayer) {
-         switch (betType){
-             case 1:
-                 currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-                 currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-                 break;
-             case 2:
-                 currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-                 currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-                 break;
-             case 3:
-                 currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-                 currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-                 break;
-         }
+    public void cashOut(int playerBet, Player currentPlayer) {
+        switch (betType) {
+            case 1:
+                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
+                currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
+                break;
+            case 2:
+                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
+                currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
+                break;
+            case 3:
+                currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
+                currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
+                break;
+        }
         currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-         return playerBet;
     }
 
     /**
@@ -106,7 +104,7 @@ public class HorseRace implements Casino {
     public void play(Player currentPlayer) {
         //TODO://////////////////////////////////////SETTING BET////////////////////////////////////////////////////////
         //betAmount(currentPlayer);
-         betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
+        betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
         //TODO://////////////////////////////////////HORSE POPULATING///////////////////////////////////////////////////
         //This populates an array of 20 with horses. These are all the horses that will be displayed to the user that will then be narrowed down to 7 then put in order from 7th place to first.
         populatingStable();
@@ -143,83 +141,79 @@ public class HorseRace implements Casino {
         //Selection of 7 horses has been picked, now ordering them by the odds of them winning. Lowest odds to the highest odds
         // of the horses winning.
         //TODO:||||||||||||||||||||||||||USER INTERACTION|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-        switch (UI.bettingOnHorse(pickedRacingHorses)){
+        switch (UI.bettingOnHorse(pickedRacingHorses)) {
             //FIXME: UI
             case 1:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 0);
-                if (pickedRacingHorses[0] == finalsLineUp[winnerHorse]){
-                    UI.displayingWinner(finalsLineUp,true, 1);
-                    cashOut(betType, betAmount, currentPlayer);
-                }
-                else {
-                    UI.displayingWinner(finalsLineUp,false, betAmount * 2);
+                if (pickedRacingHorses[0] == finalsLineUp[winnerHorse]) {
+                    UI.displayingWinner(finalsLineUp, true, 1);
+                    cashOut(betAmount, currentPlayer);
+                } else {
+                    UI.displayingWinner(finalsLineUp, false, betAmount * 2);
                 }
                 break;
             case 2:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 1);
-                if (pickedRacingHorses[1] == finalsLineUp[winnerHorse]){
-                    UI.displayingWinner(finalsLineUp,true, betAmount * 2);
-                    cashOut(betType, betAmount, currentPlayer);
-                }
-                else {
-                    UI.displayingWinner(finalsLineUp,false, betAmount * 2);
+                if (pickedRacingHorses[1] == finalsLineUp[winnerHorse]) {
+                    UI.displayingWinner(finalsLineUp, true, betAmount * 2);
+                    cashOut(betAmount, currentPlayer);
+                } else {
+                    UI.displayingWinner(finalsLineUp, false, betAmount * 2);
                 }
                 break;
             case 3:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 2);
-                if (pickedRacingHorses[2] == finalsLineUp[winnerHorse]){
-                    UI.displayingWinner(finalsLineUp,true, betAmount * 2);
-                    cashOut(betType, betAmount, currentPlayer);
-                }
-                else {
-                    UI.displayingWinner(finalsLineUp,false, betAmount * 2);
+                if (pickedRacingHorses[2] == finalsLineUp[winnerHorse]) {
+                    UI.displayingWinner(finalsLineUp, true, betAmount * 2);
+                    cashOut(betAmount, currentPlayer);
+                } else {
+                    UI.displayingWinner(finalsLineUp, false, betAmount * 2);
                 }
                 break;
             case 4:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 3);
-                if (pickedRacingHorses[3] == finalsLineUp[winnerHorse]){
-                    UI.displayingWinner(finalsLineUp,true, betAmount * 2);
-                    cashOut(betType, betAmount, currentPlayer);
+                if (pickedRacingHorses[3] == finalsLineUp[winnerHorse]) {
+                    UI.displayingWinner(finalsLineUp, true, betAmount * 2);
+                    cashOut(betAmount, currentPlayer);
+
+                else{
+                        UI.displayingWinner(finalsLineUp, false, betAmount * 2);
+                    }
+                    break;
+                    case 5:
+                        UI.displayingHorseBettedOn(pickedRacingHorses, 4);
+                        if (pickedRacingHorses[4] == finalsLineUp[winnerHorse]) {
+                            UI.displayingWinner(finalsLineUp, true, betAmount * 2);
+                            cashOut(betAmount, currentPlayer);
+                        } else {
+                            UI.displayingWinner(finalsLineUp, false, betAmount * 2);
+                        }
+                        break;
+                    case 6:
+                        UI.displayingHorseBettedOn(pickedRacingHorses, 5);
+                        if (pickedRacingHorses[5] == finalsLineUp[winnerHorse]) {
+                            UI.displayingWinner(finalsLineUp, true, betAmount * 2);
+                            cashOut(betAmount, currentPlayer);
+                        } else {
+                            UI.displayingWinner(finalsLineUp, false, betAmount * 2);
+                        }
+                        break;
+                    case 7:
+                        UI.displayingHorseBettedOn(pickedRacingHorses, 6);
+                        if (pickedRacingHorses[6] == finalsLineUp[winnerHorse]) {
+                            UI.displayingWinner(finalsLineUp, true, betAmount * 2);
+                            cashOut(betAmount, currentPlayer);
+                        } else {
+                            UI.displayingWinner(finalsLineUp, false, betAmount * 2);
+                        }
+                        break;
                 }
-                else {
-                    UI.displayingWinner(finalsLineUp,false, betAmount * 2);
-                }
-                break;
-            case 5:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 4);
-                if (pickedRacingHorses[4] == finalsLineUp[winnerHorse]){
-                    UI.displayingWinner(finalsLineUp,true, betAmount * 2);
-                    cashOut(betType, betAmount, currentPlayer);
-                }
-                else {
-                    UI.displayingWinner(finalsLineUp,false, betAmount * 2);
-                }
-                break;
-            case 6:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 5);
-                if (pickedRacingHorses[5] == finalsLineUp[winnerHorse]){
-                    UI.displayingWinner(finalsLineUp,true, betAmount * 2);
-                    cashOut(betType, betAmount, currentPlayer);
-                }
-                else {
-                    UI.displayingWinner(finalsLineUp,false, betAmount * 2);
-                }
-                break;
-            case 7:
-                UI.displayingHorseBettedOn(pickedRacingHorses, 6);
-                if (pickedRacingHorses[6] == finalsLineUp[winnerHorse]){
-                    UI.displayingWinner(finalsLineUp,true, betAmount * 2);
-                    cashOut(betType, betAmount, currentPlayer);
-                }
-                else {
-                    UI.displayingWinner(finalsLineUp,false, betAmount * 2);
-                }
-                break;
         }
 
         UI.finalPromptInHorseRacing(currentPlayer);
         //TODO:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     }
+
     /**
      * This method is supposed to be used to have a variable called "horse odds". I want to assign this value to a horse as like a
      *
@@ -262,112 +256,112 @@ public class HorseRace implements Casino {
             switch (fullStableOfRacerHorses[i].getHorseSpeed()) {
                 case 1:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(1,3));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(1, 3));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(4,6));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(4, 6));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(7,9));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(7, 9));
                     }
                     break;
                 case 2:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1020) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(10,12));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(10, 12));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1020) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(13,16));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(13, 16));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(17,19));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(17, 19));
                     }
                     break;
                 case 3:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(20,23));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(20, 23));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(24,26));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(24, 26));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(27,30));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(27, 30));
                     }
                     break;
                 case 4:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(30,33));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(30, 33));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(34,36));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(34, 36));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(37,40));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(37, 40));
                     }
                     break;
                 case 5:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(40,43));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(40, 43));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(44,46));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(44, 46));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(47,50));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(47, 50));
                     }
                     break;
                 case 6:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(51,53));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(51, 53));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(54,56));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(54, 56));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(57,60));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(57, 60));
                     }
                     break;
                 case 7:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(61,63));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(61, 63));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(64,66));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(64, 66));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(67,70));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(67, 70));
                     }
                     break;
                 case 8:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(71,73));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(71, 73));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(74,76));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(74, 76));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(77,80));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(77, 80));
                     }
                     break;
                 case 9:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(81,83));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(81, 83));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(84,86));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(84, 86));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(87,90));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(87, 90));
                     }
                     break;
                 case 10:
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(91,93));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(91, 93));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 1000 && fullStableOfRacerHorses[i].getHorseWeight() < 1150) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(94,96));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(94, 96));
                     }
                     if (fullStableOfRacerHorses[i].getHorseWeight() >= 900 && fullStableOfRacerHorses[i].getHorseWeight() < 1000) {
-                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(97,100));
+                        fullStableOfRacerHorses[i].setHorseOdds(horseProbabilityFactor.randomValues(97, 100));
                     }
                     break;
             }

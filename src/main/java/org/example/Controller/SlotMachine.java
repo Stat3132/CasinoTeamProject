@@ -17,8 +17,7 @@ public class SlotMachine implements Casino {
         return 0;
     }
     @Override
-    public int cashOut(int betType, int playerBet, Player currentPlayer) {
-        return 0;
+    public void cashOut(int playerBet, Player currentPlayer) {
     }
     @Override
     public int jackPot() {

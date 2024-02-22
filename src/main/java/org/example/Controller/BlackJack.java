@@ -21,13 +21,12 @@ public class BlackJack implements Casino {
      * TODO: FOR SUDO CASHOUT AMOUNTS:
      * Black Jack (Sudo) CashOut:
      * Black jack cashout: If Natural 21: JACKPOT METHOD, If Dealer wins: Losing bet amount(If losing streak of 3: Cooldown (Maybe?), If Player wins: 2 x amount betted
-     * @param betType I assume this would obviously be the type of win they got or the bet amount for 2x,3x,4x being bet, but I don't get why it's an INT :IDK:.
+     *  I assume this would obviously be the type of win they got or the bet amount for 2x,3x,4x being bet, but I don't get why it's an INT :IDK:.
      * @param playerBet We need to know how much money the player has for certain bets, hence it being a perimeter.
      * @return
      */
     @Override
-    public int cashOut(int betType, int playerBet, Player currentPlayer) {
-        return 0;
+    public void cashOut( int playerBet, Player currentPlayer) {
     }
 
 
