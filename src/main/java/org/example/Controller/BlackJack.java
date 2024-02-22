@@ -12,10 +12,6 @@ public class BlackJack implements Casino {
      * like a funnel for betting money. It has methods that make sure the amount being bet is correct and if certain things like
      * "multiplier" are set then this will funnel into If statements determining that the bet returned is correct.
      **/
-    @Override
-    public int betAmount(Player currentPlayer) {
-        return 0;
-    }
 
     /**
      * TODO: FOR SUDO CASHOUT AMOUNTS:

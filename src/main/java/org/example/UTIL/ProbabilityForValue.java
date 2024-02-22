@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class ProbabilityForValue {
     // RANDOM VALUE FROM MIN to MAX. Takes in parameters.
-    public int randomValues(int min, int max){
+    public static int randomValues(int min, int max){
         Random rand = new Random();
         return rand.nextInt(min, max + 1);
     }

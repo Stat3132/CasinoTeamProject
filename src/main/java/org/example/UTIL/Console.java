@@ -1,16 +1,11 @@
 package org.example.UTIL;
 
-
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 //CTRL SHIFT -  = Collapse all code
 //CTRL SHIFT +  = Expand all code
@@ -260,7 +255,7 @@ public class Console {
             try {
 
                 strReturn = bread.readLine();
-                bLoop = (isRequired && (strReturn.length() < 1));
+                bLoop = (isRequired && (strReturn.isEmpty()));
 
             } catch (Exception ex) {
                 System.out.println("ERROR" + ex.getMessage());
@@ -277,7 +272,7 @@ public class Console {
                 bloop = false;
                 num = Integer.parseInt(getUserStr(prompt, isRequired));
             } catch (Exception ex) {
-                if (num == 0 && isRequired == false) {
+                if (num == 0 && !isRequired) {
                     return num;
 
                 }
@@ -307,7 +302,7 @@ public class Console {
                 bloop = false;
                 num = Float.parseFloat(getUserStr(prompt, isRequired));
             } catch (Exception ex) {
-                if (num == 0 && isRequired == false) {
+                if (num == 0 && !isRequired) {
                     return num;
                 }
                 Console.write("{INVALID INPUT}, Please try again!", TextColor.RED);

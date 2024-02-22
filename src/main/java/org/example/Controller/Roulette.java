@@ -34,10 +34,6 @@ public class Roulette implements Casino {
      * method is putting the values for payout which is what bet amount should be doing.
      * @return
      */
-    @Override
-    public int betAmount(Player currentPlayer) {
-        return 0;
-    }
 
     /**
      * The determining factor of how much money will be gotten from different bet types that are given.

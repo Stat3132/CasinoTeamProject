@@ -13,10 +13,6 @@ public class SlotMachine implements Casino {
      * @return
      */
     @Override
-    public int betAmount(Player currentPlayer) {
-        return 0;
-    }
-    @Override
     public void cashOut(int playerBet, Player currentPlayer) {
     }
     @Override

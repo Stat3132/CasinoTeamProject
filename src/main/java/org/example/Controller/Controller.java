@@ -4,9 +4,11 @@ import org.example.Model.CasinoAI;
 import org.example.Model.CasinoMembers;
 import org.example.Model.Player;
 import org.example.UTIL.Console;
+import org.example.UTIL.ProbabilityForValue;
 import org.example.View.CasinoInterface;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Controller {
     //TODO: method to detect if player exists from an arraylist
@@ -16,6 +18,7 @@ public class Controller {
     HorseRace horseRaceControl = new HorseRace();
     CasinoInterface UI = new CasinoInterface();
     private boolean userExists;
+    private boolean aiEnabled = false;
     ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
     Player currentPlayer;
     int slots = 1, roulette = 2, blackjack = 3, horseRacing = 4;
@@ -36,8 +39,8 @@ public class Controller {
     public void setUserExists(boolean oneUserExists) {
         this.userExists = oneUserExists;
     }
-    public void createFirstUser(){
-        String username = UI.firstUserPrompt();
+    public void createUser(){
+        String username = UI.userPrompt(doesUserExists());
         Player newPlayer = new Player(username);
         currentPlayer = newPlayer;
         allCasinoPlayers.add(newPlayer);
@@ -45,7 +48,23 @@ public class Controller {
         System.out.println(username + " Has been created!");
     }
     public void populateAI(){
+        aiEnabled = !aiEnabled;
         //populates array with "AI" or fake players that have their values randomizes
+        UI.populateAI(aiEnabled);
+        if(!aiEnabled){
+            for (int i = 0; i < allCasinoPlayers.size(); i++) {
+                if (allCasinoPlayers.get(i).isAI()){
+                    allCasinoPlayers.remove(i);
+                    Console.write("REMOVED " + allCasinoPlayers.get(i) + " [AI]", Console.TextColor.RED);
+                }
+            }
+        } else {
+            int totalAI = ProbabilityForValue.randomValues(1,10);
+            for (int i = 0; i < totalAI; i++) {
+                CasinoAI playerAI = new CasinoAI();
+                allCasinoPlayers.add(playerAI);
+            }
+        }
     }
     public void getUserBet(){
         UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
@@ -89,7 +108,7 @@ public class Controller {
             } while (true);
         } else {
             // creates a user as no user has been detected within the array list
-            createFirstUser();
+            createUser();
             casinoOutput(); //recalls the method to loop
         }
     }
@@ -167,12 +186,14 @@ public class Controller {
             switch (UI.casinoSettings()) {
                 case 1: //change current user
                     UI.displayCurrentUser(currentPlayer);
-                    UI.displayAllUsers(allCasinoPlayers);
+                    UI.displayAllUsers(allCasinoPlayers, currentPlayer);
                     break;
                 case 2: //list all users
-                    UI.displayAllUsers(allCasinoPlayers);
+                    UI.displayAllUsers(allCasinoPlayers, currentPlayer);
                     break;
-                case 3: //exit back to gameoutput
+                case 3: //populate AI
+                    populateAI();
+                case 4: //exit back to gameoutput
                     return;
             }
         } while(true);

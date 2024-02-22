@@ -10,7 +10,8 @@ public class CasinoAI extends CasinoMembers{
     public CasinoAI(){
         super("",1);
         this.name = randomizingNames().toString();
-        this.totalWinnings = probably.randomValues(50,100);
+        this.currentMoneyCount = probably.randomValues(500,2000);
+        this.setAI(true);
     }
 
     /**
