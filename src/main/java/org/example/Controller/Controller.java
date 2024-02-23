@@ -18,7 +18,7 @@ public class Controller {
     CasinoInterface UI = new CasinoInterface();
     boolean userExists, aiEnabled = false;
     ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
-    Player currentPlayer;
+    private Player currentPlayer;
     int slots = 1, roulette = 2, blackjack = 3, horseRacing = 4;
 
     // getter & setter does atleast ONE user exist functionality.
@@ -37,39 +37,62 @@ public class Controller {
     public void setUserExists(boolean oneUserExists) {
         this.userExists = oneUserExists;
     }
+
+    //gets current player as some form of player exists
+    public Player getCurrentPlayer() {
+        if(!doesUserExists()){
+            currentPlayer = null;
+        }
+        return currentPlayer;
+    }
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
     //create your first OR another user.
     public void createUser(){
-        String username = UI.userPrompt(doesUserExists()); //username prompt
-        Player newPlayer = new Player(username); //create new player
-        currentPlayer = newPlayer; //set new player to current player
-        allCasinoPlayers.add(newPlayer); //add new player to array
-        setUserExists(true); //atleast one user exists
-        System.out.println(username + " Has been created!");
+        String username = UI.userPrompt(doesUserExists(),allCasinoPlayers); //username prompt
+        if(username != null) {
+            Player newPlayer = new Player(username); //create new player
+            currentPlayer = newPlayer; //set new player to current player
+            allCasinoPlayers.add(newPlayer); //add new player to array
+            setUserExists(true); //atleast one user exists
+        }
+
+    }
+    public void deleteUser(){
+        allCasinoPlayers = UI.deleteUser(allCasinoPlayers, currentPlayer);
+    }
+    public void changeUser(){
+        setCurrentPlayer((Player) UI.changeUser(allCasinoPlayers, currentPlayer));
     }
     public void populateAI(){
-        aiEnabled = !aiEnabled; //flip the boolean around
+        this.aiEnabled = !aiEnabled; //flip the boolean around
         //populates array with "AI" or fake players that have their values randomizes
         UI.populateAI(aiEnabled);
         if(!aiEnabled){ //if boolean is false, delete AI members
             for (int i = 0; i < allCasinoPlayers.size(); i++) {
-                if (allCasinoPlayers.get(i).isAI()){
-                    allCasinoPlayers.remove(i);
-                    Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]\n", Console.TextColor.RED);
+                if(allCasinoPlayers.get(i) != null){
+                    if (allCasinoPlayers.get(i).isAI()){
+                        Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]\n", Console.TextColor.RED);
+                        allCasinoPlayers.remove(i);
+                        i--;
+                    }
                 }
             }
         } else { //add new AI members
             int totalAI = ProbabilityForValue.randomValues(1,10);
             for (int i = 0; i < totalAI; i++) {
-                CasinoMembers playerAI = new CasinoAI();
+                CasinoAI playerAI = new CasinoAI();
                 allCasinoPlayers.add(playerAI);
-                Console.write("ADDED " + allCasinoPlayers.get(i).getName() + "[AI]\n", Console.TextColor.GREEN);
+                Console.write("ADDED " + playerAI.getName() + " [AI]\n", Console.TextColor.GREEN);
             }
         }
     }
 
     //gets user bet UI text
     public void getUserBet(){
-        UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
+        UI.getUserBet(getCurrentPlayer().getCurrentMoneyCount(), getCurrentPlayer());
     }
 
 
@@ -161,7 +184,7 @@ public class Controller {
                         switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                             case 1: // horse-racing play option
                                 //TODO: horse race game play
-                                horseRaceControl.play(currentPlayer);
+                                horseRaceControl.play(getCurrentPlayer());
                                 break;
                             case 2: // horse-racing leaderboard option
                                 //TODO: horse racing leaderboard
@@ -180,21 +203,39 @@ public class Controller {
         // game settings functionality
         do {
             switch (UI.casinoSettings(aiEnabled)) {
-                case 1: //change current user
-                    UI.displayCurrentUser(currentPlayer);
-                    UI.displayAllUsers(allCasinoPlayers, currentPlayer);
+                case 1: //user settings
+                    userSettings();
                     break;
-                case 2: //list all users
-                    UI.displayAllUsers(allCasinoPlayers, currentPlayer);
-                    break;
-                case 3: //populate AI
+                case 2:  //populate AI
                     populateAI();
                     break;
-                case 4: //exit back to gameoutput
+                case 3: //exit back to gameoutput
                     return;
             }
         } while (true);
     }
+    public void userSettings(){
+        do {
+            switch (UI.userSettings()){
+                case 1: //change current user
+                    changeUser();
+                    break;
+                case 2: //delete a user
+                    deleteUser();
+                    break;
+                case 3: //add a new user
+                    createUser();
+                    break;
+                case 4: //list all users
+                    UI.displayAllUsers(allCasinoPlayers, getCurrentPlayer());
+                    break;
+                case 5: //exit back to casino settings
+                    return;
+            }
+        } while(true);
+    }
+
+
 
 
 }
