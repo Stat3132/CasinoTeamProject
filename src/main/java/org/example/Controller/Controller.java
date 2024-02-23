@@ -11,19 +11,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Controller {
-    //TODO: method to detect if player exists from an arraylist
     //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
     //TODO: logic behind PLAY & LEADERBOARD options for each game menu
     //GAME INSTANCES:
     HorseRace horseRaceControl = new HorseRace();
     CasinoInterface UI = new CasinoInterface();
-    boolean userExists;
-    boolean aiEnabled = false;
+    boolean userExists, aiEnabled = false;
     ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
-    Player currentPlayer;
+    private Player currentPlayer;
     int slots = 1, roulette = 2, blackjack = 3, horseRacing = 4;
 
-    // user & all user array functionality
+    // getter & setter does atleast ONE user exist functionality.
     public boolean doesUserExists() {
         //loops through array to check if exists, if null = false, if once true, stop loop and return value true;
         for (int i = 0; i < allCasinoPlayers.size(); i++) {
@@ -39,47 +37,67 @@ public class Controller {
     public void setUserExists(boolean oneUserExists) {
         this.userExists = oneUserExists;
     }
+
+    //gets current player as some form of player exists
+    public Player getCurrentPlayer() {
+        if(!doesUserExists()){
+            currentPlayer = null;
+        }
+        return currentPlayer;
+    }
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    //create your first OR another user.
     public void createUser(){
-        String username = UI.userPrompt(doesUserExists());
-        Player newPlayer = new Player(username);
-        currentPlayer = newPlayer;
-        allCasinoPlayers.add(newPlayer);
-        setUserExists(true);
-        System.out.println(username + " Has been created!");
+        String username = UI.userPrompt(doesUserExists(),allCasinoPlayers); //username prompt
+        if(username != null) {
+            Player newPlayer = new Player(username); //create new player
+            currentPlayer = newPlayer; //set new player to current player
+            allCasinoPlayers.add(newPlayer); //add new player to array
+            setUserExists(true); //atleast one user exists
+        }
+
+    }
+    public void deleteUser(){
+        allCasinoPlayers = UI.deleteUser(allCasinoPlayers, currentPlayer);
+    }
+    public void changeUser(){
+        setCurrentPlayer((Player) UI.changeUser(allCasinoPlayers, currentPlayer));
     }
     public void populateAI(){
-        aiEnabled = !aiEnabled;
+        this.aiEnabled = !aiEnabled; //flip the boolean around
         //populates array with "AI" or fake players that have their values randomizes
         UI.populateAI(aiEnabled);
-        if(!aiEnabled){
+        if(!aiEnabled){ //if boolean is false, delete AI members
             for (int i = 0; i < allCasinoPlayers.size(); i++) {
-                if (allCasinoPlayers.get(i).isAI()){
-                    allCasinoPlayers.remove(i);
-                    Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]", Console.TextColor.RED);
+                if(allCasinoPlayers.get(i) != null){
+                    if (allCasinoPlayers.get(i).isAI()){
+                        Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]\n", Console.TextColor.RED);
+                        allCasinoPlayers.remove(i);
+                        i--;
+                    }
                 }
             }
-        } else {
+        } else { //add new AI members
             int totalAI = ProbabilityForValue.randomValues(1,10);
             for (int i = 0; i < totalAI; i++) {
-                CasinoMembers playerAI = new CasinoAI();
+                CasinoAI playerAI = new CasinoAI();
                 allCasinoPlayers.add(playerAI);
+                Console.write("ADDED " + playerAI.getName() + " [AI]\n", Console.TextColor.GREEN);
             }
         }
     }
+
+    //gets user bet UI text
     public void getUserBet(){
-        UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
+        UI.getUserBet(getCurrentPlayer().getCurrentMoneyCount(), getCurrentPlayer());
     }
 
-    public ArrayList<CasinoMembers> getAllCasinoPlayers() {
-        return allCasinoPlayers;
-    }
-    //Main method used to display all main information
 
     public void casinoOutput(){
         // games that are assigned designated integers.
-
-        //FIXME:
-
         //do while loop for game menu
         doesUserExists(); //checks if a user exists
         if(userExists) {
@@ -166,7 +184,7 @@ public class Controller {
                         switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                             case 1: // horse-racing play option
                                 //TODO: horse race game play
-                                horseRaceControl.play(currentPlayer);
+                                horseRaceControl.play(getCurrentPlayer());
                                 break;
                             case 2: // horse-racing leaderboard option
                                 //TODO: horse racing leaderboard
@@ -182,23 +200,42 @@ public class Controller {
             }
     }
     public void gameSettings() {
+        // game settings functionality
         do {
             switch (UI.casinoSettings(aiEnabled)) {
-                case 1: //change current user
-                    UI.displayCurrentUser(currentPlayer);
-                    UI.displayAllUsers(allCasinoPlayers, currentPlayer);
+                case 1: //user settings
+                    userSettings();
                     break;
-                case 2: //list all users
-                    UI.displayAllUsers(allCasinoPlayers, currentPlayer);
-                    break;
-                case 3: //populate AI
+                case 2:  //populate AI
                     populateAI();
                     break;
-                case 4: //exit back to gameoutput
+                case 3: //exit back to gameoutput
                     return;
             }
         } while (true);
     }
+    public void userSettings(){
+        do {
+            switch (UI.userSettings()){
+                case 1: //change current user
+                    changeUser();
+                    break;
+                case 2: //delete a user
+                    deleteUser();
+                    break;
+                case 3: //add a new user
+                    createUser();
+                    break;
+                case 4: //list all users
+                    UI.displayAllUsers(allCasinoPlayers, getCurrentPlayer());
+                    break;
+                case 5: //exit back to casino settings
+                    return;
+            }
+        } while(true);
+    }
+
+
 
 
 }

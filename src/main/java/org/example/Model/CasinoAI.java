@@ -12,7 +12,7 @@ public class CasinoAI extends CasinoMembers{
      */
     public CasinoAI(){
         super(" ",1);
-        this.currentMoneyCount = ProbabilityForValue.randomValues(500,2000);
+        this.setCurrentMoneyCount(ProbabilityForValue.randomValues(500,2000));
         this.setAI(true);
     }
 

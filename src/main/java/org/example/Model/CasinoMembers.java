@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class CasinoMembers {
     String name;
     int totalWinnings, currentMoneyCount, gamesPlayed, gamesWon, gamesLost;
-    private int totalHorseMoney, totalRouletteMoney, totalSlotMoney, totalBlackJackMoney;
-    private boolean isAI;
+    int totalHorseMoney, totalRouletteMoney, totalSlotMoney, totalBlackJackMoney;
+    boolean isAI = false;
 
     // getters & setters
 
@@ -154,7 +154,7 @@ public class CasinoMembers {
     // constructor
         public CasinoMembers(String name, int currentMoneyCount) {
             setName(name);
-            this.currentMoneyCount = currentMoneyCount;
+            setCurrentMoneyCount(currentMoneyCount);
         }
 
         // toString
