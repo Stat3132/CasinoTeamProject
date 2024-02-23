@@ -1,12 +1,32 @@
 package org.example.UTIL;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ProbabilityForValue {
+    static ArrayList<Integer> arrayListOfOdds = new ArrayList<Integer>();
     // RANDOM VALUE FROM MIN to MAX. Takes in parameters.
     public static int randomValues(int min, int max){
         Random rand = new Random();
         return rand.nextInt(min, max + 1);
+    }
+    public static void creatingArrayOfOdds(int max){
+        for (int i = 0; i < max; i++) {
+            arrayListOfOdds.add(i);
+        }
+    }
+    public static int randomOddValue(int min){
+        Random rand = new Random();
+        int randomOdd = rand.nextInt(min, arrayListOfOdds.size());
+        if (arrayListOfOdds.get(randomOdd) == null){
+            arrayListOfOdds.get(randomOdd);
+        }
+        return arrayListOfOdds.get(randomOdd);
+
+    }
+
+    public static void removeFactor(int factor){
+        arrayListOfOdds.remove(factor);
     }
 
     /**
@@ -20,7 +40,7 @@ public class ProbabilityForValue {
      * as there should be a guarenteed 7th place. If by chance none of the switch statements are played, there will have to be logic that
      * reputs the horse back into the list until it has a place among the 7 without any of the horses "sharing an index.
      * @param highestAfterOddFactor
-     * @return
+     * @returnw
      */
 
     //TODO: Find a way to loop this switch until a horse has a placement and then removing that placement from the switch statement so that only the remaining slots can be chosen.
