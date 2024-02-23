@@ -137,7 +137,7 @@ public class CasinoInterface {
                         break;
                     }
                 } catch (NumberFormatException ex) {
-                    if (delUser.equalsIgnoreCase(allUsers.get(i).getName())) {
+                    if (delUser.equalsIgnoreCase(allUsers.get(i).getName()) || allUsers.get(i).getName().equalsIgnoreCase(delUser)) {
                         if (allUsers.get(i) != currentPlayer) {
                             //index starts from 1, so we must remove -1 in order to properly delete the index.
                             System.out.println("Removed user: \"" + allUsers.get(i).getName() + "\"");
@@ -149,9 +149,8 @@ public class CasinoInterface {
                             Console.write("Please CHANGE the current user and TRY AGAIN!\n", Console.TextColor.RED);
                             break;
                         }
-                    } else {
+                    } else if(i >= allUsers.size()-1){
                         Console.write("Could not find this username!", Console.TextColor.RED);
-                        break;
                     }
                 }
             }
@@ -192,7 +191,7 @@ public class CasinoInterface {
                         break;
                     }
                 } catch (NumberFormatException ex) {
-                    if (changeUser.equalsIgnoreCase(allUsers.get(i).getName())) {
+                    if (changeUser.equalsIgnoreCase(allUsers.get(i).getName()) || allUsers.get(i).getName().equalsIgnoreCase(changeUser)) {
                         if (allUsers.get(i) != currentPlayer) {
                             if(allUsers.get(i).isAI()) {
                                 Console.write("You cannot control an AI!\n", Console.TextColor.RED);
@@ -208,9 +207,6 @@ public class CasinoInterface {
                             Console.write("This is already the current user!\n", Console.TextColor.RED);
                             break;
                         }
-                    } else {
-                        Console.write("Could not find this username!", Console.TextColor.RED);
-                        break;
                     }
                 }
             }
@@ -228,6 +224,13 @@ public class CasinoInterface {
         } else {
             Console.write("DISABLING AI...\n", Console.TextColor.RED);
             System.out.println("--- --------- ---"); //footer
+        }
+    }
+    public void messageAI(boolean isAiEnabled, String name){
+        if(!isAiEnabled){
+            Console.write("REMOVED " + name + " [AI]\n", Console.TextColor.RED);
+        } else {
+            Console.write("ADDED " + name + " [AI]\n", Console.TextColor.GREEN);
         }
     }
     //displays different game header depending on the game int provided

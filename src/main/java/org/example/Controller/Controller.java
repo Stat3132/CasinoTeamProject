@@ -74,7 +74,7 @@ public class Controller {
             for (int i = 0; i < allCasinoPlayers.size(); i++) {
                 if(allCasinoPlayers.get(i) != null){
                     if (allCasinoPlayers.get(i).isAI()){
-                        Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]\n", Console.TextColor.RED);
+                        UI.messageAI(aiEnabled, allCasinoPlayers.get(i).getName());
                         allCasinoPlayers.remove(i);
                         i--;
                     }
@@ -85,7 +85,7 @@ public class Controller {
             for (int i = 0; i < totalAI; i++) {
                 CasinoAI playerAI = new CasinoAI();
                 allCasinoPlayers.add(playerAI);
-                Console.write("ADDED " + playerAI.getName() + " [AI]\n", Console.TextColor.GREEN);
+                UI.messageAI(aiEnabled,  playerAI.getName());
             }
         }
     }
