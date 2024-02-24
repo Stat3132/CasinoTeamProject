@@ -1,21 +1,13 @@
 package org.example.Model;
 
 public class Player extends CasinoMembers{
+    //player class that extends from CasinoMembers
+    int defaultMoney = 500; //every default player has $500 default money
 
-    int defaultMoney = 500;
-
-
-
-    /**
-     * Here we are setting some values that the player will begin with. These values are set by the user.
-     * @param name
-     * @param currentMoneyCount
-     */
-    //TODO: ONE CONSTRUCTOR TAKING IN 2 PARAMETERS AND ONE WITH JUST ONE PARAMETER.
-    public Player(String name, int currentMoneyCount) {
-        super(name, currentMoneyCount);
+    //Constructor for players, can modify name &/or money
+    public Player(String name, int playerMoney) {
+        super(name, playerMoney);
     }
-
     public Player(String name){
         super(name,0);
         this.setCurrentMoneyCount(defaultMoney);

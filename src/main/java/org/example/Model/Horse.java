@@ -49,15 +49,14 @@ public class Horse extends CasinoMembers {
     //TO STRING
     @Override
     public String toString() {
-        StringBuilder horseBuilder = new StringBuilder();
-       horseBuilder.append("\t\tHorse name: ").append(horseName);
-       horseBuilder.append("\nHorse coat color: ").append(horseColor);
-       horseBuilder.append("\nHorse speed: ").append(horseSpeed);
-       horseBuilder.append("\nHorse weight: ").append(horseWeight);
-       horseBuilder.append("\n");
-       //FIXME: FOR TESTING ONLY!!!!!!!!
-        horseBuilder.append("Horses odds: ").append(horseOdds);
-        horseBuilder.append("\n").append("---------------");
-       return horseBuilder.toString();
+        String horseBuilder = "\t\tHorse name: " + horseName +
+                "\nHorse coat color: " + horseColor +
+                "\nHorse speed: " + horseSpeed +
+                "\nHorse weight: " + horseWeight +
+                "\n" +
+                //FIXME: FOR TESTING ONLY!!!!!!!!
+                "Horses odds: " + horseOdds +
+                "\n" + "---------------";
+       return horseBuilder;
     }
 }

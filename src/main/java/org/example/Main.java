@@ -5,10 +5,7 @@ import org.example.Model.Player;
 import org.example.UTIL.Console;
 public class Main {
     public static void main(String[] args) {
-        Player randomPerson = new Player("Diego");
-//        new Controller().testPerson();
-//          new HorseRace().play(randomPerson);
-        Console.write("WELCOME to \"Variables in Vegas\"!\n",Console.TextColor.GREEN);
-        new Controller().casinoOutput();
+        Console.write("WELCOME to \"Variables in Vegas\"!\n",Console.TextColor.GREEN); //header for the entire game
+        new Controller().casinoOutput(); //calls controller and initializes the game
     }
 }

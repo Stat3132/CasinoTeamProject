@@ -1,6 +1,7 @@
 package org.example.UTIL;
 
 public enum HorseColor {
+    //enums for horse colors
     PALOMINO("Palimino"),
     BLACK("Black"),
     GRAY("Grey"),
@@ -17,14 +18,15 @@ public enum HorseColor {
     BLOODBAY("Blood bay"),
     PERLINO("Perlino");
 
+    //toString
     String friendlyString;
-
-    HorseColor(String friendlyString) {
-        this.friendlyString = friendlyString;
-    }
-
     @Override
     public String toString() {
         return friendlyString;
+    }
+
+    //constructor
+    HorseColor(String friendlyString) {
+        this.friendlyString = friendlyString;
     }
 }

@@ -94,7 +94,7 @@ public class Console {
         char response = '\0'; //null in char
         do{
             String responseS = getStringInput(message, false, textColor);
-            if (responseS.length() > 0) {
+            if (!responseS.isEmpty()) {
                 response = responseS.charAt(0);
             }
         }while(response == '\0');
@@ -501,48 +501,30 @@ public class Console {
 
     //BLACK, RED, GREEN, YELLOW, BLUE, PURPLE, CYAN, WHITE
     private static String getTextColorText(TextColor textColor){
-        switch(textColor){
-            case RED:
-                return Console.RED;
-            case GREEN:
-                return Console.GREEN;
-            case YELLOW:
-                return Console.YELLOW;
-            case BLUE:
-                return Console.BLUE;
-            case PURPLE:
-                return Console.PURPLE;
-            case CYAN:
-                return Console.CYAN;
-            case BLACK:
-                return Console.BLACK;
-            case WHITE:
-                return Console.WHITE;
-            default:
-                return RESET;
-        }
+        return switch (textColor) {
+            case RED -> Console.RED;
+            case GREEN -> Console.GREEN;
+            case YELLOW -> Console.YELLOW;
+            case BLUE -> Console.BLUE;
+            case PURPLE -> Console.PURPLE;
+            case CYAN -> Console.CYAN;
+            case BLACK -> Console.BLACK;
+            case WHITE -> Console.WHITE;
+            default -> RESET;
+        };
     }
 
     private static String getBackgroundColorText(BackgroundColor backgroundColor){
-        switch(backgroundColor){
-            case RED:
-                return Console.RED_BACKGROUND;
-            case GREEN:
-                return Console.GREEN_BACKGROUND;
-            case YELLOW:
-                return Console.YELLOW_BACKGROUND;
-            case BLUE:
-                return Console.BLUE_BACKGROUND;
-            case PURPLE:
-                return Console.PURPLE_BACKGROUND;
-            case CYAN:
-                return Console.CYAN_BACKGROUND;
-            case BLACK:
-                return Console.BLACK_BACKGROUND;
-            case WHITE:
-                return Console.WHITE_BACKGROUND;
-            default:
-                return RESET;
-        }
+        return switch (backgroundColor) {
+            case RED -> Console.RED_BACKGROUND;
+            case GREEN -> Console.GREEN_BACKGROUND;
+            case YELLOW -> Console.YELLOW_BACKGROUND;
+            case BLUE -> Console.BLUE_BACKGROUND;
+            case PURPLE -> Console.PURPLE_BACKGROUND;
+            case CYAN -> Console.CYAN_BACKGROUND;
+            case BLACK -> Console.BLACK_BACKGROUND;
+            case WHITE -> Console.WHITE_BACKGROUND;
+            default -> RESET;
+        };
     }
 }

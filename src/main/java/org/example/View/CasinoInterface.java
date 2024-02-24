@@ -5,6 +5,7 @@ import org.example.Model.Horse;
 import org.example.Model.Player;
 import org.example.UTIL.Console;
 
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 
 public class CasinoInterface {
@@ -81,7 +82,6 @@ public class CasinoInterface {
 
 
     //  USER LOGIC AND OUTPUT
-
     public String createUser(boolean doesUserExist, ArrayList<CasinoMembers> allMembers){
         //user prompt to create a first or another user.
         String username; //placeholder username
@@ -89,8 +89,8 @@ public class CasinoInterface {
             if (doesUserExist) {
                 //if passed in boolean (e.g. user exists):
                 username = Console.getStringInput("Create another user! \nEnter a username: ", true);
-                for (int i = 0; i < allMembers.size(); i++) {
-                    if(username.equalsIgnoreCase(allMembers.get(i).getName())){
+                for (CasinoMembers allMember : allMembers) {
+                    if (username.equalsIgnoreCase(allMember.getName())) {
                         Console.write("This user already exists!", Console.TextColor.RED);
                         return null;
                     }
@@ -254,18 +254,21 @@ public class CasinoInterface {
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() - userBet); //subtract bet from currentuser totalmoney
         return userBet;
     }
+    public void bankruptUser(){
+        Console.write("!! BANKRUPT !!", Console.TextColor.RED);
+        System.out.println("\nUnfortunately, your user must be DELETED! Please create or choose another user!");
+    }
 
 
     // HORSE RACING LOGIC & OUTPUT
-
     public int horseRacingPrompt(){
         //horse racing game prompt that includes list of horses
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
     }
     public int bettingOnHorse(Horse[] displayingBetableHorses){
         System.out.println("\t\t\tCURRENT HORSES TO BET ON: \n\n ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        for (int i = 0; i < displayingBetableHorses.length; i++) {
-            System.out.println(displayingBetableHorses[i]);
+        for (Horse displayingBetableHors : displayingBetableHorses) {
+            System.out.println(displayingBetableHors);
         }
         System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         return Console.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
@@ -283,8 +286,8 @@ public class CasinoInterface {
         System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n" + "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
     }
     public void displayingStable(Horse[] stable){
-        for (int i = 0; i < stable.length; i++) {
-            System.out.println(stable[i].toString());
+        for (Horse horse : stable) {
+            System.out.println(horse.toString());
         }
     }
     public void finalPromptInHorseRacing(Player currentPlayer){
