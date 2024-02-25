@@ -6,7 +6,7 @@ import org.example.UTIL.ProbabilityForValue;
 import org.example.View.CasinoInterface;
 
 public class HorseRace implements Casino {
-
+    //FIXME:
     private final int winnerHorse = 6;
     private final int maxHorseWeight = 1150;
     private final int mediumHorseWeight = 1000;
@@ -36,7 +36,7 @@ public class HorseRace implements Casino {
 
     //Instead of taking in a player bet it should take in a Person, so it can add the money after the player bet is done.
     @Override
-    public void cashOut(int playerBet, Player currentPlayer) {
+    public void cashOut(Player currentPlayer, int playerBet) {
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
         currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
     }
@@ -47,8 +47,8 @@ public class HorseRace implements Casino {
      * @return
      */
     @Override
-    public int jackPot() {
-        return 0;
+    public void canUserPlay(Player player, int playerBet) {
+
     }
 
     /**
@@ -67,7 +67,7 @@ public class HorseRace implements Casino {
      * an instiller of logic.
      */
     @Override
-    public void play(Player currentPlayer) {
+    public void play(Player currentPlayer, int betAmount) {
         //TODO://////////////////////////////////////SETTING BET////////////////////////////////////////////////////////
         //betAmount(currentPlayer);
         betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
@@ -131,7 +131,7 @@ public class HorseRace implements Casino {
                 UI.displayingHorseBettedOn(pickedRacingHorses, 0);
                 if (pickedRacingHorses[0] == finalsLineUp[winnerHorse]) {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(betAmount, currentPlayer);
+                    cashOut(currentPlayer, betAmount);
                 } else {
                     UI.displayingWinner(finalsLineUp, false, betAmount/2);
                 }
@@ -140,7 +140,7 @@ public class HorseRace implements Casino {
                 UI.displayingHorseBettedOn(pickedRacingHorses, 1);
                 if (pickedRacingHorses[1] == finalsLineUp[winnerHorse]) {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(betAmount, currentPlayer);
+                    cashOut(currentPlayer, betAmount);
                 } else {
                     UI.displayingWinner(finalsLineUp, false, betAmount/2);
                 }
@@ -149,7 +149,7 @@ public class HorseRace implements Casino {
                 UI.displayingHorseBettedOn(pickedRacingHorses, 2);
                 if (pickedRacingHorses[2] == finalsLineUp[winnerHorse]) {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(betAmount, currentPlayer);
+                    cashOut(currentPlayer, betAmount);
                 } else {
                     UI.displayingWinner(finalsLineUp, false, betAmount/2);
                 }
@@ -158,7 +158,7 @@ public class HorseRace implements Casino {
                 UI.displayingHorseBettedOn(pickedRacingHorses, 3);
                 if (pickedRacingHorses[3] == finalsLineUp[winnerHorse]) {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(betAmount, currentPlayer);
+                    cashOut(currentPlayer, betAmount);
 
                 } else {
                     UI.displayingWinner(finalsLineUp, false, betAmount/2);
@@ -168,7 +168,7 @@ public class HorseRace implements Casino {
                 UI.displayingHorseBettedOn(pickedRacingHorses, 4);
                 if (pickedRacingHorses[4] == finalsLineUp[winnerHorse]) {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(betAmount, currentPlayer);
+                    cashOut(currentPlayer, betAmount);
                 } else {
                     UI.displayingWinner(finalsLineUp, false, betAmount/2);
                 }
@@ -177,7 +177,7 @@ public class HorseRace implements Casino {
                 UI.displayingHorseBettedOn(pickedRacingHorses, 5);
                 if (pickedRacingHorses[5] == finalsLineUp[winnerHorse]) {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(betAmount, currentPlayer);
+                    cashOut(currentPlayer, betAmount);
                 } else {
                     UI.displayingWinner(finalsLineUp, false, betAmount/2);
                 }
@@ -186,7 +186,7 @@ public class HorseRace implements Casino {
                 UI.displayingHorseBettedOn(pickedRacingHorses, 6);
                 if (pickedRacingHorses[6] == finalsLineUp[winnerHorse]) {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(betAmount, currentPlayer);
+                    cashOut(currentPlayer, betAmount);
                 } else {
                     UI.displayingWinner(finalsLineUp, false, betAmount/2);
                 }
@@ -199,16 +199,6 @@ public class HorseRace implements Casino {
         //TODO:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     }
 
-    /**
-     * This method is supposed to be used to have a variable called "horse odds". I want to assign this value to a horse as like a
-     *
-     * @return
-     */
-    @Override
-    public int whatAreTheOdds() {
-
-        return 0;
-    }
 
     /**
      * This method looks at an array of horses and sets odds to them based on speed and weight. This will make it easier to determine a winner because it simply means "higher number more likely to win"

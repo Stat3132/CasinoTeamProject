@@ -1,6 +1,7 @@
 package org.example.UTIL;
 
 public enum Name {
+    //enum values for Names
     _0("Henry"),
     _1("Oliver"),
     _2("Dustin"),
@@ -125,15 +126,14 @@ public enum Name {
     _121("Willy"),
     _122("Diego");
 
-
-
+    //toString
     String friendlyString;
-    Name(String friendlyString) {
-        this.friendlyString = friendlyString;
-    }
-
     @Override
     public String toString() {
         return friendlyString;
+    }
+    //constructor
+    Name(String friendlyString) {
+        this.friendlyString = friendlyString;
     }
 }

@@ -1,6 +1,7 @@
 package org.example.UTIL;
 
 public enum CardValue {
+    //enums for card values for blackjack
 
     ONE("1"),
     TWO("2"),
@@ -16,8 +17,13 @@ public enum CardValue {
     TWELVE("Queen"),
     THIRTEEN("King");
 
+    //toString
     String friendlyString;
-
+    @Override
+    public String toString() {
+        return friendlyString;
+    }
+    //constructor
     CardValue(String friendlyString) {
         this.friendlyString = friendlyString;
     }

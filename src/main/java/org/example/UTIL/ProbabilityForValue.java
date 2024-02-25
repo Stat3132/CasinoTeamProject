@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ProbabilityForValue {
+    //FIXME
     static ArrayList<Integer> arrayListOfOdds = new ArrayList<Integer>();
     // RANDOM VALUE FROM MIN to MAX. Takes in parameters.
     public static int randomValues(int min, int max){
@@ -26,7 +27,6 @@ public class ProbabilityForValue {
         return arrayListOfOdds.get(randomOdd);
 
     }
-
     public static void removeFactor(int factor){
         if (arrayListOfOdds.get(factor) == null){
             randomOddValue(0);
@@ -44,12 +44,10 @@ public class ProbabilityForValue {
      * This way there are 7 switch statements. If it does not win the first one it is moved down until it wins one of the spins with 7th place being the easiest to win
      * as there should be a guarenteed 7th place. If by chance none of the switch statements are played, there will have to be logic that
      * reputs the horse back into the list until it has a place among the 7 without any of the horses "sharing an index.
-     * @param highestAfterOddFactor
-     * @returnw
      */
 
     //TODO: Find a way to loop this switch until a horse has a placement and then removing that placement from the switch statement so that only the remaining slots can be chosen.
-    //TODO: SUDO CODE NO FULL IMPLEMENTATION
+    //TODO: PSEUDO CODE NO FULL IMPLEMENTATION
     //FIXME:
     public int oddsOfOdds(int highestAfterOddFactor) {
         switch (highestAfterOddFactor) {

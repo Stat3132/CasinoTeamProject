@@ -3,33 +3,43 @@ package org.example.Controller;
 import org.example.Model.CasinoAI;
 import org.example.Model.CasinoMembers;
 import org.example.Model.Player;
-import org.example.UTIL.Console;
 import org.example.UTIL.ProbabilityForValue;
 import org.example.View.CasinoInterface;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
 
 public class Controller {
     //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
     //TODO: logic behind PLAY & LEADERBOARD options for each game menu
     //GAME INSTANCES:
-    HorseRace horseRaceControl = new HorseRace();
-    CasinoInterface UI = new CasinoInterface();
-    boolean userExists, aiEnabled = false;
-    ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
-    private Player currentPlayer;
-    int slots = 1, roulette = 2, blackjack = 3, horseRacing = 4;
+    SlotMachine slotsClass = new SlotMachine();
+    Roulette rouletteClass = new Roulette();
+    BlackJack bjClass = new BlackJack();
+    HorseRace horseClass = new HorseRace();
 
-    // getter & setter does atleast ONE user exist functionality.
+    CasinoInterface UI = new CasinoInterface(); //view casino menus
+    boolean userExists, aiEnabled = false; //boolean to check if ai is Enabled and if atleast one user exists
+    ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
+    private Player currentPlayer; //current player property
+    int slots = 1, roulette = 2, blackjack = 3, horseRacing = 4;    //integer assigned values for each game.
+
+    // does ATLEAST ONE user exist logic
     public boolean doesUserExists() {
         //loops through array to check if exists, if null = false, if once true, stop loop and return value true;
-        for (int i = 0; i < allCasinoPlayers.size(); i++) {
-            if(allCasinoPlayers.get(i) == null){
-                setUserExists(false);
-            } else {
-                setUserExists(true);
-                return userExists;
+        if(allCasinoPlayers.isEmpty()){
+            setUserExists(false);
+        } else {
+            for (CasinoMembers allCasinoPlayer : allCasinoPlayers) {
+                if (allCasinoPlayer == null) {
+                    setUserExists(false);
+                } else {
+                    if (!allCasinoPlayer.isAI()) {
+                        setUserExists(true);
+                        return userExists;
+                    }
+                }
             }
         }
         return userExists;
@@ -38,8 +48,9 @@ public class Controller {
         this.userExists = oneUserExists;
     }
 
-    //gets current player as some form of player exists
+    //current player logic
     public Player getCurrentPlayer() {
+        //returns the current player ONLY if a player is set to exist, otherwise currentPlayer is set to NULL.
         if(!doesUserExists()){
             currentPlayer = null;
         }
@@ -47,21 +58,29 @@ public class Controller {
     }
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+        //updates current player
     }
 
-    //create your first OR another user.
+    //user & AI creation logic
     public void createUser(){
-        String username = UI.userPrompt(doesUserExists(),allCasinoPlayers); //username prompt
+        //create user functionality
+        String username = UI.createUser(doesUserExists(),allCasinoPlayers); //username prompt
         if(username != null) {
             Player newPlayer = new Player(username); //create new player
             currentPlayer = newPlayer; //set new player to current player
             allCasinoPlayers.add(newPlayer); //add new player to array
-            setUserExists(true); //atleast one user exists
+            setUserExists(true); //least one user exists
         }
 
     }
     public void deleteUser(){
         allCasinoPlayers = UI.deleteUser(allCasinoPlayers, currentPlayer);
+        doesUserExists();
+    }
+    public void deleteUser(Player player){
+        //overloaded deleteUser method to delete a SPECIFIC user as requested in console.
+        allCasinoPlayers.remove(player);
+        doesUserExists();
     }
     public void changeUser(){
         setCurrentPlayer((Player) UI.changeUser(allCasinoPlayers, currentPlayer));
@@ -74,7 +93,8 @@ public class Controller {
             for (int i = 0; i < allCasinoPlayers.size(); i++) {
                 if(allCasinoPlayers.get(i) != null){
                     if (allCasinoPlayers.get(i).isAI()){
-                        Console.write("REMOVED " + allCasinoPlayers.get(i).getName() + " [AI]\n", Console.TextColor.RED);
+                        UI.populateAIPrompt(aiEnabled, allCasinoPlayers.get(i).getName());
+                        //calls UI with boolean to check if ai is being enabled or disabled, as well as the string name
                         allCasinoPlayers.remove(i);
                         i--;
                     }
@@ -84,18 +104,30 @@ public class Controller {
             int totalAI = ProbabilityForValue.randomValues(1,10);
             for (int i = 0; i < totalAI; i++) {
                 CasinoAI playerAI = new CasinoAI();
+                UI.populateAIPrompt(aiEnabled,  playerAI.getName());
                 allCasinoPlayers.add(playerAI);
-                Console.write("ADDED " + playerAI.getName() + " [AI]\n", Console.TextColor.GREEN);
             }
         }
     }
-
-    //gets user bet UI text
-    public void getUserBet(){
-        UI.getUserBet(getCurrentPlayer().getCurrentMoneyCount(), getCurrentPlayer());
+    public void canUserPlay(){
+        //checks if the user has become bankrupt
+        if(currentPlayer.getCurrentMoneyCount() <= 0){
+            UI.bankruptUser(); //if so, call UI dependent text
+            deleteUser(currentPlayer); //delete the user
+            currentPlayer = null; //set the user to null
+            doesUserExists();
+            do { //run loop while currentplayer is null to force player to choose or create another user
+                if(userExists){
+                    changeUser();
+                } else {
+                    createUser();
+                }
+            } while(currentPlayer == null);
+        }
     }
 
 
+    // menu prompts logic for games, settings, and user creation
     public void casinoOutput(){
         // games that are assigned designated integers.
         //do while loop for game menu
@@ -130,75 +162,6 @@ public class Controller {
             casinoOutput(); //recalls the method to loop
         }
     }
-    public void gameOutput(int game){
-        // do while loop for selected game's menu prompts
-            switch(game){ //switch for game int provided on casinoOutput function
-                case 1: //slots
-                    do {
-                        UI.displayGameHeader(1);
-                        switch (UI.gamePrompt()) { //nested switch for slot chosen by gameOption
-                            case 1: // slots play option
-                                getUserBet();
-                                //TODO: slots game play
-                                break;
-                            case 2: // slots leaderboard option
-                                //TODO: slots leaderboard
-                                break;
-                            case 3: // exit
-                                return;
-                        }
-                    }while (true);
-                case 2: //roulette
-                    do {
-                        UI.displayGameHeader(2);
-                        switch (UI.gamePrompt()) { //nested switch for roulette chosen by gameOption
-                            case 1: // roulette play option
-                                getUserBet();
-                                //TODO: roulette game play
-                                break;
-                            case 2: // roulette leaderboard option
-                                //TODO: roulette leaderboard
-                                break;
-                            case 3: // exit
-                                return;
-                        }
-                    }while (true);
-                case 3: //black-jack
-                    do {
-                        UI.displayGameHeader(3);
-                        switch (UI.gamePrompt()) { //nested switch for black-jack chosen by gameOption
-                            case 1: // black-jack play option
-                                getUserBet();
-                                //TODO: black-jack game play
-                                break;
-                            case 2: // black-jack leaderboard option
-                                //TODO: black-jack leaderboard
-                                break;
-                            case 3: // exit
-                                return;
-                        }
-                    }while (true);
-                case 4: //horse-racing
-                    do {
-                        UI.displayGameHeader(4);
-                        switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
-                            case 1: // horse-racing play option
-                                //TODO: horse race game play
-                                horseRaceControl.play(getCurrentPlayer());
-                                break;
-                            case 2: // horse-racing leaderboard option
-                                //TODO: horse racing leaderboard
-                                break;
-                            case 3: // horse names
-                                horseRaceControl.populatingStable();
-                                UI.displayingStable(horseRaceControl.fullStableOfRacerHorses);
-                                break;
-                            case 4: // exit
-                                return;
-                        }
-                    }while (true);
-            }
-    }
     public void gameSettings() {
         // game settings functionality
         do {
@@ -215,6 +178,7 @@ public class Controller {
         } while (true);
     }
     public void userSettings(){
+        //user settings menu prompts
         do {
             switch (UI.userSettings()){
                 case 1: //change current user
@@ -236,6 +200,136 @@ public class Controller {
     }
 
 
+    // game creation and simulation logic
+    public void gameOutput(int game){
+        // do while loop for selected game's menu prompts
 
+        //FIXME: TEMP VALUES FOR LEADERBOARD TESTING
+        currentPlayer.setTotalBlackJackMoney(ProbabilityForValue.randomValues(1,1000));
+        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
+        currentPlayer.setTotalRouletteMoney(ProbabilityForValue.randomValues(1,1000));
+        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
+
+        canUserPlay();
+        switch(game){ //switch for game int provided on casinoOutput function
+            case 1: //slots
+                do {
+                    UI.displayGameHeader(slots);
+                    switch (UI.gamePrompt()) { //nested switch for slot chosen by gameOption
+                        case 1: // slots play option
+                            playAI(slots);
+                            slotsClass.play(getCurrentPlayer(), getUserBet());
+                            break;
+                        case 2: // slots leaderboard option
+                            leaderboard(slots);
+                            break;
+                        case 3: // exit
+                            return;
+                    }
+                }while (true);
+            case 2: //roulette
+                do {
+                    UI.displayGameHeader(roulette);
+                    switch (UI.gamePrompt()) { //nested switch for roulette chosen by gameOption
+                        case 1: // roulette play option
+                            playAI(roulette);
+                            rouletteClass.play(getCurrentPlayer(), getUserBet());
+                            break;
+                        case 2: // roulette leaderboard option
+                            leaderboard(roulette);
+                            break;
+                        case 3: // exit
+                            return;
+                    }
+                }while (true);
+            case 3: //black-jack
+                do {
+                    UI.displayGameHeader(blackjack);
+                    switch (UI.gamePrompt()) { //nested switch for black-jack chosen by gameOption
+                        case 1: // black-jack play option
+                            playAI(blackjack);
+                            bjClass.play(getCurrentPlayer(),getUserBet());
+                            break;
+                        case 2: // black-jack leaderboard option
+                            leaderboard(blackjack);
+                            break;
+                        case 3: // exit
+                            return;
+                    }
+                }while (true);
+            case 4: //horse-racing
+                do {
+                    UI.displayGameHeader(horseRacing);
+                    switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
+                        case 1: // horse-racing play option
+                            playAI(horseRacing);
+                            horseClass.play(getCurrentPlayer(),getUserBet());
+                            break;
+                        case 2: // horse-racing leaderboard option
+                            leaderboard(horseRacing);
+                            break;
+                        case 3: // horse names
+                            horseClass.populatingStable();
+                            UI.displayingStable(horseClass.fullStableOfRacerHorses);
+                            break;
+                        case 4: // exit
+                            return;
+                    }
+                }while (true);
+        }
+    }
+
+    public int getUserBet(){
+        //gets user bet UI text
+        return UI.getUserBet(getCurrentPlayer().getCurrentMoneyCount(), getCurrentPlayer());
+    }
+    public int getAIBet(CasinoMembers AI){
+        //gets an ai randomized bet with a low min of 1-100 and a high min of their total money count
+        int lowBet = ProbabilityForValue.randomValues(1,100);
+        return ProbabilityForValue.randomValues(lowBet,AI.getCurrentMoneyCount());
+    }
+    public void playAI(int game){
+        //simulates AI playing the game by looping through every index of array and plays if AI (if ai is inherently enabled)
+        if(aiEnabled) {
+            for (CasinoMembers allCasinoPlayer : allCasinoPlayers) {
+                if (allCasinoPlayer.isAI()) {
+                    switch (game) {
+                        case 1: //slots
+                            slotsClass.play((Player) allCasinoPlayer, getAIBet(allCasinoPlayer));
+                            break;
+                        case 2: //roulette
+                            rouletteClass.play((Player) allCasinoPlayer, getAIBet(allCasinoPlayer));
+                            break;
+                        case 3: //black-jack
+                            bjClass.play((Player) allCasinoPlayer, getAIBet(allCasinoPlayer));
+                            break;
+                        case 4: //horse-racing
+                            horseClass.play((Player) allCasinoPlayer, getAIBet(allCasinoPlayer));
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void leaderboard(int game){
+        //TODO:
+        switch(game){
+            case 1: //slots
+
+                break;
+            case 2: //roulette
+
+                break;
+            case 3: //black-jack
+
+                break;
+            case 4: //horse-racing
+
+                break;
+        }
+
+    }
 
 }

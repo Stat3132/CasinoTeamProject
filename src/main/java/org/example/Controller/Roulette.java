@@ -8,56 +8,22 @@ import java.util.Random;
 
 public class Roulette implements Casino {
     //FIXME
-    private Random rouletteRandom;
+    private final Random rouletteRandom;
     private HashMap<Integer, Integer> payouts;
-    protected int betType;
-    protected int betAmount;
+    protected int betType, betAmount;
     CasinoInterface UI = new CasinoInterface();
-
-    public Roulette(){
-        this.rouletteRandom = new Random();
-        this.payouts = new HashMap<>();
-        //The payout for betting on all reds/odds, 2x payout
-        payouts.put(1,2);
-        //The payout for betting on all blacks/evens, 2x payout
-        payouts.put(2,2);
-        //The payout for betting on all triples, 35x payout
-        payouts.put(3,35);
-        //The payout for betting on one single number, 50x payout
-        payouts.put(4,50);
-    }
-
-
 
     public int spin(){
         return rouletteRandom.nextInt(36);
     }
-
-    /**
-     * The amount that is being bet, maybe this method and roulette should have correlation as it seems like the roulette
-     * method is putting the values for payout which is what bet amount should be doing.
-     * @return
-     */
-
-
-    /**
-     * The determining factor of how much money will be gotten from different bet types that are given.
-     * @param playerBet
-     * @return
-     */
     @Override
-    public void cashOut(int playerBet, Player currentPlayer) {
+    public void cashOut(Player currentPlayer, int playerBet) {
+        //FIXME
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
     }
-
     @Override
-    public int jackPot() {
-        return 0;
-    }
-
-
-    @Override
-    public void play(Player currentPlayer) {
+    public void play(Player currentPlayer, int playerBet) {
+        //FIXME
 //        int selection = UI.gamePrompt();
 //        switch (selection){
 //            case 1:
@@ -72,12 +38,23 @@ public class Roulette implements Casino {
 //            case 3:
 //                break;
 //        }
-
     }
-
     @Override
-    public int whatAreTheOdds() {
-        return 0;
+    public void canUserPlay(Player player, int playerBet) {
+        //TODO
     }
 
+    //constructor
+    public Roulette(){
+        this.rouletteRandom = new Random();
+        this.payouts = new HashMap<>();
+        //The payout for betting on all reds/odds, 2x payout
+        payouts.put(1,2);
+        //The payout for betting on all blacks/evens, 2x payout
+        payouts.put(2,2);
+        //The payout for betting on all triples, 35x payout
+        payouts.put(3,35);
+        //The payout for betting on one single number, 50x payout
+        payouts.put(4,50);
+    }
 }
