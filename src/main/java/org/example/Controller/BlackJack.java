@@ -4,17 +4,10 @@ import org.example.Model.Player;
 
 public class BlackJack implements Casino {
     //TODO
-    @Override
-    public void cashOut(Player currentPlayer, int playerBet) {
-
-    }
-    @Override
-    public void play(Player currentPlayer, int playerBet) {
-
-    }
 
     @Override
-    public void canUserPlay(Player player, int playerBet) {
-
+    public Player play(Player currentPlayer, int playerBet) {
+        return null;
     }
+
 }

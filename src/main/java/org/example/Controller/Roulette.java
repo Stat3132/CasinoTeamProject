@@ -16,13 +16,13 @@ public class Roulette implements Casino {
     public int spin(){
         return rouletteRandom.nextInt(36);
     }
-    @Override
+
     public void cashOut(Player currentPlayer, int playerBet) {
         //FIXME
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
     }
     @Override
-    public void play(Player currentPlayer, int playerBet) {
+    public Player play(Player currentPlayer, int playerBet) {
         //FIXME
 //        int selection = UI.gamePrompt();
 //        switch (selection){
@@ -38,10 +38,7 @@ public class Roulette implements Casino {
 //            case 3:
 //                break;
 //        }
-    }
-    @Override
-    public void canUserPlay(Player player, int playerBet) {
-        //TODO
+        return null;
     }
 
     //constructor

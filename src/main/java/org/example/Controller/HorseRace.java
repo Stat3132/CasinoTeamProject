@@ -8,72 +8,17 @@ import org.example.View.CasinoInterface;
 public class HorseRace implements Casino {
     //FIXME:
     private final int winnerHorse = 6;
-    private final int maxHorseWeight = 1150;
-    private final int mediumHorseWeight = 1000;
-    private final int lightHorseWeight = 900;
-    Horse[] fullStableOfRacerHorses = new Horse[20];
-    Horse[] finalsLineUp = new Horse[7];
+    private final int maxHorseWeight = 1150, mediumHorseWeight = 1000, lightHorseWeight = 900;
+    Horse[] fullStableOfRacerHorses = new Horse[20], finalsLineUp = new Horse[7];
     CasinoInterface UI = new CasinoInterface();
 
-
-    int betAmount;
-    //TODO:
-
-    /**
-     * For horse racing it will be base $100 entry, with x2 and x3 multipliers.
-     *
-     * @return
-     */
-    //TODO: NOT CURRENTLY BEING USED!!!!
-
-    /**
-     * Cash out is how much money you will get back from it. There is no jack pot for horse racing.So for cash out I think I will keep it simple,
-     * It will just be x 2 for the horse that won. There can be more complexity but this is just a rough draft of what these classes ARE.
-     *
-     * @param playerBet
-     * @return
-     */
-
-    //Instead of taking in a player bet it should take in a Person, so it can add the money after the player bet is done.
     @Override
-    public void cashOut(Player currentPlayer, int playerBet) {
-        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-        currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-    }
-
-    /**
-     * NO JACKPOT CONSIDERING ALTERNATIVES!!!
-     *
-     * @return
-     */
-    @Override
-    public void canUserPlay(Player player, int playerBet) {
-
-    }
-
-    /**
-     * Populating a stable. Starting at 20 horses then maybe in future implementation maybe the ability to add horses.
-     * We begin with 20 horses displayed
-     */
-    public void populatingStable() {
-        for (int i = 0; i < fullStableOfRacerHorses.length; i++) {
-            fullStableOfRacerHorses[i] = new Horse();
-        }
-        inputtingOddsIntoHorseStable();
-    }
-
-    /**
-     * This is the play method that will be where bet amount, cash and populatedStable will all be in the play method. Instilling LOGIC as this is a controller,
-     * an instiller of logic.
-     */
-    @Override
-    public void play(Player currentPlayer, int betAmount) {
-        //TODO://////////////////////////////////////SETTING BET////////////////////////////////////////////////////////
-        //betAmount(currentPlayer);
+    public Player play(Player currentPlayer, int betAmount) {
+        // This is the play method that will be where bet amount, cash and populatedStable will all be in the play method. Instilling LOGIC as this is a controller,  * an instiller of logic.
         betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
-        betAmount = betAmount * 2;
-        //TODO://////////////////////////////////////HORSE POPULATING///////////////////////////////////////////////////
-        //This populates an array of 20 with horses. These are all the horses that will be displayed to the user that will then be narrowed down to 7 then put in order from 7th place to first.
+//        betAmount = betAmount * 2;
+
+        //populates 20 horses and narrows down to 7 for the user to choose from.
         populatingStable();
         /**
          * Moves horses from an array called "fullStableOfRaceHorses" to a funneled down array called "pickedRacingHorses"
@@ -113,10 +58,8 @@ public class HorseRace implements Casino {
                 break;
             }
         }
-        //TODO://///////////////////////////////////////////////////////////////////////////////////////////////////////
         //Selection of 7 horses has been picked, now ordering them by the odds of them winning. Lowest odds to the highest odds
         // of the horses winning.
-        //TODO:||||||||||||||||||||||||||USER INTERACTION|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         /**
          * Here is where the winner is determined. The "finalsLineUp" array is horses from the least possible odds of a
          * horse winning to the most probable. So for this switch statement it first asks the user what horse they have bet on 1-7.
@@ -197,6 +140,23 @@ public class HorseRace implements Casino {
          */
         UI.finalPromptInHorseRacing(currentPlayer);
         //TODO:|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+        return null;
+    }
+    public void cashOut(Player currentPlayer, int playerBet) {
+        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
+        currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
+    }
+
+
+    /**
+     * Populating a stable. Starting at 20 horses then maybe in future implementation maybe the ability to add horses.
+     * We begin with 20 horses displayed
+     */
+    public void populatingStable() {
+        for (int i = 0; i < fullStableOfRacerHorses.length; i++) {
+            fullStableOfRacerHorses[i] = new Horse();
+        }
+        inputtingOddsIntoHorseStable();
     }
 
 
@@ -234,7 +194,6 @@ public class HorseRace implements Casino {
             //ProbabilityForValue.creatingArrayOfOdds(100);
 //        for (int i = 0; i < 20; i++) {
 //            switch (fullStableOfRacerHorses[i].getHorseSpeed()) {
-//
 //                case 1:
 //                    if (fullStableOfRacerHorses[i].getHorseWeight() >= maxHorseWeight) {
 //                         int horseOddsFactor = ProbabilityForValue.randomOddValue(1,3);

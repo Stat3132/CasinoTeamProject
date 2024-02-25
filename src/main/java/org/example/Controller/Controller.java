@@ -204,7 +204,7 @@ public class Controller {
     // game creation and simulation logic
     public void gameOutput(int game){
         // do while loop for selected game's menu prompts
-
+        currentPlayer.setCurrentMoneyCount(0);
         //FIXME: TEMP VALUES FOR LEADERBOARD TESTING
 //        currentPlayer.setTotalBlackJackMoney(ProbabilityForValue.randomValues(1,1000));
 //        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
