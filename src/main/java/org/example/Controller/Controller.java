@@ -7,6 +7,7 @@ import org.example.UTIL.ProbabilityForValue;
 import org.example.View.CasinoInterface;
 
 import java.lang.reflect.Array;
+import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -205,10 +206,10 @@ public class Controller {
         // do while loop for selected game's menu prompts
 
         //FIXME: TEMP VALUES FOR LEADERBOARD TESTING
-        currentPlayer.setTotalBlackJackMoney(ProbabilityForValue.randomValues(1,1000));
-        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
-        currentPlayer.setTotalRouletteMoney(ProbabilityForValue.randomValues(1,1000));
-        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
+//        currentPlayer.setTotalBlackJackMoney(ProbabilityForValue.randomValues(1,1000));
+//        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
+//        currentPlayer.setTotalRouletteMoney(ProbabilityForValue.randomValues(1,1000));
+//        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
 
         canUserPlay();
         switch(game){ //switch for game int provided on casinoOutput function
@@ -265,10 +266,7 @@ public class Controller {
                             playAI(horseRacing);
                             horseClass.play(getCurrentPlayer(),getUserBet());
                             break;
-                        case 2: // horse-racing leaderboard option
-                            leaderboard(horseRacing);
-                            break;
-                        case 3: // horse names
+                        case 2: // horse-: // horse names
                             horseClass.populatingStable();
                             UI.displayingStable(horseClass.fullStableOfRacerHorses);
                             break;
