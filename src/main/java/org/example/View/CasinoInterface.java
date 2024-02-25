@@ -81,6 +81,7 @@ public class CasinoInterface {
 
 
 
+
     //  USER LOGIC AND OUTPUT
     public String createUser(boolean doesUserExist, ArrayList<CasinoMembers> allMembers){
         //user prompt to create a first or another user.
