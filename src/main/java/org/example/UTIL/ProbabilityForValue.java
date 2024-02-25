@@ -10,15 +10,17 @@ public class ProbabilityForValue {
         Random rand = new Random();
         return rand.nextInt(min, max + 1);
     }
+    //This is creating an array of odds. This is for giving objects or games specific odds but not letting those odds duplicate.
     public static void creatingArrayOfOdds(int max){
-        for (int i = 0; i < max; i++) {
+        for (int i = 0; i < max - 1; i++) {
             arrayListOfOdds.add(i);
         }
     }
     public static int randomOddValue(int min){
         Random rand = new Random();
-        int randomOdd = rand.nextInt(min, arrayListOfOdds.size());
+        int randomOdd = rand.nextInt(min, arrayListOfOdds.size() - 1);
         if (arrayListOfOdds.get(randomOdd) == null){
+            randomOdd = rand.nextInt(min, arrayListOfOdds.size() - 1);
             arrayListOfOdds.get(randomOdd);
         }
         return arrayListOfOdds.get(randomOdd);
@@ -26,6 +28,9 @@ public class ProbabilityForValue {
     }
 
     public static void removeFactor(int factor){
+        if (arrayListOfOdds.get(factor) == null){
+            randomOddValue(0);
+        }
         arrayListOfOdds.remove(factor);
     }
 
