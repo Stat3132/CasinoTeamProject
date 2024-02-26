@@ -24,20 +24,20 @@ public class Roulette implements Casino {
     @Override
     public Player play(Player currentPlayer, int playerBet) {
         //FIXME
-//        int selection = UI.gamePrompt();
-//        switch (selection){
-//            case 1:
-//                betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(),currentPlayer);
-//                betType = UI.displayRouletteBetTypes();
-//                spin();
-//                cashOut(betType,currentPlayer);
-//                UI.displayRouletteWin(true,betAmount);
-//                break;
-//            case 2:
-//                break;
-//            case 3:
-//                break;
-//        }
+        int selection = UI.gamePrompt();
+        switch (selection){
+            case 1:
+                betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(),currentPlayer);
+                betType = UI.displayRouletteBetTypes();
+                spin();
+                cashOut(currentPlayer,betType);
+                UI.displayRouletteWin(true,betAmount);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
         return null;
     }
 
