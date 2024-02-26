@@ -286,7 +286,7 @@ public class CasinoInterface {
     public void finalPromptInHorseRacing(Player currentPlayer){
         System.out.println("You ended with: " + currentPlayer.getCurrentMoneyCount() + "\n\n" + "Money gained from horse racing so far: " + currentPlayer.getTotalHorseMoney());
     }
-    //TODO://///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //TODO:///////////////////////////////////////vvv ROULETTE UI BELOW vvv//////////////////////////////////////////////////////////////////////
     public int displayRouletteBetTypes(){
         int type;
         do {
@@ -299,8 +299,25 @@ public class CasinoInterface {
         System.out.println("Start the game!");
         return type;
     }
+    public int displayRouletteSpecificNum(){
+        int specNum;
+        do {
+             specNum = Console.getUserInt("What single number(from 0-36) will you bet on?", true);
+            if (specNum >= 36 || specNum <= 0) {
+                System.out.println("Please put in a valid option!");
+            }
+            break;
+        }while (true);
+        return specNum;
+    }
     public void displayRouletteWin(boolean didWin, int betAmount){
-
+        if (didWin){
+            System.out.println("\nYou won and earned $" + betAmount);
+        } else {
+            System.out.println("\nBad luck! you lost $" + betAmount);
+        }
     }
 
+//:TODO/////////////////////////////////////////^^^ ROULETTE UI ABOVE ^^^////////////////////////////////////////////////////////
 }
+
