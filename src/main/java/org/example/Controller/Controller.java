@@ -235,7 +235,7 @@ public class Controller {
                     switch (UI.gamePrompt()) { //nested switch for roulette chosen by gameOption
                         case 1: // roulette play option
                             playAI(roulette);
-                            rouletteClass.play(getCurrentPlayer(), getUserBet());
+                            rouletteClass.play(getCurrentPlayer(), 0);
                             break;
                         case 2: // roulette leaderboard option
                             leaderboard(roulette);

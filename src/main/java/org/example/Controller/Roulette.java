@@ -24,57 +24,59 @@ public class Roulette implements Casino {
 
     @Override
     public Player play(Player currentPlayer, int playerBet) {
-        //FIXME
-        UI.gamePrompt();
-        betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
+
+        betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(),currentPlayer);
         betType = UI.displayRouletteBetTypes();
         int outcome;
         switch(betType){
             case 1:
                 outcome= spin();
-                if (betType == 1 && outcome != 0 && outcome % 2 == 1) {
-                    betAmount += betAmount*payouts.get(1);
-                    cashOut(currentPlayer, betType);
+                if (betType == 1 && outcome != 0 && (outcome % 2 == 1)) {
+                     betAmount = betAmount*2;
+                    cashOut(currentPlayer, betAmount);
                     UI.displayRouletteWin(true, betAmount);
+                }else {
+                    UI.displayRouletteWin(false, betAmount);
                 }
                 break;
             case 2:
                 outcome = spin();
-                if (betType == 2 && outcome != 0 && outcome % 2 == 0) {
-                    betAmount += betAmount*payouts.get(2);
-                    cashOut(currentPlayer, betType);
+                if (betType == 2 && outcome != 0 && (outcome % 2 == 0)) {
+                    betAmount = betAmount*2;
+                    cashOut(currentPlayer, betAmount);
                     UI.displayRouletteWin(true, betAmount);
+                }else {
+                    UI.displayRouletteWin(false, betAmount);
                 }
                 break;
             case 3:
                 outcome = spin();
-                if(betType == 3 && outcome != 0 && outcome % 3 == 0){
-                    betAmount += betAmount*payouts.get(3);
-                    cashOut(currentPlayer, betType);
+                if(betType == 3 && outcome != 0 && (outcome % 3 == 0)){
+                    betAmount = betAmount*10;
+                    cashOut(currentPlayer, betAmount);
                     UI.displayRouletteWin(true, betAmount);
 
+                }else {
+                    UI.displayRouletteWin(false, betAmount);
                 }
                 break;
             case 4:
                 int specificNumber = UI.displayRouletteSpecificNum();
                 outcome = spin();
                 if(betType == 4 && outcome != 0 && outcome == specificNumber){
-                    betAmount += betAmount*payouts.get(4);
-                    cashOut(currentPlayer, betType);
+                    betAmount = betAmount*50;
+                    cashOut(currentPlayer, betAmount);
                     UI.displayRouletteWin(true, betAmount);
+                }else {
+                    UI.displayRouletteWin(false,betAmount);
                 }
-            default:
-                UI.displayRouletteWin(false,betAmount);
-                playerLose(currentPlayer,betAmount);
+                break;
+
 
         }
         return currentPlayer;
     }
-    public int playerLose(Player currentPlayer, int lossAmount){
-        int tempMoney = currentPlayer.getCurrentMoneyCount();
-        tempMoney -= lossAmount;
-        return tempMoney;
-    }
+
 
     //constructor
     public Roulette() {
@@ -85,8 +87,10 @@ public class Roulette implements Casino {
         //The payout for betting on all blacks/evens, 2x payout
         payouts.put(2, 2);
         //The payout for betting on all triples, 35x payout
-        payouts.put(3, 35);
+        payouts.put(3, 10);
         //The payout for betting on one single number, 50x payout
         payouts.put(4, 50);
     }
+
+
 }

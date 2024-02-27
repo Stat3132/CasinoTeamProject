@@ -326,12 +326,13 @@ public class CasinoInterface {
     public void displayRouletteWin(boolean didWin, int betAmount){
         if (didWin){
             System.out.println("\nYou won and earned $" + betAmount);
-        } else {
+        } else if(didWin == false) {
             System.out.println("\nBad luck! you lost $" + betAmount);
 
         }
 
     }
+
 
 
 }
