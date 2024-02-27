@@ -204,7 +204,6 @@ public class Controller {
     // game creation and simulation logic
     public void gameOutput(int game){
         // do while loop for selected game's menu prompts
-        currentPlayer.setCurrentMoneyCount(0);
         //FIXME: TEMP VALUES FOR LEADERBOARD TESTING
 //        currentPlayer.setTotalBlackJackMoney(ProbabilityForValue.randomValues(1,1000));
 //        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
@@ -215,6 +214,7 @@ public class Controller {
         switch(game){ //switch for game int provided on casinoOutput function
             case 1: //slots
                 do {
+                    canUserPlay();
                     UI.displayGameHeader(slots);
                     switch (UI.gamePrompt()) { //nested switch for slot chosen by gameOption
                         case 1: // slots play option
@@ -230,6 +230,7 @@ public class Controller {
                 }while (true);
             case 2: //roulette
                 do {
+                    canUserPlay();
                     UI.displayGameHeader(roulette);
                     switch (UI.gamePrompt()) { //nested switch for roulette chosen by gameOption
                         case 1: // roulette play option
@@ -245,6 +246,7 @@ public class Controller {
                 }while (true);
             case 3: //black-jack
                 do {
+                    canUserPlay();
                     UI.displayGameHeader(blackjack);
                     switch (UI.gamePrompt()) { //nested switch for black-jack chosen by gameOption
                         case 1: // black-jack play option
@@ -260,14 +262,17 @@ public class Controller {
                 }while (true);
             case 4: //horse-racing
                 do {
+                    canUserPlay();
                     UI.displayGameHeader(horseRacing);
                     switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                         case 1: // horse-racing play option
                             playAI(horseRacing);
                             horseClass.play(getCurrentPlayer(),getUserBet());
                             break;
-                        case 2: // horse-: // horse names
-                            horseClass.populatingStable();
+                        case 2:
+                            break;
+                        case 3: // horse-: // horse names
+                             horseClass.populatingStable();
                             UI.displayingStable(horseClass.fullStableOfRacerHorses);
                             break;
                         case 4: // exit

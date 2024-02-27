@@ -15,8 +15,7 @@ public class HorseRace implements Casino {
     @Override
     public Player play(Player currentPlayer, int betAmount) {
         // This is the play method that will be where bet amount, cash and populatedStable will all be in the play method. Instilling LOGIC as this is a controller,  * an instiller of logic.
-        betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount(), currentPlayer);
-//        betAmount = betAmount * 2;
+        betAmount = betAmount * 2;
 
         //populates 20 horses and narrows down to 7 for the user to choose from.
         populatingStable();
@@ -173,21 +172,21 @@ public class HorseRace implements Casino {
                 if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= 1150) {
                     int horseOddsFactor = ProbabilityForValue.randomOddValue(0);
                     fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-                    ProbabilityForValue.removeFactor(horseOddsFactor);
+//                    ProbabilityForValue.removeFactor(horseOddsFactor);
                 }
                 if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= 1000 && fullStableOfRacerHorses[stableCounter].getHorseWeight() < 1150) {
                     int horseOddsFactor = ProbabilityForValue.randomOddValue(0);
                     fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-                    ProbabilityForValue.removeFactor(horseOddsFactor);
+//                    ProbabilityForValue.removeFactor(horseOddsFactor);
                 }
                 if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= 900 && fullStableOfRacerHorses[stableCounter].getHorseWeight() < 1000) {
                     int horseOddsFactor = ProbabilityForValue.randomOddValue(0);
                     fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-                    ProbabilityForValue.removeFactor(horseOddsFactor);
+//                    ProbabilityForValue.removeFactor(horseOddsFactor);
                 }
                 horseSpeedCounter = -1;
                 stableCounter++;
-                if (stableCounter == 19) {
+                if (stableCounter == 20 ) {
                     return;
                 }
             }
@@ -322,6 +321,7 @@ public class HorseRace implements Casino {
 //                    break;
 //            }
 //        }
+
         }
     }
 }
