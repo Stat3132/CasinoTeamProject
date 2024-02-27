@@ -68,6 +68,7 @@ public class CasinoMembers {
 }
     public void setTotalHorseMoney(int totalHorseMoney) {
         this.totalHorseMoney = totalHorseMoney;
+        this.totalWinnings += totalHorseMoney;
     }
 
     public int getTotalRouletteMoney() {
@@ -75,6 +76,7 @@ public class CasinoMembers {
     }
     public void setTotalRouletteMoney(int totalRouletteMoney) {
         this.totalRouletteMoney = totalRouletteMoney;
+        this.totalWinnings += totalRouletteMoney;
     }
 
     public int getTotalSlotMoney() {
@@ -82,6 +84,7 @@ public class CasinoMembers {
     }
     public void setTotalSlotMoney(int totalSlotMoney) {
         this.totalSlotMoney = totalSlotMoney;
+        this.totalWinnings += totalSlotMoney;
     }
 
     public int getTotalBlackJackMoney() {
@@ -89,6 +92,7 @@ public class CasinoMembers {
     }
     public void setTotalBlackJackMoney(int totalBlackJackMoney) {
             this.totalBlackJackMoney = totalBlackJackMoney;
+            this.totalWinnings += totalBlackJackMoney;
         }
 
     public boolean isAI() {

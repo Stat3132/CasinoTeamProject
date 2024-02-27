@@ -1,5 +1,6 @@
 package org.example.View;
 
+import org.example.Controller.Casino;
 import org.example.Model.CasinoMembers;
 import org.example.Model.Horse;
 import org.example.Model.Player;
@@ -29,7 +30,7 @@ public class UI {
         } else {
             textAI = "Enable";
         }
-        return Console.getUserInt("1) User Settings \n2) " + textAI + " AI \n3) EXIT",true);
+        return Console.getUserInt("1) User Settings \n2) " + textAI + " AI \n3) Global Leaderboard \n4) Exit",true);
     }
     public int userSettings(){
         Console.write("\n-- USER SETTINGS! --\n", Console.TextColor.YELLOW); //header
@@ -40,7 +41,7 @@ public class UI {
         //displays different game header depending on the game int provided
         switch(game){
             case 1: // slots header
-                Console.write("-- Slots! --\n", Console.TextColor.BLUE);
+                Console.write("\n-- Slots! --\n", Console.TextColor.BLUE);
                 if(currentPlayer.getTotalSlotMoney() <= 0){
                     Console.write("[" + currentPlayer.getName() + "] Has won $" + 0 + "!\n");
                 } else {
@@ -48,7 +49,7 @@ public class UI {
                 }
                 break;
             case 2: // roulette header
-                Console.write("-- Roulette! --\n", Console.TextColor.RED);
+                Console.write("\n-- Roulette! --\n", Console.TextColor.RED);
                 if(currentPlayer.getTotalRouletteMoney() <= 0){
                     Console.write("[" + currentPlayer.getName() + "] Has won $" + 0 + "!\n");
                 } else {
@@ -56,7 +57,7 @@ public class UI {
                 }
                 break;
             case 3: // black-jack header
-                Console.write("-- Black-Jack! --\n", Console.TextColor.PURPLE);
+                Console.write("\n-- Black-Jack! --\n", Console.TextColor.PURPLE);
                 if(currentPlayer.getTotalBlackJackMoney() <= 0){
                     Console.write("[" + currentPlayer.getName() + "] $" + 0 + " WON!\n");
                 } else {
@@ -64,7 +65,7 @@ public class UI {
                 }
                 break;
             case 4: // horse-racing header
-                Console.write("-- Horse-Racing! --\n", Console.TextColor.CYAN);
+                Console.write("\n-- Horse-Racing! --\n", Console.TextColor.CYAN);
                 if(currentPlayer.getTotalHorseMoney() <= 0){
                     Console.write("[" + currentPlayer.getName() + "] Has won $" + 0 + " WON!\n");
                 } else {
@@ -72,7 +73,7 @@ public class UI {
                 }
                 break;
         }
-        System.out.println("--- --------- ---"); //footer
+        footer();
     }
     public int gamePrompt(){
         // game prompt for every game
@@ -89,17 +90,47 @@ public class UI {
         //"populate" AI text
         if(isAiEnabled){
             Console.write("ENABLING AI...\n", Console.TextColor.GREEN);
-            System.out.println("--- --------- ---"); //footer
+            footer();
         } else {
             Console.write("DISABLING AI...\n", Console.TextColor.RED);
-            System.out.println("--- --------- ---"); //footer
+            footer();
         }
     }
     public void exitPrompt(){
         //prompt when player exits the app
         Console.write("Thanks for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
     }
-
+    public void leaderboard(CasinoMembers player, int money, int i, int game){
+        //UI prompt for leaderboard
+        switch(game){ //headers
+            case 1: //slots
+                Console.write("-- Slots Leaderboard! --\n", Console.TextColor.BLUE);
+                break;
+            case 2: //roulette
+                Console.write("-- Roulette Leaderboard! --\n", Console.TextColor.RED);
+                break;
+            case 3: //black-jack
+                Console.write("-- Black-Jack Leaderboard! --\n", Console.TextColor.PURPLE);
+                break;
+            case 4: //horse-racing
+                Console.write("-- Horse-Racing! --\n", Console.TextColor.CYAN);
+                break;
+            default:
+                Console.write("\n-- Casino Leaderboard! --\n", Console.TextColor.GREEN);
+                break;
+        }
+        if(player.isAI()){
+            //if user is ai, add tag
+            System.out.println((i + 1) + ". " + player.getName() + "[AI] ($ " + money + ")");
+        } else {
+            //otherwise, print out user as well as money count
+            System.out.println((i + 1) + ". " + player.getName() + "($ " + money + ")");
+        }
+    }
+    public void footer(){
+        //basic footer for all code to stay consistent
+        System.out.println("--- --------- ---"); //footer
+    }
 
 
 
@@ -254,7 +285,7 @@ public class UI {
                 System.out.println((i + 1) + " " + allUsers.get(i).getName());
             }
         }
-        System.out.println("--- --------- ---"); //footer
+        footer();
     }
     public int getUserBet(int totalUserMoney, Player currentPlayer){
         //gets the user bet as well as the player.
@@ -288,11 +319,11 @@ public class UI {
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
     }
     public int bettingOnHorse(Horse[] displayingBetableHorses){
-        System.out.println("\t\t\tCURRENT HORSES TO BET ON: \n\n ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        System.out.println("\t\t\tCURRENT HORSES TO BET ON: \n\n ");
         for (Horse displayingBetableHors : displayingBetableHorses) {
             System.out.println(displayingBetableHors);
         }
-        System.out.println("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        footer();
         return Console.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
     }
     public void displayingWinner(Horse[] winnerHorse, boolean winnerEvaluation, int betAmount){
@@ -305,7 +336,7 @@ public class UI {
         }
     }
     public void displayingHorseBettedOn(Horse[] bettedHorse, int index){
-        System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n" + "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+        System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n");
     }
     public void displayingStable(Horse[] stable){
         for (Horse horse : stable) {
@@ -319,7 +350,8 @@ public class UI {
     public void finalPromptInHorseRacing(Player currentPlayer){
         System.out.println("You ended with: " + currentPlayer.getCurrentMoneyCount() + "\n\n" + "Money gained from horse racing so far: " + currentPlayer.getTotalHorseMoney());
     }
-    //:TODO//////////////////////////////////vvv ROULETTE UI HERE vvv//////////////////////////////////////////////////////////////////
+
+    //ROULETTE LOGIC & OuTPUT
     public int displayRouletteBetTypes(){
         int type;
         do {

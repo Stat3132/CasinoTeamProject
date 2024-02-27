@@ -8,8 +8,11 @@ import org.example.View.UI;
 
 import java.lang.reflect.Array;
 import java.security.KeyPair;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Controller {
     //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
@@ -173,7 +176,10 @@ public class Controller {
                 case 2:  //populate AI
                     populateAI();
                     break;
-                case 3: //exit back to gameoutput
+                case 3: //global leaderboard
+                    leaderboard(5);
+                    break;
+                case 4: //exit back to gameoutput
                     return;
             }
         } while (true);
@@ -204,18 +210,19 @@ public class Controller {
     // game creation and simulation logic
     public void gameOutput(int game){
         // do while loop for selected game's menu prompts
-        //FIXME: TEMP VALUES FOR LEADERBOARD TESTING
-//        currentPlayer.setTotalBlackJackMoney(ProbabilityForValue.randomValues(1,1000));
-//        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
-//        currentPlayer.setTotalRouletteMoney(ProbabilityForValue.randomValues(1,1000));
-//        currentPlayer.setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
+        for (int i = 0; i < allCasinoPlayers.size(); i++) {
+            allCasinoPlayers.get(i).setTotalHorseMoney(ProbabilityForValue.randomValues(1,1000));
+            allCasinoPlayers.get(i).setTotalRouletteMoney(ProbabilityForValue.randomValues(1,1000));
+            allCasinoPlayers.get(i).setTotalSlotMoney(ProbabilityForValue.randomValues(1,1000));
+            allCasinoPlayers.get(i).setTotalBlackJackMoney(ProbabilityForValue.randomValues(1,1000));
+        }
 
         canUserPlay();
         switch(game){ //switch for game int provided on casinoOutput function
             case 1: //slots
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(slots);
+                    UI.displayGameHeader(slots, currentPlayer);
                     switch (UI.gamePrompt()) { //nested switch for slot chosen by gameOption
                         case 1: // slots play option
                             playAI(slots);
@@ -231,7 +238,7 @@ public class Controller {
             case 2: //roulette
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(roulette);
+                    UI.displayGameHeader(roulette, currentPlayer);
                     switch (UI.gamePrompt()) { //nested switch for roulette chosen by gameOption
                         case 1: // roulette play option
                             playAI(roulette);
@@ -247,7 +254,7 @@ public class Controller {
             case 3: //black-jack
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(blackjack);
+                    UI.displayGameHeader(blackjack, currentPlayer);
                     switch (UI.gamePrompt()) { //nested switch for black-jack chosen by gameOption
                         case 1: // black-jack play option
                             playAI(blackjack);
@@ -263,7 +270,7 @@ public class Controller {
             case 4: //horse-racing
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(horseRacing);
+                    UI.displayGameHeader(horseRacing, currentPlayer);
                     switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                         case 1: // horse-racing play option
                             playAI(horseRacing);
@@ -317,22 +324,60 @@ public class Controller {
 
 
     public void leaderboard(int game){
-        //TODO:
+        //displays leaderboard depending on the game provided.
         switch(game){
-            case 1: //slots
-
+            case 1: //slots leaderboard
+                allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalSlotMoney).reversed()); //sorts arraylist, compares the int of all totalSlot Money and reverses it
+                for (int i = 0; i < allCasinoPlayers.size(); i++) {
+                    if(allCasinoPlayers.get(i).getTotalSlotMoney() <= 0){
+                        i++;
+                    } else {
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalSlotMoney(),i,slots); //calls UI inputting currentPlayer, their money, index, and the game type
+                    }
+                }
                 break;
             case 2: //roulette
-
+                allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalRouletteMoney).reversed());
+                for (int i = 0; i < allCasinoPlayers.size(); i++) {
+                    if(allCasinoPlayers.get(i).getTotalRouletteMoney() <= 0){
+                        i++;
+                    } else {
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalRouletteMoney(),i,roulette);
+                    }
+                }
                 break;
             case 3: //black-jack
-
+                allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalBlackJackMoney).reversed());
+                for (int i = 0; i < allCasinoPlayers.size(); i++) {
+                    if(allCasinoPlayers.get(i).getTotalBlackJackMoney() <= 0){
+                        i++;
+                    } else {
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalBlackJackMoney(),i,blackjack);
+                    }
+                }
                 break;
             case 4: //horse-racing
-
+                allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalHorseMoney).reversed());
+                for (int i = 0; i < allCasinoPlayers.size(); i++) {
+                    if(allCasinoPlayers.get(i).getTotalHorseMoney() <= 0){
+                        i++;
+                    } else {
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalHorseMoney(),i,horseRacing);
+                    }
+                }
+                break;
+            default: //casino leaderboard
+                allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalWinnings).reversed());
+                for (int i = 0; i < allCasinoPlayers.size(); i++) {
+                    if(allCasinoPlayers.get(i).getTotalWinnings() <= 0){
+                        i++;
+                    } else {
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalWinnings(),i,5);
+                    }
+                }
                 break;
         }
-
+        UI.footer();
     }
 
 }
