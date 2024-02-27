@@ -118,6 +118,7 @@ public class HorseRace implements Casino {
                 }
                 break;
         }
+        probable.oddsOfOdds(10);
         //Last prompt just giving the information of the game and what money the user ended off with.
         UI.finalPromptInHorseRacing(currentPlayer);
         return null;

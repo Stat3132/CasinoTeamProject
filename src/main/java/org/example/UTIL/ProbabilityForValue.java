@@ -37,6 +37,9 @@ public class ProbabilityForValue {
     public int oddsOfOdds(int highestAfterOddFactor) {
         switch (highestAfterOddFactor) {
             case 1:
+                if (highestAfterOddFactor == 1){
+
+                }
                 return randomValues(0, 2);
             case 2:
                 return randomValues(0, 4);
