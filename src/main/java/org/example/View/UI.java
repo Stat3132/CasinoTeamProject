@@ -36,22 +36,43 @@ public class UI {
         return Console.getUserInt("1) [CHANGE] Current User \n2) [DELETE] Existing User \n3) [ADD] New User \n4) [LIST] All Users \n5) EXIT",true);
 
     }
-    public void displayGameHeader(int game){
+    public void displayGameHeader(int game, Player currentPlayer){
         //displays different game header depending on the game int provided
         switch(game){
             case 1: // slots header
                 Console.write("-- Slots! --\n", Console.TextColor.BLUE);
+                if(currentPlayer.getTotalSlotMoney() <= 0){
+                    Console.write("[" + currentPlayer.getName() + "] Has won $" + 0 + "!\n");
+                } else {
+                    Console.write("[" + currentPlayer.getName() + "] Has won $" + currentPlayer.getTotalSlotMoney() + "!\n");
+                }
                 break;
             case 2: // roulette header
                 Console.write("-- Roulette! --\n", Console.TextColor.RED);
+                if(currentPlayer.getTotalRouletteMoney() <= 0){
+                    Console.write("[" + currentPlayer.getName() + "] Has won $" + 0 + "!\n");
+                } else {
+                    Console.write("[" + currentPlayer.getName() + "] Has won $" + currentPlayer.getTotalRouletteMoney() + "!\n");
+                }
                 break;
             case 3: // black-jack header
                 Console.write("-- Black-Jack! --\n", Console.TextColor.PURPLE);
+                if(currentPlayer.getTotalBlackJackMoney() <= 0){
+                    Console.write("[" + currentPlayer.getName() + "] $" + 0 + " WON!\n");
+                } else {
+                    Console.write("[" + currentPlayer.getName() + "] Has won $" + currentPlayer.getTotalBlackJackMoney() + "!\n");
+                }
                 break;
             case 4: // horse-racing header
                 Console.write("-- Horse-Racing! --\n", Console.TextColor.CYAN);
+                if(currentPlayer.getTotalHorseMoney() <= 0){
+                    Console.write("[" + currentPlayer.getName() + "] Has won $" + 0 + " WON!\n");
+                } else {
+                    Console.write("[" + currentPlayer.getName() + "] Has won $" + currentPlayer.getTotalHorseMoney() + "!\n");
+                }
                 break;
         }
+        System.out.println("--- --------- ---"); //footer
     }
     public int gamePrompt(){
         // game prompt for every game
@@ -328,11 +349,6 @@ public class UI {
             System.out.println("\nYou won and earned $" + betAmount);
         } else if(didWin == false) {
             System.out.println("\nBad luck! you lost $" + betAmount);
-
         }
-
     }
-
-
-
 }
