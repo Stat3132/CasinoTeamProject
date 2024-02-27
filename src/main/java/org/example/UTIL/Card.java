@@ -51,9 +51,17 @@ public class Card {
        }
        Card[] shuffledDeck = new Card[53];
         for (int i = 0; i < 52; i++) {
+
             if (shuffledDeck[i] == null){
-                shuffledDeck[i] = fullDeck[ProbabilityForValue.randomValues(0,51)];
+                int removedCard = ProbabilityForValue.randomValues(0,51);
+                if (fullDeck[removedCard] == null){
+                    removedCard = ProbabilityForValue.randomValues(0,51);
+                    shuffledDeck[i] = fullDeck[removedCard];
+                }
+                shuffledDeck[i] = fullDeck[removedCard];
+                fullDeck[removedCard] = null;
                 System.out.println(shuffledDeck[i]);
+
             }
         }
    }
