@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ProbabilityForValue {
-    static int arrayOddCounter;
     //FIXME
-    static ArrayList<Integer> arrayListOfOdds = new ArrayList<Integer>();
+    public static ArrayList<Integer> arrayListOfOdds = new ArrayList<Integer>();
     // RANDOM VALUE FROM MIN to MAX. Takes in parameters.
     public static int randomValues(int min, int max){
         Random rand = new Random();
@@ -18,16 +17,17 @@ public class ProbabilityForValue {
             arrayListOfOdds.add(i);
         }
     }
-    public int randomOddValue(int min){
+    public int randomOddValue(){
         Random rand = new Random();
-        int randomOdd = rand.nextInt(min, arrayListOfOdds.size());
-        int index = arrayListOfOdds.get(randomOdd);
-        if (arrayListOfOdds.get(index) == null){
-            randomOdd = rand.nextInt(min, arrayListOfOdds.size());
-            index = randomOdd;
+        int randomOdd = rand.nextInt(0, arrayListOfOdds.size());
+        if (arrayListOfOdds.get(randomOdd) == null){
+            randomOdd = rand.nextInt(0, arrayListOfOdds.size());
+        }
+        if (arrayListOfOdds.get(randomOdd) == null){
+            randomOdd = rand.nextInt(0, arrayListOfOdds.size());
         }
         arrayListOfOdds.remove(randomOdd);
-        return index;
+        return randomOdd;
     }
 
     //Odds do not fully determine winner this method is the one that will determine the winner, with one more "random" check.

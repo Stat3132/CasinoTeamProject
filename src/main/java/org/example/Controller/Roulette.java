@@ -1,7 +1,7 @@
 package org.example.Controller;
 
 import org.example.Model.Player;
-import org.example.View.CasinoInterface;
+import org.example.View.UI;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -11,7 +11,7 @@ public class Roulette implements Casino {
     private Random rouletteRandom;
     private HashMap<Integer, Integer> payouts;
     protected int betType, betAmount;
-    CasinoInterface UI = new CasinoInterface();
+    UI UI = new UI();
 
     public int spin() {
         return rouletteRandom.nextInt(37);

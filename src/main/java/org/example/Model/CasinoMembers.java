@@ -103,20 +103,17 @@ public class CasinoMembers {
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * This is a method that ranodmizes names. This is "casino members" so this logic is extending to other class objects that need their names to be randomized.
-     * I have an array and I use a Loop that takes values from the names and assigns them to a new array index.
-     * After putting all names into an array I then return a random name by using "probably" Which is a instance of Probability that
-     * gives me a random number from lower bound to upper bound.
-     */
-
+     //This method randomizes names based on an array of Name enums.
     protected Name randomizingNames() {
             // This is just an array of names;
             Name[] baseNames = new Name[122];
             Name[] numbericalValueOfName = Name.values();
             for (int i = 0; i < baseNames.length; i++) {
+                if (numbericalValueOfName[i] == null)
+                    baseNames[i] = numbericalValueOfName[i];
                 if (i != baseNames.length - 1) {
                     baseNames[i] = numbericalValueOfName[i];
+                    numbericalValueOfName[i] = null;
                 } else {
                     break;
                 }

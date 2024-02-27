@@ -4,7 +4,7 @@ import org.example.Model.CasinoAI;
 import org.example.Model.CasinoMembers;
 import org.example.Model.Player;
 import org.example.UTIL.ProbabilityForValue;
-import org.example.View.CasinoInterface;
+import org.example.View.UI;
 
 import java.lang.reflect.Array;
 import java.security.KeyPair;
@@ -20,7 +20,7 @@ public class Controller {
     BlackJack bjClass = new BlackJack();
     HorseRace horseClass = new HorseRace();
 
-    CasinoInterface UI = new CasinoInterface(); //view casino menus
+    UI UI = new UI(); //view casino menus
     boolean userExists, aiEnabled = false; //boolean to check if ai is Enabled and if atleast one user exists
     ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
     private Player currentPlayer; //current player property

@@ -3,14 +3,14 @@ package org.example.Controller;
 import org.example.Model.Horse;
 import org.example.Model.Player;
 import org.example.UTIL.ProbabilityForValue;
-import org.example.View.CasinoInterface;
+import org.example.View.UI;
 
 public class HorseRace implements Casino {
     //FIXME:
     private final int winnerHorse = 6;
     private final int maxHorseWeight = 1150, mediumHorseWeight = 1000, lightHorseWeight = 900;
     Horse[] fullStableOfRacerHorses = new Horse[20], finalsLineUp = new Horse[7];
-    CasinoInterface UI = new CasinoInterface();
+    UI UI = new UI();
     ProbabilityForValue probable = new ProbabilityForValue();
 
     // Play method is the logic behind horse racing
@@ -146,23 +146,24 @@ public class HorseRace implements Casino {
         for (int horseSpeedCounter = 1; horseSpeedCounter < 11; horseSpeedCounter++) {
             if (fullStableOfRacerHorses[stableCounter].getHorseSpeed() == horseSpeedCounter) {
                 if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= maxHorseWeight) {
-                    int horseOddsFactor = probable.randomOddValue(0);
+                    int horseOddsFactor = probable.randomOddValue();
                     fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
                 }
 
                 if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= mediumHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < maxHorseWeight) {
-                    int horseOddsFactor = probable.randomOddValue(0);
+                    int horseOddsFactor = probable.randomOddValue();
                     fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
                 }
 
                 if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= lightHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < mediumHorseWeight) {
-                    int horseOddsFactor = probable.randomOddValue(0);
+                    int horseOddsFactor = probable.randomOddValue();
                     fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
 
                 }
                 horseSpeedCounter = -1;
                 stableCounter++;
                 if (stableCounter == 20 ) {
+                    ProbabilityForValue.arrayListOfOdds.clear();
                     return;
                 }
             }

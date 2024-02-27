@@ -14,7 +14,6 @@ public class Horse extends CasinoMembers {
      * would just use another constructor. That takes in values given from the user.
      */
     public Horse() {
-        //FIXME
         super("TEST",1);
         this.horseName = randomizingNames().toString();
         this.horseColor = randomizeHorseColor().toString();
