@@ -8,7 +8,7 @@ import org.example.UTIL.Console;
 import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 
-public class CasinoInterface {
+public class UI {
     //TODO: Horse Racing Prompts
     //TODO: Slots Prompts
     //TODO: Roulette Prompts
