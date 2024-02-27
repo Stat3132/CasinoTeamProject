@@ -4,12 +4,8 @@ import org.example.Model.CasinoAI;
 import org.example.Model.CasinoMembers;
 import org.example.Model.Player;
 import org.example.UTIL.ProbabilityForValue;
-import org.example.View.CasinoInterface;
-
-import java.lang.reflect.Array;
-import java.security.KeyPair;
+import org.example.View.UI;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Controller {
     //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
@@ -20,7 +16,7 @@ public class Controller {
     BlackJack bjClass = new BlackJack();
     HorseRace horseClass = new HorseRace();
 
-    CasinoInterface UI = new CasinoInterface(); //view casino menus
+    org.example.View.UI UI = new UI(); //view casino menus
     boolean userExists, aiEnabled = false; //boolean to check if ai is Enabled and if atleast one user exists
     ArrayList<CasinoMembers> allCasinoPlayers = new ArrayList<>(); //array of ALL users within the casino!
     private Player currentPlayer; //current player property
@@ -215,7 +211,7 @@ public class Controller {
             case 1: //slots
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(slots);
+                    UI.displayGameHeader(slots, currentPlayer);
                     switch (UI.gamePrompt()) { //nested switch for slot chosen by gameOption
                         case 1: // slots play option
                             playAI(slots);
@@ -231,7 +227,7 @@ public class Controller {
             case 2: //roulette
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(roulette);
+                    UI.displayGameHeader(roulette, currentPlayer);
                     switch (UI.gamePrompt()) { //nested switch for roulette chosen by gameOption
                         case 1: // roulette play option
                             playAI(roulette);
@@ -247,7 +243,7 @@ public class Controller {
             case 3: //black-jack
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(blackjack);
+                    UI.displayGameHeader(blackjack, currentPlayer);
                     switch (UI.gamePrompt()) { //nested switch for black-jack chosen by gameOption
                         case 1: // black-jack play option
                             playAI(blackjack);
@@ -263,7 +259,7 @@ public class Controller {
             case 4: //horse-racing
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(horseRacing);
+                    UI.displayGameHeader(horseRacing, currentPlayer);
                     switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                         case 1: // horse-racing play option
                             playAI(horseRacing);

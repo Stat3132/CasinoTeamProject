@@ -11,6 +11,11 @@ public class Player extends CasinoMembers{
     public Player(String name){
         super(name,0);
         this.setCurrentMoneyCount(defaultMoney);
+        this.setTotalSlotMoney(0);
+        this.setTotalRouletteMoney(0);
+        this.setTotalBlackJackMoney(0);
+        this.setTotalRouletteMoney(0);
+        this.setTotalWinnings(0);
     }
 
 }
