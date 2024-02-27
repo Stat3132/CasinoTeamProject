@@ -100,8 +100,19 @@ public class UI {
         //prompt when player exits the app
         Console.write("Thanks for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
     }
-    public void leaderboard(CasinoMembers player, int money, int i, int game){
+
+    //leaderboard logic
+    public void leaderboard(CasinoMembers player, int money, int i){
         //UI prompt for leaderboard
+        if(player.isAI()){
+            //if user is ai, add tag
+            System.out.println((i + 1) + ". " + player.getName() + " [AI] ($" + money + ")");
+        } else {
+            //otherwise, print out user as well as money count
+            System.out.println((i + 1) + ". " + player.getName() + " ($" + money + ")");
+        }
+    }
+    public void leaderboardHeader(int game){
         switch(game){ //headers
             case 1: //slots
                 Console.write("-- Slots Leaderboard! --\n", Console.TextColor.BLUE);
@@ -119,14 +130,8 @@ public class UI {
                 Console.write("\n-- Casino Leaderboard! --\n", Console.TextColor.GREEN);
                 break;
         }
-        if(player.isAI()){
-            //if user is ai, add tag
-            System.out.println((i + 1) + ". " + player.getName() + "[AI] ($ " + money + ")");
-        } else {
-            //otherwise, print out user as well as money count
-            System.out.println((i + 1) + ". " + player.getName() + "($ " + money + ")");
-        }
     }
+
     public void footer(){
         //basic footer for all code to stay consistent
         System.out.println("--- --------- ---"); //footer

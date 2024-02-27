@@ -327,52 +327,57 @@ public class Controller {
         //displays leaderboard depending on the game provided.
         switch(game){
             case 1: //slots leaderboard
+                UI.leaderboardHeader(slots);
                 allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalSlotMoney).reversed()); //sorts arraylist, compares the int of all totalSlot Money and reverses it
                 for (int i = 0; i < allCasinoPlayers.size(); i++) {
                     if(allCasinoPlayers.get(i).getTotalSlotMoney() <= 0){
                         i++;
                     } else {
-                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalSlotMoney(),i,slots); //calls UI inputting currentPlayer, their money, index, and the game type
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalSlotMoney(),i); //calls UI inputting currentPlayer, their money, index, and the game type
                     }
                 }
                 break;
             case 2: //roulette
+                UI.leaderboardHeader(roulette);
                 allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalRouletteMoney).reversed());
                 for (int i = 0; i < allCasinoPlayers.size(); i++) {
                     if(allCasinoPlayers.get(i).getTotalRouletteMoney() <= 0){
                         i++;
                     } else {
-                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalRouletteMoney(),i,roulette);
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalRouletteMoney(),i);
                     }
                 }
                 break;
             case 3: //black-jack
+                UI.leaderboardHeader(blackjack);
                 allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalBlackJackMoney).reversed());
                 for (int i = 0; i < allCasinoPlayers.size(); i++) {
                     if(allCasinoPlayers.get(i).getTotalBlackJackMoney() <= 0){
                         i++;
                     } else {
-                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalBlackJackMoney(),i,blackjack);
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalBlackJackMoney(),i);
                     }
                 }
                 break;
             case 4: //horse-racing
+                UI.leaderboardHeader(horseRacing);
                 allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalHorseMoney).reversed());
                 for (int i = 0; i < allCasinoPlayers.size(); i++) {
                     if(allCasinoPlayers.get(i).getTotalHorseMoney() <= 0){
                         i++;
                     } else {
-                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalHorseMoney(),i,horseRacing);
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalHorseMoney(),i);
                     }
                 }
                 break;
             default: //casino leaderboard
+                UI.leaderboardHeader(5);
                 allCasinoPlayers.sort(Comparator.comparingInt(CasinoMembers::getTotalWinnings).reversed());
                 for (int i = 0; i < allCasinoPlayers.size(); i++) {
                     if(allCasinoPlayers.get(i).getTotalWinnings() <= 0){
                         i++;
                     } else {
-                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalWinnings(),i,5);
+                        UI.leaderboard(allCasinoPlayers.get(i),allCasinoPlayers.get(i).getTotalWinnings(),i);
                     }
                 }
                 break;
