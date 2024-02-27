@@ -383,4 +383,7 @@ public class UI {
             System.out.println("\nBad luck! you lost $" + betAmount);
         }
     }
+    public void displayRouletteFinalMoney(Player currentPlayer){
+        System.out.println("You ended with: " + currentPlayer.getCurrentMoneyCount() + "\n\n" + "Money gained from roulette so far: " + currentPlayer.getTotalRouletteMoney());
+    }
 }

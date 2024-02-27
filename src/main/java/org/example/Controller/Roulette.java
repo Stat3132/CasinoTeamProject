@@ -20,6 +20,7 @@ public class Roulette implements Casino {
     public void cashOut(Player currentPlayer, int playerBet) {
         //FIXME
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
+        currentPlayer.setTotalRouletteMoney(currentPlayer.getTotalRouletteMoney() + playerBet);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class Roulette implements Casino {
             case 2:
                 outcome = spin();
                 if (betType == 2 && outcome != 0 && (outcome % 2 == 0)) {
-                    betAmount = betAmount*2;
+                    betAmount = betAmount*2 ;
                     cashOut(currentPlayer, betAmount);
                     UI.displayRouletteWin(true, betAmount);
                 }else {
@@ -74,7 +75,8 @@ public class Roulette implements Casino {
 
 
         }
-        return currentPlayer;
+        UI.displayRouletteFinalMoney(currentPlayer);
+        return null;
     }
 
 
