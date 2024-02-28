@@ -170,12 +170,18 @@ public class UI {
                 // else create your FIRST user
                 username = Console.getStringInput("Create Your First user! \nEnter a username: ", true);
             }
-            if(!username.isEmpty() && !username.contains(" ")){
-                //if username is not empty and does not contain space, break out of loop
-                break;
-            } else {
-                //else error message
+            if(username.isEmpty() || username.contains(" ")){
+                //username cannot be empty or contain spaces
                 Console.write("Your username cannot be empty or contain spaces!\n\n", Console.TextColor.RED);
+            } else if(username.length() > 20){
+                //username cannot be greater than 20 chars
+                Console.write("Your username is too long!\n\n", Console.TextColor.RED);
+            } else if(username.length() < 2){
+                //username cannot be less than 2 chars
+                Console.write("Your username is too short!\n\n", Console.TextColor.RED);
+            } else {
+                //else break because username is fine!
+                break;
             }
         } while(true);
         System.out.println(username + " has been created!");
@@ -354,9 +360,9 @@ public class UI {
             userBet = Console.getUserInt("Enter your bet amount!", true);
             if (userBet > totalUserMoney) {
                 //if bet is too high or too low, loop; else break
-                System.out.println("Your bet is too high! \nTRY AGAIN!");
-            } else if(userBet < 0){
-                System.out.println("Your bet is too low! \nTRY AGAIN!");
+                Console.write("Your bet is too high! \nTRY AGAIN!\n", Console.TextColor.RED);
+            } else if(userBet <= 0){
+                Console.write("Your bet is too low! \nTRY AGAIN!\n", Console.TextColor.RED);
             } else {
                 break;
             }
@@ -376,7 +382,6 @@ public class UI {
             Console.write("\nBad luck! You Lose $" + betAmount, Console.TextColor.RED);
         }
     }
-
     public void displayFinalMoney(Player currentPlayer, int game){
         //display final money for game output.
         String gameText = "";
@@ -436,7 +441,6 @@ public class UI {
     public void displayingHorseBettedOn(Horse[] bettedHorse, int index){
         System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n");
     }
-
     public void displayingStable(Horse[] stable){
         for (Horse horse : stable) {
             System.out.println(horse.toString());
@@ -446,6 +450,7 @@ public class UI {
 //
 //        }
     }
+
 
     //ROULETTE LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
     public int displayRouletteBetTypes(){

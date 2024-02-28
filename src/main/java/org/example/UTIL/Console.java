@@ -258,7 +258,7 @@ public class Console {
                 bLoop = (isRequired && (strReturn.isEmpty()));
 
             } catch (Exception ex) {
-                System.out.println("ERROR" + ex.getMessage());
+                Console.write("ERROR" + ex.getMessage(), TextColor.RED);
             }
             // is this required
         }
@@ -276,7 +276,7 @@ public class Console {
                     return num;
 
                 }
-                Console.write("{INVALID INPUT}, Please try again!", TextColor.RED);
+                Console.write("{INVALID INPUT}, Please try again!\n", TextColor.RED);
             }
         }
         return num;
@@ -305,7 +305,7 @@ public class Console {
                 if (num == 0 && !isRequired) {
                     return num;
                 }
-                Console.write("{INVALID INPUT}, Please try again!", TextColor.RED);
+                Console.write("{INVALID INPUT}, Please try again!\n", TextColor.RED);
             }
         }
         return num;

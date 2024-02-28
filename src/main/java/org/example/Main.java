@@ -1,8 +1,12 @@
 package org.example;
 
 import org.example.Controller.Controller;
+import org.example.Controller.Roulette;
+import org.example.Controller.SlotMachine;
 import org.example.Model.Player;
 import org.example.UTIL.*;
+
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
