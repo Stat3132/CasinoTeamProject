@@ -40,12 +40,16 @@ public class Player extends CasinoMembers{
               this.setCurrentMoneyCount(0);
             } else {
                     //else default money value
-                    this.setCurrentMoneyCount(defaultMoney);
-                    this.setTotalSlotMoney(0);
-                    this.setTotalRouletteMoney(0);
-                    this.setTotalBlackJackMoney(0);
-                    this.setTotalHorseMoney(0);
-                    this.setTotalWinnings(0);
+                this.setName(_name);
+                if(this.name == null){
+                    this.setName(" ");
+                }
+                this.setCurrentMoneyCount(defaultMoney);
+                this.setTotalSlotMoney(0);
+                this.setTotalRouletteMoney(0);
+                this.setTotalBlackJackMoney(0);
+                this.setTotalHorseMoney(0);
+                this.setTotalWinnings(0);
             }
         }
     }
