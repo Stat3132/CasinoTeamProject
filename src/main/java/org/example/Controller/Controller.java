@@ -40,9 +40,11 @@ public class Controller {
         } else {
             for (CasinoMembers allCasinoPlayer : allCasinoPlayers) {
                 if (allCasinoPlayer == null) {
+                    //useless but just in case check to see if index is empty, set to false.
                     setUserExists(false);
                 } else {
                     if (!allCasinoPlayer.isAI()) {
+                        //if user is NOT AI, set true and immediately break as least one user exists
                         setUserExists(true);
                         return userExists;
                     }
@@ -81,6 +83,15 @@ public class Controller {
     }
     public void canUserPlay(){
         //checks if the user has become bankrupt
+        for (int i = 0; i < allCasinoPlayers.size(); i++) {
+            //loops through all casino members, if AI and is bankrupt, delete AI.
+            if(allCasinoPlayers.get(i).isAI()){
+                if(allCasinoPlayers.get(i).getCurrentMoneyCount() <= 0){
+                    UI.deleteAI(allCasinoPlayers.get(i).getName());
+                    allCasinoPlayers.remove(allCasinoPlayers.get(i));
+                }
+            }
+        }
         if(currentPlayer.getCurrentMoneyCount() <= 0){
             UI.bankruptUser(); //if so, call UI dependent text
             deleteUser(currentPlayer); //delete the user
@@ -195,10 +206,10 @@ public class Controller {
                     case 4: // horse-racing
                         gameOutput(horseRacing);
                         break;
-                    case 5: // info
+                    case 5: // settings
                         gameSettings();
                         break;
-                    case 6: //exit
+                    case 6: // exit
                         UI.exitPrompt();
                         return;
                 }
@@ -315,9 +326,9 @@ public class Controller {
 
     //AI LOGIC  ////////////////////////////////////////////////////////////////////////////////////////////////
     public int getAIBet(CasinoMembers AI){
-        //gets an ai randomized bet with a low min of 1-100 and a high min of their total money count
+        //gets an AI randomized bet with a low min of 1-100 and a high min of their total money count
         int lowBet = ProbabilityForValue.randomValues(1,100);
-        return ProbabilityForValue.randomValues(lowBet,AI.getCurrentMoneyCount());
+        return ProbabilityForValue.randomValues(lowBet,AI.getCurrentMoneyCount()-1);
     }
     public void playAI(int game){
         //simulates AI playing the game by looping through every index of array and plays if AI (if ai is inherently enabled)

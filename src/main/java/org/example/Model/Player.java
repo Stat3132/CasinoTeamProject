@@ -5,7 +5,7 @@ import org.example.UTIL.ProbabilityForValue;
 public class Player extends CasinoMembers{
     //player class that extends from CasinoMembers
     int defaultMoney = 500; //every default player has $500 default money
-    String[] names = {"poor","broke","rich","wealthy","test"}; //array for custom easter egg names that modify the values of players
+    String[] names = {"poor","broke","rich","wealthy","test","random","bankrupt"}; //array for custom easter egg names that modify the values of players
 
     //Constructor for players, can modify name &/or money
     public Player(String name){
@@ -33,15 +33,20 @@ public class Player extends CasinoMembers{
                 this.setTotalHorseMoney(999999999);
                 this.setTotalWinnings(999999999);
                 break;
-            } else {
-                //else default money value
+            } else if(_name.equalsIgnoreCase(names[5])) {
+                this.setName(" ");
                 this.setCurrentMoneyCount(defaultMoney);
-                this.setTotalSlotMoney(0);
-                this.setTotalRouletteMoney(0);
-                this.setTotalBlackJackMoney(0);
-                this.setTotalHorseMoney(0);
-                this.setTotalWinnings(0);
-                }
+            } else if(_name.equalsIgnoreCase(names[6])){
+              this.setCurrentMoneyCount(0);
+            } else {
+                    //else default money value
+                    this.setCurrentMoneyCount(defaultMoney);
+                    this.setTotalSlotMoney(0);
+                    this.setTotalRouletteMoney(0);
+                    this.setTotalBlackJackMoney(0);
+                    this.setTotalHorseMoney(0);
+                    this.setTotalWinnings(0);
+            }
         }
     }
 

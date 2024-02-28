@@ -83,7 +83,10 @@ public class UI {
         // game prompt for every game
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) EXIT",true);
     }
-
+    public void footer(){
+        //basic footer for all code to stay consistent
+        System.out.println("--- --------- ---"); //footer
+    }
 
     //AI PROMPTS ////////////////////////////////////////////////////////////////////////////////////////////////
     public void populateAI(boolean isAiEnabled){
@@ -104,9 +107,9 @@ public class UI {
             Console.write("ADDED " + name + " [AI]\n", Console.TextColor.GREEN);
         }
     }
-    public void footer(){
-        //basic footer for all code to stay consistent
-        System.out.println("--- --------- ---"); //footer
+    public void deleteAI(String name){
+        Console.write(name + " [AI] HAS GONE !! BANKRUPT !!", Console.TextColor.RED);
+        Console.write("IT WILL NOW BE DELETED!!", Console.TextColor.RED);
     }
 
 
