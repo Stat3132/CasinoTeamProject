@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Roulette implements Casino {
-    //FIXME
-    private Random rouletteRandom;
+    private final Random rouletteRandom;
     private HashMap<Integer, Integer> payouts;
     protected int betType, betAmount;
     UI UI = new UI();
@@ -18,21 +17,19 @@ public class Roulette implements Casino {
     }
 
     public void cashOut(Player currentPlayer, int playerBet) {
-        //FIXME
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
         currentPlayer.setTotalRouletteMoney(currentPlayer.getTotalRouletteMoney() + playerBet);
     }
 
     @Override
     public Player play(Player currentPlayer, int playerBet) {
-
         betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount());
         betType = UI.displayRouletteBetTypes();
         int outcome;
         switch(betType){
             case 1:
                 outcome= spin();
-                if (betType == 1 && outcome != 0 && (outcome % 2 == 1)) {
+                if (betType == 1 && (outcome % 2 == 1)) {
                      betAmount = betAmount*2;
                     cashOut(currentPlayer, betAmount);
                     UI.displayRouletteWin(true, betAmount);
@@ -82,7 +79,7 @@ public class Roulette implements Casino {
 
     //constructor
     public Roulette() {
-        this.rouletteRandom = new Random();
+        rouletteRandom = new Random();
         this.payouts = new HashMap<>();
         //The payout for betting on all reds/odds, 2x payout
         payouts.put(1, 2);
