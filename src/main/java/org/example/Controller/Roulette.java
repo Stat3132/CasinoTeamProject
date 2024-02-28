@@ -75,7 +75,7 @@ public class Roulette implements Casino {
 
 
         }
-        UI.displayRouletteFinalMoney(currentPlayer);
+        UI.displayFinalMoney(currentPlayer,2);
         return null;
     }
 
