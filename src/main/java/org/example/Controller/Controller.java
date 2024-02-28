@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Controller {
-    //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
     UI UI = new UI(); //view casino menus
     //GAME INSTANCES:
     SlotMachine slotsClass = new SlotMachine();
@@ -22,7 +21,7 @@ public class Controller {
     private Player currentPlayer; //current player property
 
 
-    //current player logic
+    //CURRENT PLAYER LOGIC ////////////////////////////////////////////////////////////////////////////////////////////////
     public Player getCurrentPlayer() {
         //returns the current player ONLY if a player is set to exist, otherwise currentPlayer is set to NULL.
         if(!doesUserExists()){
@@ -56,7 +55,7 @@ public class Controller {
         this.userExists = oneUserExists;
     }
 
-    //user logic
+    //USER LOGIC  ////////////////////////////////////////////////////////////////////////////////////////////////
     public void createUser(){
         //create user functionality
         String username = UI.createUser(doesUserExists(),allCasinoPlayers); //username prompt
@@ -102,7 +101,7 @@ public class Controller {
     }
 
 
-    // game creation and simulation logic
+    //GAME LOGIC  ////////////////////////////////////////////////////////////////////////////////////////////////
     public void gameOutput(int game){
         // do while loop for selected game's menu prompts
         canUserPlay();
@@ -241,10 +240,13 @@ public class Controller {
                 case 3: //add a new user
                     createUser();
                     break;
-                case 4: //list all users
+                case 4: //list current user
+                    UI.displayCurrentUser(currentPlayer);
+                    break;
+                case 5: //list current users
                     UI.displayAllUsers(allCasinoPlayers, getCurrentPlayer());
                     break;
-                case 5: //exit back to casino settings
+                case 6: //exit back to casino settings
                     return;
             }
         } while(true);
@@ -311,7 +313,7 @@ public class Controller {
         UI.footer();
     }
 
-    //AI logic
+    //AI LOGIC  ////////////////////////////////////////////////////////////////////////////////////////////////
     public int getAIBet(CasinoMembers AI){
         //gets an ai randomized bet with a low min of 1-100 and a high min of their total money count
         int lowBet = ProbabilityForValue.randomValues(1,100);

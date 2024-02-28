@@ -121,7 +121,7 @@ public class HorseRace implements Casino {
                 break;
         }
         //Last prompt just giving the information of the game and what money the user ended off with.
-        UI.finalPromptInHorseRacing(currentPlayer);
+        UI.displayFinalMoney(currentPlayer,1);
         return null;
     }
 

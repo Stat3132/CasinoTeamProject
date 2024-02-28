@@ -4,13 +4,15 @@ import org.example.Model.CasinoMembers;
 import org.example.Model.Horse;
 import org.example.Model.Player;
 import org.example.UTIL.Console;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class UI {
     //TODO: Slots Prompts
     //TODO: Blackjack prompts
 
-    //CASINO MENU & SETTINGS
+    //CASINO MENU & SETTINGS ////////////////////////////////////////////////////////////////////////////////////////////////
     public int casinoMenu(){
         //casino menu prompt for game choosing
         Console.write("\n-- Variables in Vegas! --\n", Console.TextColor.GREEN); //header
@@ -30,14 +32,15 @@ public class UI {
     }
     public int userSettings(){
         Console.write("\n-- USER SETTINGS! --\n", Console.TextColor.YELLOW); //header
-        return Console.getUserInt("1) [CHANGE] Current User \n2) [DELETE] Existing User \n3) [ADD] New User \n4) [LIST] All Users \n5) EXIT",true);
+        return Console.getUserInt("1) [CHANGE] Current User \n2) [DELETE] Existing User \n3) [ADD] New User \n4) [LIST] Current User \n5) [LIST] All Users \n6) EXIT",true);
     }
     public void exitPrompt(){
         //prompt when player exits the app
         Console.write("Thanks for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
     }
 
-    //GAME MENUS & SETTINGS
+
+    //GAME MENUS & SETTINGS ////////////////////////////////////////////////////////////////////////////////////////////////
     public void displayGameHeader(int game, Player currentPlayer){
         //displays different game header depending on the game int provided
         switch(game){
@@ -81,7 +84,8 @@ public class UI {
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) EXIT",true);
     }
 
-    //AI PROMPTS
+
+    //AI PROMPTS ////////////////////////////////////////////////////////////////////////////////////////////////
     public void populateAI(boolean isAiEnabled){
         //"populate" AI text
         if(isAiEnabled){
@@ -106,7 +110,7 @@ public class UI {
     }
 
 
-    //LEADERBOARD MENUS
+    //LEADERBOARD MENUS ////////////////////////////////////////////////////////////////////////////////////////////////
     public void leaderboard(CasinoMembers player, int money, int i){
         //UI prompt for leaderboard
         if(player.isAI()){
@@ -138,7 +142,7 @@ public class UI {
     }
 
 
-    //USER LOGIC AND OUTPUT
+    //USER LOGIC AND OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /** *
      * This method creates a user by enforces a series of requirements that a player inputting a username must pass into.
@@ -172,7 +176,7 @@ public class UI {
                 Console.write("Your username cannot be empty or contain spaces!\n\n", Console.TextColor.RED);
             }
         } while(true);
-        System.out.println(username + " Has been created!");
+        System.out.println(username + " has been created!");
         return username;
     }
 
@@ -321,6 +325,18 @@ public class UI {
         }
         footer();
     }
+    public void displayCurrentUser(Player player){
+        System.out.println("[CURRENT USER]:");
+        System.out.println("\"" + player.getName() + "\"");
+        System.out.println("{TOTAL CASH}: $" + player.getCurrentMoneyCount());
+        footer();
+        System.out.println("{TOTAL WINNINGS}: $" + player.getTotalWinnings());
+        System.out.println("{SLOTS' EARNINGS}: $" + player.getTotalSlotMoney());
+        System.out.println("{ROULETTE EARNINGS}: $" + player.getTotalRouletteMoney());
+        System.out.println("{BLACK-JACK EARNINGS}: $" + player.getTotalBlackJackMoney());
+        System.out.println("{HORSE-RACING EARNINGS}: $" + player.getTotalHorseMoney());
+        footer();
+    }
 
     /**
      * This method gets a proper user bet through required parameters and subtracts the bet from the player.
@@ -352,34 +368,34 @@ public class UI {
         System.out.println("\nUnfortunately, your user must be DELETED! Please create or choose another user!");
     }
 
-
     public void displayFinalMoney(Player currentPlayer, int game){
         //display final money for game output.
         String gameText = "";
-        int money = 0;
-        switch(game){
-            case 1: //slots
+        //case and switch statement for game dependent money total and text display
+        int money = switch (game) {
+            case 1 -> {
                 gameText = "Slots";
-                money = currentPlayer.getTotalSlotMoney();
-                break;
-            case 2: //roulette
+                yield currentPlayer.getTotalSlotMoney(); //slots
+            }
+            case 2 -> {
                 gameText = "Roulette";
-                money = currentPlayer.getTotalRouletteMoney();
-                break;
-            case 3: //black-jack
+                yield currentPlayer.getTotalRouletteMoney(); //roulette
+            }
+            case 3 -> {
                 gameText = "Black-jack";
-                money = currentPlayer.getTotalBlackJackMoney();
-                break;
-            case 4: //horse-racing
+                yield currentPlayer.getTotalBlackJackMoney(); //black-jack
+            }
+            case 4 -> {
                 gameText = "Horse-racing";
-                money = currentPlayer.getTotalHorseMoney();
-                break;
-        } //case and switch statement for game dependent money total and text display
+                yield currentPlayer.getTotalHorseMoney(); //horse-racing
+            }
+            default -> 0;
+        };
         Console.write("You are left with: " + currentPlayer.getCurrentMoneyCount() + "\nTotal Money Gained from " + gameText + ":" + money);
     }
 
 
-    // HORSE RACING LOGIC & OUTPUT
+    // HORSE RACING LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
     public int horseRacingPrompt(){
         //horse racing game prompt that includes list of horses
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
@@ -415,7 +431,7 @@ public class UI {
     }
 
 
-    //ROULETTE LOGIC & OUTPUT
+    //ROULETTE LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
     public int displayRouletteBetTypes(){
         int type;
         do {
@@ -441,7 +457,6 @@ public class UI {
         }while (true);
         return specNum;
     }
-
     public void displayRouletteWin(boolean didWin, int betAmount){
         if (didWin){
             System.out.println("\nCongratulations! You won $" + betAmount);
