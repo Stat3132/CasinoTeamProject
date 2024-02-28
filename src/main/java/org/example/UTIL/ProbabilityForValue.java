@@ -76,10 +76,10 @@ public class ProbabilityForValue {
      */
     public Horse[] oddsOfOdds(Horse[] finalLineUp) {
         Horse[] tempPlacement = new Horse[7];
-        int incrementingTempPlacement = 0;
-        for (int i = 0; i < 8; i++) {
-            if (i == 7) {
-                i = 0;
+        int incrementingTempPlacement = 6;
+        for (int i = 6; i > -2; i--) {
+            if (i == -1) {
+                i = 6;
             }
             switch (incrementingTempPlacement) {
                 case 0:
@@ -97,22 +97,22 @@ public class ProbabilityForValue {
                 case 6:
                     lastCheck = makingMathematicalOdds(finalLineUp[i]);
             }
-            if (tempPlacement[6] != null) {
+            if (tempPlacement[0] != null) {
                 break;
             }
             if (lastCheck == 0) {
                 if (finalLineUp[i] == null) {
-                    if (i >= 6) {
-                        i = -1;
+                    if (i <= -1) {
+                        i = 6;
                     }
                     continue;
                 }
                 tempPlacement[incrementingTempPlacement] = finalLineUp[i];
                 finalLineUp[i] = null;
-                incrementingTempPlacement++;
+                incrementingTempPlacement--;
             } else {
-                if (i >= 6) {
-                    i = -1;
+                if (i <= -1) {
+                    i = 6;
                 }
                 continue;
 
