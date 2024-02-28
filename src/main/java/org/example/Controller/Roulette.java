@@ -1,6 +1,8 @@
 package org.example.Controller;
 
+import org.example.Model.CasinoMembers;
 import org.example.Model.Player;
+import org.example.UTIL.ProbabilityForValue;
 import org.example.View.UI;
 
 import java.util.HashMap;
@@ -17,61 +19,104 @@ public class Roulette implements Casino {
     }
 
     @Override
-    public Player cashOut(Player currentPlayer, int playerBet) {
+    public CasinoMembers cashOut(CasinoMembers currentPlayer, int playerBet) {
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
         currentPlayer.setTotalRouletteMoney(currentPlayer.getTotalRouletteMoney() + playerBet);
         return currentPlayer;
     }
 
     @Override
-    public Player play(Player currentPlayer, int playerBet) {
+    public CasinoMembers play(CasinoMembers currentPlayer, int playerBet, boolean isAI) {
         betAmount = playerBet;
         int outcome;
-        switch(betType = UI.displayRouletteBetTypes()){
+        if(isAI){
+            betType = ProbabilityForValue.randomValues(1,4);
+        } else {
+            betType = UI.displayRouletteBetTypes();
+        }
+        switch(betType){
             case 1:
                 outcome = spin();
-                if (betType == 1 && (outcome % 2 == 1)) {
-                     betAmount = betAmount*2;
-                    currentPlayer = cashOut(currentPlayer, betAmount);
-                    UI.didUserWin(true, betAmount);
+                if(isAI){
+                    if (betType == 1 && (outcome % 2 == 1)) {
+                        betAmount = betAmount * 2;
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                    } else {
+                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                    }
                 } else {
-                    UI.didUserWin(false, betAmount);
-                    cashOut(currentPlayer, -betAmount);
+                    if (betType == 1 && (outcome % 2 == 1)) {
+                        betAmount = betAmount * 2;
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        UI.didUserWin(true, betAmount);
+                    } else {
+                        UI.didUserWin(false, betAmount);
+                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                    }
                 }
                 break;
             case 2:
                 outcome = spin();
-                if (betType == 2 && outcome != 0 && (outcome % 2 == 0)) {
-                    betAmount = betAmount * 2 ;
-                    currentPlayer = cashOut(currentPlayer, betAmount);
-                    UI.didUserWin(true, betAmount);
+                if(isAI){
+                    if (betType == 2 && outcome != 0 && (outcome % 2 == 0)) {
+                        betAmount = betAmount * 2;
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                    } else {
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                    }
                 } else {
-                    UI.didUserWin(false, betAmount);
-                    currentPlayer = cashOut(currentPlayer, betAmount);
+                    if (betType == 2 && outcome != 0 && (outcome % 2 == 0)) {
+                        betAmount = betAmount * 2;
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        UI.didUserWin(true, betAmount);
+                    } else {
+                        UI.didUserWin(false, betAmount);
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                    }
                 }
                 break;
             case 3:
                 outcome = spin();
-                if(betType == 3 && outcome != 0 && (outcome % 3 == 0)){
-                    betAmount = betAmount*10;
-                    currentPlayer = cashOut(currentPlayer, betAmount);
-                    UI.didUserWin(true, betAmount);
+                if(isAI){
+                    if(betType == 3 && outcome != 0 && (outcome % 3 == 0)){
+                        betAmount = betAmount*10;
+                        currentPlayer = cashOut(currentPlayer, betAmount);
 
+                    } else {
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                    }
                 } else {
-                    UI.didUserWin(false, betAmount);
-                    currentPlayer = cashOut(currentPlayer, betAmount);
+                    if(betType == 3 && outcome != 0 && (outcome % 3 == 0)){
+                        betAmount = betAmount*10;
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        UI.didUserWin(true, betAmount);
+
+                    } else {
+                        UI.didUserWin(false, betAmount);
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                    }
                 }
                 break;
             case 4:
-                int specificNumber = UI.displayRouletteSpecificNum();
                 outcome = spin();
-                if(betType == 4 && outcome != 0 && outcome == specificNumber){
-                    betAmount = betAmount*50;
-                    currentPlayer = cashOut(currentPlayer, betAmount);
-                    UI.didUserWin(true, betAmount);
+                if(isAI){
+                    int specificNumber = ProbabilityForValue.randomValues(1,36);
+                    if (betType == 4 && outcome != 0 && outcome == specificNumber) {
+                        betAmount = betAmount * 50;
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                    } else {
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                    }
                 } else {
-                    UI.didUserWin(false,betAmount);
-                    currentPlayer = cashOut(currentPlayer, betAmount);
+                    int specificNumber = UI.displayRouletteSpecificNum();
+                    if (betType == 4 && outcome != 0 && outcome == specificNumber) {
+                        betAmount = betAmount * 50;
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        UI.didUserWin(true, betAmount);
+                    } else {
+                        UI.didUserWin(false, betAmount);
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                    }
                 }
                 break;
         }

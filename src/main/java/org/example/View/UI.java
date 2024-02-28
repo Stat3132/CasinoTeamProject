@@ -368,6 +368,7 @@ public class UI {
             }
         } while(true);
         System.out.println("You've bet $" + userBet); //confirmation bet amount
+        footer();
         return userBet;
     }
     public void bankruptUser(){
@@ -377,9 +378,9 @@ public class UI {
     }
     public void didUserWin(boolean didWin, int betAmount){
         if (didWin){
-            Console.write("\nCongratulations! You won $" + betAmount, Console.TextColor.GREEN);
+            Console.write("\nCongratulations! You won $" + betAmount + "\n", Console.TextColor.GREEN);
         } else {
-            Console.write("\nBad luck! You Lose $" + betAmount, Console.TextColor.RED);
+            Console.write("\nBad luck! You Lose $" + betAmount + "\n", Console.TextColor.RED);
         }
     }
     public void displayFinalMoney(Player currentPlayer, int game){
@@ -406,11 +407,12 @@ public class UI {
                 break;
         }
         if(money <= 0){
-            Console.write("\nYou are left with: $" + currentPlayer.getCurrentMoneyCount() + "\nTotal Money LOST from " + gameText + ": $" + money + "\n",Console.TextColor.RED);
+            Console.write("\nYou are left with: $" + currentPlayer.getCurrentMoneyCount());
+            Console.write("\nTotal Money LOST from " + gameText + ": $" + money + "\n",Console.TextColor.RED);
         } else {
-            Console.write("\nYou are left with: $" + currentPlayer.getCurrentMoneyCount() + "\nTotal Money GAINED from " + gameText + ": $" + money + "\n", Console.TextColor.GREEN);
+            Console.write("\nYou are left with: $" + currentPlayer.getCurrentMoneyCount());
+            Console.write("\nTotal Money GAINED from " + gameText + ": $" + money + "\n", Console.TextColor.GREEN);
         }
-        footer();
     }
 
 
@@ -420,7 +422,7 @@ public class UI {
         //horse racing game prompt that includes list of horses
         return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
     }
-    public int bettingOnHorse(Horse[] displayingBetableHorses){
+    public int bettingHorse(Horse[] displayingBetableHorses){
         System.out.println("\t\t\tCURRENT HORSES TO BET ON: \n\n ");
         for (Horse displayingBetableHors : displayingBetableHorses) {
             System.out.println(displayingBetableHors);
@@ -428,7 +430,7 @@ public class UI {
         footer();
         return Console.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
     }
-    public void displayingHorseWinner(Horse[] winnerHorse, boolean didWin, int betAmount){
+    public void displayHorseWinner(Horse[] winnerHorse, boolean didWin, int betAmount){
         System.out.println("After careful evaluation, the winner is... \n\n" + winnerHorse[6]+"!!");
         if (didWin){
             System.out.println("\nYou picked the correct horse!");
@@ -438,10 +440,10 @@ public class UI {
             didUserWin(didWin,betAmount);
         }
     }
-    public void displayingHorseBettedOn(Horse[] bettedHorse, int index){
+    public void displayBettedHorse(Horse[] bettedHorse, int index){
         System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n");
     }
-    public void displayingStable(Horse[] stable){
+    public void displayStable(Horse[] stable){
         for (Horse horse : stable) {
             System.out.println(horse.toString());
         }
@@ -477,5 +479,14 @@ public class UI {
             }
         }while (true);
         return specNum;
+    }
+
+
+    //SLOTS LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
+    public void displaySlots(String slot){
+        Console.write("|"+ slot.toUpperCase() + "| ",Console.TextColor.BLUE);
+    }
+    public void displaySlotsCheck(String check){
+        Console.write("\n!! " + check.toUpperCase() + " !!",Console.TextColor.BLUE);
     }
 }
