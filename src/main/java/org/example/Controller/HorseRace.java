@@ -17,7 +17,6 @@ public class HorseRace implements Casino {
     @Override
     public Player play(Player currentPlayer, int betAmount) {
         betAmount = betAmount * 2;
-
         //populates 20 horses.
         populatingStable();
         //Narrows an array of 20 horses down to 7 horses. (These are the horses the user will bet on)
@@ -38,19 +37,22 @@ public class HorseRace implements Casino {
             if (pickedRacingHorses[i].getHorseOdds() == incrementingNumberCounter) {
                 finalsLineUp[incrementingHorseArray] = pickedRacingHorses[i];
                 incrementingHorseArray++;
+                if (incrementingNumberCounter == 100) {
+                    continue;
+                }
                 incrementingNumberCounter++;
                 i = -1;
-                continue;
             }
             if (i == 6) {
                 incrementingNumberCounter++;
                 i = -1;
             }
-            if (incrementingNumberCounter == 100) {
+            if (incrementingHorseArray == 7) {
                 break;
             }
         }
         // Switch statement determines the winner and either gives the user money or doesn't.
+        finalsLineUp = probable.oddsOfOdds(finalsLineUp);
         switch (UI.bettingOnHorse(pickedRacingHorses)) {
             //FIXME: UI
             case 1:
@@ -59,7 +61,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
                     cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount/2);
+                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
                 }
                 break;
             case 2:
@@ -68,7 +70,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
                     cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount/2);
+                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
                 }
                 break;
             case 3:
@@ -77,7 +79,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
                     cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount/2);
+                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
                 }
                 break;
             case 4:
@@ -87,7 +89,7 @@ public class HorseRace implements Casino {
                     cashOut(currentPlayer, betAmount);
 
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount/2);
+                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
                 }
                 break;
             case 5:
@@ -96,7 +98,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
                     cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount/2);
+                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
                 }
                 break;
             case 6:
@@ -105,7 +107,7 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
                     cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount/2);
+                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
                 }
                 break;
             case 7:
@@ -114,21 +116,20 @@ public class HorseRace implements Casino {
                     UI.displayingWinner(finalsLineUp, true, betAmount);
                     cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount/2);
+                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
                 }
                 break;
         }
-        probable.oddsOfOdds(10);
         //Last prompt just giving the information of the game and what money the user ended off with.
         UI.finalPromptInHorseRacing(currentPlayer);
         return null;
     }
+
     // Current players money is incremented based on how much they bet.
     public void cashOut(Player currentPlayer, int playerBet) {
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
         currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
     }
-
 
 
     //An array of 20 horses is created.
@@ -163,7 +164,7 @@ public class HorseRace implements Casino {
                 }
                 horseSpeedCounter = -1;
                 stableCounter++;
-                if (stableCounter == 20 ) {
+                if (stableCounter == 20) {
                     ProbabilityForValue.arrayListOfOdds.clear();
                     return;
                 }
