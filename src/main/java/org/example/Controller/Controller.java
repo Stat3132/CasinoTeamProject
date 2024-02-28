@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Controller {
-    //TODO: logic behind username for players, easter eggs, "guest", "test", "broke", etc.
     UI UI = new UI(); //view casino menus
     //GAME INSTANCES:
     SlotMachine slotsClass = new SlotMachine();
@@ -22,11 +21,11 @@ public class Controller {
     private Player currentPlayer; //current player property
 
 
-    //current player logic
+    //CURRENT PLAYER LOGIC ////////////////////////////////////////////////////////////////////////////////////////////////
     public Player getCurrentPlayer() {
         //returns the current player ONLY if a player is set to exist, otherwise currentPlayer is set to NULL.
         if(!doesUserExists()){
-            currentPlayer = null;
+            setCurrentPlayer(null);
         }
         return currentPlayer;
     }
@@ -39,11 +38,13 @@ public class Controller {
         if(allCasinoPlayers.isEmpty()){
             setUserExists(false);
         } else {
-            for (CasinoMembers allCasinoPlayer : allCasinoPlayers) {
-                if (allCasinoPlayer == null) {
+            for (int i = 0; i < allCasinoPlayers.size(); i++) {
+                if (allCasinoPlayers.get(i) == null) {
+                    //useless but just in case check to see if index is empty, set to false.
                     setUserExists(false);
                 } else {
-                    if (!allCasinoPlayer.isAI()) {
+                    if (!allCasinoPlayers.get(i).isAI()) {
+                        //if user is NOT AI, set true and immediately break as least one user exists
                         setUserExists(true);
                         return userExists;
                     }
@@ -56,36 +57,55 @@ public class Controller {
         this.userExists = oneUserExists;
     }
 
-    //user logic
+    //USER LOGIC  ////////////////////////////////////////////////////////////////////////////////////////////////
     public void createUser(){
         //create user functionality
         String username = UI.createUser(doesUserExists(),allCasinoPlayers); //username prompt
         if(username != null) {
             Player newPlayer = new Player(username); //create new player
-            currentPlayer = newPlayer; //set new player to current player
+            setCurrentPlayer(newPlayer); //set new player to current player
             allCasinoPlayers.add(newPlayer); //add new player to array
             setUserExists(true); //least one user exists
         }
 
     }
     public void deleteUser(){
-        allCasinoPlayers = UI.deleteUser(allCasinoPlayers, currentPlayer);
+        allCasinoPlayers = UI.deleteUser(allCasinoPlayers, getCurrentPlayer());
         doesUserExists();
     }
     public void deleteUser(Player player){
         //overloaded deleteUser method to delete a SPECIFIC user as requested in console.
-        allCasinoPlayers.remove(player);
+        if(player.equals(getCurrentPlayer())){
+            setCurrentPlayer(null);
+            allCasinoPlayers.remove(player);
+            if(doesUserExists()){
+                changeUser();
+            } else {
+                createUser();
+            }
+        } else {
+            allCasinoPlayers.remove(player);
+        }
         doesUserExists();
     }
     public void changeUser(){
-        setCurrentPlayer((Player) UI.changeUser(allCasinoPlayers, currentPlayer));
+        setCurrentPlayer((Player) UI.changeUser(allCasinoPlayers, getCurrentPlayer()));
     }
     public void canUserPlay(){
         //checks if the user has become bankrupt
-        if(currentPlayer.getCurrentMoneyCount() <= 0){
+        for (int i = 0; i < allCasinoPlayers.size(); i++) {
+            //loops through all casino members, if AI and is bankrupt, delete AI.
+            if(allCasinoPlayers.get(i).isAI()){
+                if(allCasinoPlayers.get(i).getCurrentMoneyCount() <= 0){
+                    UI.deleteAI(allCasinoPlayers.get(i).getName());
+                    allCasinoPlayers.remove(allCasinoPlayers.get(i));
+                }
+            }
+        }
+        if(getCurrentPlayer().getCurrentMoneyCount() <= 0){
             UI.bankruptUser(); //if so, call UI dependent text
-            deleteUser(currentPlayer); //delete the user
-            currentPlayer = null; //set the user to null
+            deleteUser(getCurrentPlayer()); //delete the user
+            setCurrentPlayer(null); //set the user to null
             doesUserExists();
             do { //run loop while currentplayer is null to force player to choose or create another user
                 if(userExists){
@@ -93,7 +113,7 @@ public class Controller {
                 } else {
                     createUser();
                 }
-            } while(currentPlayer == null);
+            } while(getCurrentPlayer() == null);
         }
     }
     public int getUserBet(){
@@ -102,7 +122,7 @@ public class Controller {
     }
 
 
-    // game creation and simulation logic
+    //GAME LOGIC  ////////////////////////////////////////////////////////////////////////////////////////////////
     public void gameOutput(int game){
         // do while loop for selected game's menu prompts
         canUserPlay();
@@ -110,11 +130,12 @@ public class Controller {
             case 1: //slots
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(slots, currentPlayer);
+                    UI.displayGameHeader(slots, getCurrentPlayer());
                     switch (UI.gamePrompt()) { //nested switch for slot chosen by gameOption
                         case 1: // slots play option
                             playAI(slots);
                             slotsClass.play(getCurrentPlayer(), getUserBet());
+                            UI.displayFinalMoney(getCurrentPlayer(),slots);
                             break;
                         case 2: // slots leaderboard option
                             leaderboard(slots);
@@ -126,11 +147,12 @@ public class Controller {
             case 2: //roulette
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(roulette, currentPlayer);
+                    UI.displayGameHeader(roulette, getCurrentPlayer());
                     switch (UI.gamePrompt()) { //nested switch for roulette chosen by gameOption
                         case 1: // roulette play option
                             playAI(roulette);
-                            rouletteClass.play(getCurrentPlayer(), 0);
+                            rouletteClass.play(getCurrentPlayer(), getUserBet());
+                            UI.displayFinalMoney(getCurrentPlayer(),roulette);
                             break;
                         case 2: // roulette leaderboard option
                             leaderboard(roulette);
@@ -142,11 +164,12 @@ public class Controller {
             case 3: //black-jack
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(blackjack, currentPlayer);
+                    UI.displayGameHeader(blackjack, getCurrentPlayer());
                     switch (UI.gamePrompt()) { //nested switch for black-jack chosen by gameOption
                         case 1: // black-jack play option
                             playAI(blackjack);
-                            bjClass.play(getCurrentPlayer(),getUserBet());
+                            bjClass.play(getCurrentPlayer(), getUserBet());
+                            UI.displayFinalMoney(getCurrentPlayer(),blackjack);
                             break;
                         case 2: // black-jack leaderboard option
                             leaderboard(blackjack);
@@ -158,11 +181,12 @@ public class Controller {
             case 4: //horse-racing
                 do {
                     canUserPlay();
-                    UI.displayGameHeader(horseRacing, currentPlayer);
+                    UI.displayGameHeader(horseRacing, getCurrentPlayer());
                     switch (UI.horseRacingPrompt()) { //nested switch for horse racing chosen by gameOption
                         case 1: // horse-racing play option
                             playAI(horseRacing);
-                            horseClass.play(getCurrentPlayer(),getUserBet());
+                            horseClass.play(getCurrentPlayer(), getUserBet());
+                            UI.displayFinalMoney(getCurrentPlayer(),horseRacing);
                             break;
                         case 2:
                             break;
@@ -196,10 +220,10 @@ public class Controller {
                     case 4: // horse-racing
                         gameOutput(horseRacing);
                         break;
-                    case 5: // info
+                    case 5: // settings
                         gameSettings();
                         break;
-                    case 6: //exit
+                    case 6: // exit
                         UI.exitPrompt();
                         return;
                 }
@@ -241,10 +265,13 @@ public class Controller {
                 case 3: //add a new user
                     createUser();
                     break;
-                case 4: //list all users
+                case 4: //list current user
+                    UI.displayCurrentUser(getCurrentPlayer());
+                    break;
+                case 5: //list current users
                     UI.displayAllUsers(allCasinoPlayers, getCurrentPlayer());
                     break;
-                case 5: //exit back to casino settings
+                case 6: //exit back to casino settings
                     return;
             }
         } while(true);
@@ -311,29 +338,29 @@ public class Controller {
         UI.footer();
     }
 
-    //AI logic
+    //AI LOGIC  ////////////////////////////////////////////////////////////////////////////////////////////////
     public int getAIBet(CasinoMembers AI){
-        //gets an ai randomized bet with a low min of 1-100 and a high min of their total money count
+        //gets an AI randomized bet with a low min of 1-100 and a high min of their total money count
         int lowBet = ProbabilityForValue.randomValues(1,100);
-        return ProbabilityForValue.randomValues(lowBet,AI.getCurrentMoneyCount());
+        return ProbabilityForValue.randomValues(lowBet,AI.getCurrentMoneyCount()-1);
     }
     public void playAI(int game){
         //simulates AI playing the game by looping through every index of array and plays if AI (if ai is inherently enabled)
         if(aiEnabled) {
-            for (CasinoMembers allCasinoPlayer : allCasinoPlayers) {
-                if (allCasinoPlayer.isAI()) {
+            for (int i = 0; i < allCasinoPlayers.size(); i++) {
+                if (allCasinoPlayers.get(i).isAI()) {
                     switch (game) {
                         case 1: //slots
-                            slotsClass.play((Player) allCasinoPlayer, getAIBet(allCasinoPlayer));
+                            slotsClass.play((Player) allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)));
                             break;
                         case 2: //roulette
-                            rouletteClass.play((Player) allCasinoPlayer, getAIBet(allCasinoPlayer));
+                            rouletteClass.play((Player) allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)));
                             break;
                         case 3: //black-jack
-                            bjClass.play((Player) allCasinoPlayer, getAIBet(allCasinoPlayer));
+                            bjClass.play((Player) allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)));
                             break;
                         case 4: //horse-racing
-                            horseClass.play((Player) allCasinoPlayer, getAIBet(allCasinoPlayer));
+                            horseClass.play((Player) allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)));
                             break;
                     }
                 }

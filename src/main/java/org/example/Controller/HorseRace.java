@@ -58,77 +58,84 @@ public class HorseRace implements Casino {
             case 1:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 0);
                 if (pickedRacingHorses[0] == finalsLineUp[winnerHorse]) {
-                    UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(currentPlayer, betAmount);
+                    UI.displayingHorseWinner(finalsLineUp, true, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
+                    UI.displayingHorseWinner(finalsLineUp, false, betAmount / 2);
+                    currentPlayer = cashOut(currentPlayer, -betAmount / 2);
                 }
                 break;
             case 2:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 1);
                 if (pickedRacingHorses[1] == finalsLineUp[winnerHorse]) {
-                    UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(currentPlayer, betAmount);
+                    UI.displayingHorseWinner(finalsLineUp, true, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
+                    UI.displayingHorseWinner(finalsLineUp, false, betAmount / 2);
+                    currentPlayer = cashOut(currentPlayer, -betAmount / 2);
                 }
                 break;
             case 3:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 2);
                 if (pickedRacingHorses[2] == finalsLineUp[winnerHorse]) {
-                    UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(currentPlayer, betAmount);
+                    UI.displayingHorseWinner(finalsLineUp, true, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
+                    UI.displayingHorseWinner(finalsLineUp, false, betAmount / 2);
+                    currentPlayer = cashOut(currentPlayer, -betAmount / 2);
                 }
                 break;
             case 4:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 3);
                 if (pickedRacingHorses[3] == finalsLineUp[winnerHorse]) {
-                    UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(currentPlayer, betAmount);
-
+                    UI.displayingHorseWinner(finalsLineUp, true, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
+                    UI.displayingHorseWinner(finalsLineUp, false, betAmount / 2);
+                    currentPlayer = cashOut(currentPlayer, -betAmount / 2);
                 }
                 break;
             case 5:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 4);
                 if (pickedRacingHorses[4] == finalsLineUp[winnerHorse]) {
-                    UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(currentPlayer, betAmount);
+                    UI.displayingHorseWinner(finalsLineUp, true, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
+                    UI.displayingHorseWinner(finalsLineUp, false, betAmount / 2);
+                    currentPlayer = cashOut(currentPlayer, -betAmount / 2);
                 }
                 break;
             case 6:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 5);
                 if (pickedRacingHorses[5] == finalsLineUp[winnerHorse]) {
-                    UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(currentPlayer, betAmount);
+                    UI.displayingHorseWinner(finalsLineUp, true, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
+                    UI.displayingHorseWinner(finalsLineUp, false, betAmount / 2);
+                    currentPlayer = cashOut(currentPlayer, -betAmount / 2);
                 }
                 break;
             case 7:
                 UI.displayingHorseBettedOn(pickedRacingHorses, 6);
                 if (pickedRacingHorses[6] == finalsLineUp[winnerHorse]) {
-                    UI.displayingWinner(finalsLineUp, true, betAmount);
-                    cashOut(currentPlayer, betAmount);
+                    UI.displayingHorseWinner(finalsLineUp, true, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 } else {
-                    UI.displayingWinner(finalsLineUp, false, betAmount / 2);
+                    UI.displayingHorseWinner(finalsLineUp, false, betAmount / 2);
+                    currentPlayer = cashOut(currentPlayer, -betAmount / 2);
                 }
                 break;
         }
         //Last prompt just giving the information of the game and what money the user ended off with.
-        UI.finalPromptInHorseRacing(currentPlayer);
-        return null;
+        return currentPlayer;
     }
 
     // Current players money is incremented based on how much they bet.
-    public void cashOut(Player currentPlayer, int playerBet) {
+    @Override
+    public Player cashOut(Player currentPlayer, int playerBet) {
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
         currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
+        return currentPlayer;
     }
 
 

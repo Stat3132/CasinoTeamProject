@@ -3,15 +3,13 @@ package org.example.Model;
 import org.example.UTIL.HorseColor;
 import org.example.UTIL.Name;
 import org.example.UTIL.ProbabilityForValue;
-
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class CasinoMembers {
     String name;
-    int totalWinnings, currentMoneyCount, gamesPlayed, gamesWon, gamesLost;
-    int totalHorseMoney, totalRouletteMoney, totalSlotMoney, totalBlackJackMoney;
-    boolean isAI = false;
+    private int totalWinnings = 0, currentMoneyCount = 0;
+    private int totalHorseMoney = 0, totalRouletteMoney = 0, totalSlotMoney = 0, totalBlackJackMoney = 0;
+    private boolean isAI = false;
 
     // getters & setters
     public String getName() {
@@ -40,27 +38,6 @@ public class CasinoMembers {
     }
     public void setCurrentMoneyCount(int currentMoneyCount) {
         this.currentMoneyCount = currentMoneyCount;
-    }
-
-    public int getGamesPlayed() {
-        return gamesPlayed;
-    }
-    public void setGamesPlayed(int gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
-    }
-
-    public int getGamesWon() {
-        return gamesWon;
-    }
-    public void setGamesWon(int gamesWon) {
-        this.gamesWon = gamesWon;
-    }
-
-    public int getGamesLost() {
-        return gamesLost;
-    }
-    public void setGamesLost(int gamesLost) {
-        this.gamesLost = gamesLost;
     }
 
     public int getTotalHorseMoney() {
@@ -109,6 +86,7 @@ public class CasinoMembers {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      //This method randomizes names based on an array of Name enums.
     protected Name randomizingNames() {
+        //FIXME
             // This is just an array of names;
             Name[] baseNames = new Name[122];
             Name[] numbericalValueOfName = Name.values();
@@ -130,7 +108,6 @@ public class CasinoMembers {
     //TODO: SUDO PLACEMENT( WILL BE CHANGED)
     //TODO: Probable better method implementation as it is NOT DRY
     protected HorseColor randomizeHorseColor() {
-        ArrayList<HorseColor> horseList = new ArrayList<>();
         HorseColor[] baseHorseColor = new HorseColor[15];
         // Making an array that takes in Enum values so that I can iterate and add enums into specific spots in an array.
         HorseColor[] numbericalValueOfHorseColor = HorseColor.values();
@@ -154,10 +131,7 @@ public class CasinoMembers {
     public String toString() {
         return "\t\tName: " + name +
                 "\nTOTAL WINNINGS: " + totalWinnings +
-                "\nCurrent money: " + currentMoneyCount +
-                "\n\n\tGames played: " + gamesPlayed +
-                "\nGames won: " + gamesWon + "  Games lost: " + gamesLost +
-                "\n";
+                "\nCurrent money: " + currentMoneyCount;
     }
 
 }

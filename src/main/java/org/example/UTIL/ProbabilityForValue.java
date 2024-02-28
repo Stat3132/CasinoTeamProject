@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ProbabilityForValue {
-    //FIXME
     public static ArrayList<Integer> arrayListOfOdds = new ArrayList<Integer>();
     int lastCheck;
 
