@@ -9,21 +9,23 @@ import java.util.Random;
 public class Roulette implements Casino {
     private final Random rouletteRandom;
     private HashMap<Integer, Integer> payouts;
-    protected int betType, betAmount;
+    protected int betType, betAmount, finalTotalCash, finalRouletteCash;
     UI UI = new UI();
 
     public int spin() {
         return rouletteRandom.nextInt(37);
     }
 
-    public void cashOut(Player currentPlayer, int playerBet) {
+    @Override
+    public Player cashOut(Player currentPlayer, int playerBet) {
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
         currentPlayer.setTotalRouletteMoney(currentPlayer.getTotalRouletteMoney() + playerBet);
+        return currentPlayer;
     }
 
     @Override
     public Player play(Player currentPlayer, int playerBet) {
-        betAmount = UI.getUserBet(currentPlayer.getCurrentMoneyCount());
+        betAmount = playerBet;
         betType = UI.displayRouletteBetTypes();
         int outcome;
         switch(betType){
@@ -31,31 +33,34 @@ public class Roulette implements Casino {
                 outcome= spin();
                 if (betType == 1 && (outcome % 2 == 1)) {
                      betAmount = betAmount*2;
-                    cashOut(currentPlayer, betAmount);
-                    UI.displayRouletteWin(true, betAmount);
-                }else {
-                    UI.displayRouletteWin(false, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
+                    UI.didUserWin(true, betAmount);
+                } else {
+                    UI.didUserWin(false, betAmount);
+                    currentPlayer = cashOut(currentPlayer, -betAmount);
                 }
                 break;
             case 2:
                 outcome = spin();
                 if (betType == 2 && outcome != 0 && (outcome % 2 == 0)) {
                     betAmount = betAmount*2 ;
-                    cashOut(currentPlayer, betAmount);
-                    UI.displayRouletteWin(true, betAmount);
-                }else {
-                    UI.displayRouletteWin(false, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
+                    UI.didUserWin(true, betAmount);
+                } else {
+                    UI.didUserWin(false, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 }
                 break;
             case 3:
                 outcome = spin();
                 if(betType == 3 && outcome != 0 && (outcome % 3 == 0)){
                     betAmount = betAmount*10;
-                    cashOut(currentPlayer, betAmount);
-                    UI.displayRouletteWin(true, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
+                    UI.didUserWin(true, betAmount);
 
-                }else {
-                    UI.displayRouletteWin(false, betAmount);
+                } else {
+                    UI.didUserWin(false, betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 }
                 break;
             case 4:
@@ -63,17 +68,15 @@ public class Roulette implements Casino {
                 outcome = spin();
                 if(betType == 4 && outcome != 0 && outcome == specificNumber){
                     betAmount = betAmount*50;
-                    cashOut(currentPlayer, betAmount);
-                    UI.displayRouletteWin(true, betAmount);
-                }else {
-                    UI.displayRouletteWin(false,betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
+                    UI.didUserWin(true, betAmount);
+                } else {
+                    UI.didUserWin(false,betAmount);
+                    currentPlayer = cashOut(currentPlayer, betAmount);
                 }
                 break;
-
-
         }
-        UI.displayFinalMoney(currentPlayer,2);
-        return null;
+        return currentPlayer;
     }
 
 

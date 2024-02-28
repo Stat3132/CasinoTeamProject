@@ -4,7 +4,6 @@ import org.example.Model.CasinoMembers;
 import org.example.Model.Horse;
 import org.example.Model.Player;
 import org.example.UTIL.Console;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -370,32 +369,45 @@ public class UI {
         Console.write("!! BANKRUPT !!", Console.TextColor.RED);
         System.out.println("\nUnfortunately, your user must be DELETED! Please create or choose another user!");
     }
+    public void didUserWin(boolean didWin, int betAmount){
+        if (didWin){
+            Console.write("\nCongratulations! You won $" + betAmount, Console.TextColor.GREEN);
+        } else {
+            Console.write("\nBad luck! You Lose $" + betAmount, Console.TextColor.RED);
+        }
+    }
 
     public void displayFinalMoney(Player currentPlayer, int game){
         //display final money for game output.
         String gameText = "";
+        int money = 0;
         //case and switch statement for game dependent money total and text display
-        int money = switch (game) {
-            case 1 -> {
+        switch (game) {
+            case 1:
                 gameText = "Slots";
-                yield currentPlayer.getTotalSlotMoney(); //slots
-            }
-            case 2 -> {
+                money = currentPlayer.getTotalSlotMoney(); //slots
+                break;
+            case 2:
                 gameText = "Roulette";
-                yield currentPlayer.getTotalRouletteMoney(); //roulette
-            }
-            case 3 -> {
+                money = currentPlayer.getTotalRouletteMoney(); //roulette
+                break;
+            case 3:
                 gameText = "Black-jack";
-                yield currentPlayer.getTotalBlackJackMoney(); //black-jack
-            }
-            case 4 -> {
+                money = currentPlayer.getTotalBlackJackMoney(); //black-jack
+                break;
+            case 4:
                 gameText = "Horse-racing";
-                yield currentPlayer.getTotalHorseMoney(); //horse-racing
-            }
-            default -> 0;
-        };
-        Console.write("You are left with: " + currentPlayer.getCurrentMoneyCount() + "\nTotal Money Gained from " + gameText + ":" + money);
+                money = currentPlayer.getTotalHorseMoney(); //horse-racing
+                break;
+        }
+        if(money <= 0){
+            Console.write("\nYou are left with: $" + currentPlayer.getCurrentMoneyCount() + "\nTotal Money LOST from " + gameText + ": $" + money + "\n",Console.TextColor.RED);
+        } else {
+            Console.write("\nYou are left with: $" + currentPlayer.getCurrentMoneyCount() + "\nTotal Money GAINED from " + gameText + ": $" + money + "\n", Console.TextColor.GREEN);
+        }
+        footer();
     }
+
 
 
     // HORSE RACING LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -411,18 +423,20 @@ public class UI {
         footer();
         return Console.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
     }
-    public void displayingWinner(Horse[] winnerHorse, boolean winnerEvaluation, int betAmount){
+    public void displayingHorseWinner(Horse[] winnerHorse, boolean didWin, int betAmount){
         System.out.println("After careful evaluation, the winner is... \n\n" + winnerHorse[6]+"!!");
-        if (winnerEvaluation){
-            System.out.println("\nYou picked the correct horse! You Won $" + betAmount);
-        }
-        if (!winnerEvaluation){
-            System.out.println("\nYou picked the wrong horse! You Lose $" + betAmount);
+        if (didWin){
+            System.out.println("\nYou picked the correct horse!");
+            didUserWin(didWin,betAmount);
+        } else {
+            System.out.println("\nYou picked the wrong horse!");
+            didUserWin(didWin,betAmount);
         }
     }
     public void displayingHorseBettedOn(Horse[] bettedHorse, int index){
         System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n");
     }
+
     public void displayingStable(Horse[] stable){
         for (Horse horse : stable) {
             System.out.println(horse.toString());
@@ -433,12 +447,11 @@ public class UI {
 //        }
     }
 
-
     //ROULETTE LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
     public int displayRouletteBetTypes(){
         int type;
         do {
-            type = Console.getUserInt("\nWhat type of bet will you be making? \n1)ALL RED/ODDS \n2)ALL BLACKS/EVENS \n3)TRIPLES \n4)ONE SINGLE NUMBER", true);
+            type = Console.getUserInt("\nWhat type of bet will you be making? \n1) ALL RED/ODDS \n2) ALL BLACKS/EVENS \n3) TRIPLES \n4) ONE SINGLE NUMBER", true);
             if(type >=5 || type <= 0){
                 Console.write("Please enter a valid number!", Console.TextColor.RED);
             } else {
@@ -459,12 +472,5 @@ public class UI {
             }
         }while (true);
         return specNum;
-    }
-    public void displayRouletteWin(boolean didWin, int betAmount){
-        if (didWin){
-            System.out.println("\nCongratulations! You won $" + betAmount);
-        } else {
-            System.out.println("\nBad luck! You Lose $" + betAmount);
-        }
     }
 }

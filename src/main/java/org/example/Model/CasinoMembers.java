@@ -8,7 +8,7 @@ import java.util.Objects;
 public class CasinoMembers {
     String name;
     private int totalWinnings = 0, currentMoneyCount = 0;
-    private int totalHorseMoney, totalRouletteMoney, totalSlotMoney, totalBlackJackMoney;
+    private int totalHorseMoney = 0, totalRouletteMoney = 0, totalSlotMoney = 0, totalBlackJackMoney = 0;
     private boolean isAI = false;
 
     // getters & setters
