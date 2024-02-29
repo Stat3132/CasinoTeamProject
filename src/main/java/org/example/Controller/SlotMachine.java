@@ -8,23 +8,25 @@ import java.util.Objects;
 import java.util.Random;
 
 public class SlotMachine implements Casino {
-    private static final String[] symbols = {"Cherry", "Apple", "Orange", "Banana", "Grapes","Watermelon","Tomato","Kiwi","Avocado","Egg","Corn","Dragonfruit","Eggplant","Mango","Blueberry","7"}; //string array that contains all fruits for the spins
+
+    //region VARS
+    //string array that contains all fruits for the spins
+    private static final String[] symbols = {"Cherry", "Apple", "Orange", "Banana", "Grapes","Watermelon","Tomato","Kiwi","Avocado","Egg","Corn","Dragonfruit","Eggplant","Mango","Blueberry","7"};
     private static final int totalSymbols = symbols.length, totalSpins = 4; //total number of symbols and total number of slots to play
-    private int incremental; //incremental index for each value inside the array
+    private static final int incremental = 1; //incremental index for each symbol, e.g. Cherry = 1, Apple = 2, etc.
     private static final HashMap<String,Integer> payouts = new HashMap<>(); //hashmap for "payouts"
-    private Random slotRandom;
+    private final Random slotRandom;
     private String slotsWin = "";
-    org.example.View.UI UI = new UI();
+    org.example.View.UI UI = new UI(); //UI display
+    //endregion
 
-    public SlotMachine() {
-        slotRandom = new Random();
-        incremental = 1; //incremental value for each slot symbol
-        for (int i = 0; i < totalSymbols; i++) {
-            //for every slot symbol, set the hashmap to index and add to incremental so every value has +1 compared to the other
-            payouts.put(symbols[i],i + incremental);
-        }
-    }
-
+    //region SPIN LOGIC
+    /**
+     *
+     * @param playerBet takes in playerBet to return a new payout based on their bet
+     * @param isAI tag decides whether to spit out UI elements based if AI
+     * @return payout after money is calculated for the randomized spin for "each" slot
+     */
     public int spin(int playerBet, boolean isAI) {
         //spin method that takes in player bet
         String[] result = new String[totalSpins]; //new temp array which contains all total spins
@@ -98,8 +100,9 @@ public class SlotMachine implements Casino {
         }
         return payout;
     }
+    //endregion
 
-
+    //region CASINO INTERFACE IMPLEMENTED METHODS
     @Override
     public CasinoMembers cashOut(CasinoMembers currentPlayer, int playerBet) {
         //return player cash values and player values
@@ -107,7 +110,6 @@ public class SlotMachine implements Casino {
         currentPlayer.setTotalSlotMoney(currentPlayer.getTotalSlotMoney() + playerBet);
         return currentPlayer;
     }
-
     @Override
     public CasinoMembers play(CasinoMembers currentPlayer, int playerBet, boolean isAI) {
         //play method
@@ -133,4 +135,16 @@ public class SlotMachine implements Casino {
         }
         return currentPlayer;
     }
+    //endregion
+
+    //region CONSTRUCTOR
+    public SlotMachine() {
+        //constructor that implements an incremental value for each symbol
+        slotRandom = new Random();
+        for (int i = 0; i < totalSymbols; i++) {
+            //for every slot symbol, set the hashmap to index and add to incremental so every value has +1 compared to the other
+            payouts.put(symbols[i],i + incremental);
+        }
+    }
+    //endregion
 }

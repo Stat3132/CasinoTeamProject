@@ -3,16 +3,13 @@ package org.example.Model;
 import org.example.UTIL.ProbabilityForValue;
 
 public class Player extends CasinoMembers{
+    //region VARS
     //player class that extends from CasinoMembers
     int defaultMoney = 500; //every default player has $500 default money
-    String[] names = {"poor","broke","rich","wealthy","test","random","bankrupt"}; //array for custom easter egg names that modify the values of players
+    String[] names = {"poor","broke","rich","wealthy","test","random","bankrupt"}; //array for custom Easter egg names that modify the values of players
+    //endregion
 
-    //Constructor for players, can modify name &/or money
-    public Player(String name){
-        super(name,0);
-        checkName(name);
-    }
-
+    //region CHECK NAME LOGIC
     public void checkName(String _name){
         //simple test functionality for Easter egg names
         for (int i = 0; i < names.length; i++) {
@@ -37,9 +34,9 @@ public class Player extends CasinoMembers{
                 this.setName(" ");
                 this.setCurrentMoneyCount(defaultMoney);
             } else if(_name.equalsIgnoreCase(names[6])){
-              this.setCurrentMoneyCount(0);
+                this.setCurrentMoneyCount(0);
             } else {
-                    //else default money value
+                //else default money value
                 this.setName(_name);
                 if(this.name == null){
                     this.setName(" ");
@@ -53,5 +50,12 @@ public class Player extends CasinoMembers{
             }
         }
     }
+    //endregion
 
+    //region CONSTRUCTOR
+    public Player(String name){
+        super(name,0);
+        checkName(name); //calls checkName to see if name is aligned with any custom names within string array
+    }
+    //endregion
 }

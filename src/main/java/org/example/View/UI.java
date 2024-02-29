@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class UI {
     //TODO: Blackjack prompts
 
-    //CASINO MENU & SETTINGS ////////////////////////////////////////////////////////////////////////////////////////////////
+    //region CASINO MENU/PROMPTS
     public int casinoMenu(){
         //casino menu prompt for game choosing
         Console.write("\n-- Variables in Vegas! --\n", Console.TextColor.GREEN); //header
@@ -36,9 +36,9 @@ public class UI {
         //prompt when player exits the app
         Console.write("Thanks for visiting \"Variables in Vegas\"!", Console.TextColor.GREEN);
     }
+    //endregion
 
-
-    //GAME MENUS & SETTINGS ////////////////////////////////////////////////////////////////////////////////////////////////
+    //region GAME MENUS & GAME DISPLAY
     public void displayGameHeader(int game, Player currentPlayer){
         //displays different game header depending on the game int provided
         switch(game){
@@ -94,32 +94,6 @@ public class UI {
                 break;
         }
     }
-
-    //AI PROMPTS ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void populateAI(boolean isAiEnabled){
-        //"populate" AI text
-        if(isAiEnabled){
-            Console.write("ENABLING AI...\n", Console.TextColor.GREEN);
-        } else {
-            Console.write("DISABLING AI...\n", Console.TextColor.RED);
-        }
-        footer(1);
-    }
-    public void populateAIPrompt(boolean isAiEnabled, String name){
-        //populate AI prompt used for removing or adding AI
-        if(!isAiEnabled){
-            Console.write("REMOVED " + name + " [AI]\n", Console.TextColor.RED);
-        } else {
-            Console.write("ADDED " + name + " [AI]\n", Console.TextColor.GREEN);
-        }
-    }
-    public void deleteAI(String name){
-        Console.write(name + " [AI] HAS GONE !! BANKRUPT !!", Console.TextColor.RED);
-        Console.write("IT WILL NOW BE DELETED!!", Console.TextColor.RED);
-    }
-
-
-    //LEADERBOARD MENUS ////////////////////////////////////////////////////////////////////////////////////////////////
     public void leaderboard(CasinoMembers player, int money, int i){
         //UI prompt for leaderboard
         if(player.isAI()){
@@ -149,10 +123,9 @@ public class UI {
                 break;
         }
     }
+    //endregion
 
-
-    //USER LOGIC AND OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
-
+    //region USER
     /** *
      * This method creates a user by enforces a series of requirements that a player inputting a username must pass into.
      * Passing in specific usernames unlocks "EASTER EGGS", specific usernames that have been matched will give different properties to that user, such as 'test',etc.
@@ -357,7 +330,6 @@ public class UI {
         System.out.println("{HORSE-RACING EARNINGS}: $" + player.getTotalHorseMoney());
         footer(1);
     }
-
     /**
      * This method gets a proper user bet through required parameters and subtracts the bet from the player.
      * @param totalUserMoney gets the total money available to the user
@@ -429,10 +401,71 @@ public class UI {
         }
         footer(1);
     }
+    //endregion
 
+    //region AI
+    public void populateAI(boolean isAiEnabled){
+        //"populate" AI text
+        if(isAiEnabled){
+            Console.write("ENABLING AI...\n", Console.TextColor.GREEN);
+        } else {
+            Console.write("DISABLING AI...\n", Console.TextColor.RED);
+        }
+        footer(1);
+    }
+    public void populateAIPrompt(boolean isAiEnabled, String name){
+        //populate AI prompt used for removing or adding AI
+        if(!isAiEnabled){
+            Console.write("REMOVED " + name + " [AI]\n", Console.TextColor.RED);
+        } else {
+            Console.write("ADDED " + name + " [AI]\n", Console.TextColor.GREEN);
+        }
+    }
+    public void deleteAI(String name){
+        Console.write(name + " [AI] HAS GONE !! BANKRUPT !!", Console.TextColor.RED);
+        Console.write("IT WILL NOW BE DELETED!!", Console.TextColor.RED);
+    }
+    //endregion
 
+    //region SLOTS
+    public void displaySlots(String slot){
+        Console.write(" |"+ slot.toUpperCase() + "| ",Console.TextColor.BLUE);
+    }
+    public void displaySlotsCheck(String check){
+        Console.write("\n!! " + check.toUpperCase() + " !!",Console.TextColor.CYAN);
+        footer(2);
+    }
+    //endregion
 
-    // HORSE RACING LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
+    //region ROULETTE
+    public int displayRouletteBetTypes(){
+        int type;
+        do {
+            type = Console.getUserInt("\nWhat type of bet will you be making? \n1) ALL RED/ODDS \n2) ALL BLACKS/EVENS \n3) TRIPLES \n4) ONE SINGLE NUMBER", true);
+            if(type >=5 || type <= 0){
+                Console.write("Please enter a valid number!", Console.TextColor.RED);
+            } else {
+                break;
+            }
+        }while (true);
+        System.out.println("Thanks for your bet!");
+        return type;
+    }
+    public int displayRouletteSpecificNum(){
+        int specNum;
+        do {
+            specNum = Console.getUserInt("What single number (0-36) will you bet on?", true);
+            if (specNum >= 36 || specNum <= 0) {
+                Console.write("Please enter a valid number!", Console.TextColor.RED);
+            } else {
+                break;
+            }
+        }while (true);
+        return specNum;
+    }
+    //endregion
+
+    //region HORSE-RACING
     public int horseRacingPrompt(){
         //horse racing game prompt that includes list of horses
         int userInt = Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
@@ -476,42 +509,5 @@ public class UI {
             footer(2);
         }
     }
-
-
-    //ROULETTE LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
-    public int displayRouletteBetTypes(){
-        int type;
-        do {
-            type = Console.getUserInt("\nWhat type of bet will you be making? \n1) ALL RED/ODDS \n2) ALL BLACKS/EVENS \n3) TRIPLES \n4) ONE SINGLE NUMBER", true);
-            if(type >=5 || type <= 0){
-                Console.write("Please enter a valid number!", Console.TextColor.RED);
-            } else {
-                break;
-            }
-        }while (true);
-        System.out.println("Thanks for your bet!");
-        return type;
-    }
-    public int displayRouletteSpecificNum(){
-        int specNum;
-        do {
-            specNum = Console.getUserInt("What single number (0-36) will you bet on?", true);
-            if (specNum >= 36 || specNum <= 0) {
-                Console.write("Please enter a valid number!", Console.TextColor.RED);
-            } else {
-                break;
-            }
-        }while (true);
-        return specNum;
-    }
-
-
-    //SLOTS LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void displaySlots(String slot){
-        Console.write(" |"+ slot.toUpperCase() + "| ",Console.TextColor.BLUE);
-    }
-    public void displaySlotsCheck(String check){
-        Console.write("\n!! " + check.toUpperCase() + " !!",Console.TextColor.CYAN);
-        footer(2);
-    }
+    //endregion
 }

@@ -1,6 +1,8 @@
 package org.example.UTIL;
 
 public enum HorseColor {
+
+    //region ENUM VALUES
     //enums for horse colors
     PALOMINO("Palimino"),
     BLACK("Black"),
@@ -17,16 +19,17 @@ public enum HorseColor {
     TOBIANO("Tobiano"),
     BLOODBAY("Blood bay"),
     PERLINO("Perlino");
+    //endregion
 
-    //toString
-    String friendlyString;
+    //region CONSTRUCTOR & TOSTRING
+    HorseColor(String friendlyString) {
+        this.friendlyString = friendlyString;
+    }
+    final String friendlyString;
     @Override
     public String toString() {
         return friendlyString;
     }
+    //endregion
 
-    //constructor
-    HorseColor(String friendlyString) {
-        this.friendlyString = friendlyString;
-    }
 }

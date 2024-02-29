@@ -7,12 +7,16 @@ import org.example.UTIL.ProbabilityForValue;
 import org.example.View.UI;
 
 public class HorseRace implements Casino {
-    private final int winnerHorse = 6;
-    private final int maxHorseWeight = 1150, mediumHorseWeight = 1000, lightHorseWeight = 900;
+
+    //region VARS
+    private static final int winnerHorse = 6;
+    private static final int maxHorseWeight = 1150, mediumHorseWeight = 1000, lightHorseWeight = 900;
     Horse[] fullStableOfRacerHorses = new Horse[20], finalsLineUp = new Horse[7];
     UI UI = new UI();
     ProbabilityForValue probabilityForValue = new ProbabilityForValue();
+    //endregion
 
+    //region HORSE STABLE LOGIC
     //An array of 20 horses is created.
     public void populatingStable() {
         for (int i = 0; i < fullStableOfRacerHorses.length; i++) {
@@ -20,6 +24,35 @@ public class HorseRace implements Casino {
         }
         inputtingOddsIntoHorseStable();
     }
+    //This adds an odd factor to every horse based on speed and weight.
+    public void inputtingOddsIntoHorseStable() {
+        int stableCounter = 0;
+        probabilityForValue.creatingOddArray();
+        for (int horseSpeedCounter = 1; horseSpeedCounter < 11; horseSpeedCounter++) {
+            if (fullStableOfRacerHorses[stableCounter].getHorseSpeed() == horseSpeedCounter) {
+                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= maxHorseWeight) {
+                    int horseOddsFactor = probabilityForValue.randomOddValue();
+                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
+                }
+                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= mediumHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < maxHorseWeight) {
+                    int horseOddsFactor = probabilityForValue.randomOddValue();
+                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
+                }
+                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= lightHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < mediumHorseWeight) {
+                    int horseOddsFactor = probabilityForValue.randomOddValue();
+                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
+                }
+                horseSpeedCounter = -1;
+                stableCounter++;
+                if (stableCounter == 20) {
+                    return;
+                }
+            }
+        }
+    }
+    //endregion
+
+    //region CASINO INTERFACE IMPLEMENTED METHODS
     // Play method is how the users play the game.
     @Override
     public CasinoMembers play(CasinoMembers currentPlayer, int betAmount, boolean isAI) {
@@ -102,30 +135,5 @@ public class HorseRace implements Casino {
         return currentPlayer;
     }
 
-    //This adds an odd factor to every horse based on speed and weight.
-    public void inputtingOddsIntoHorseStable() {
-        int stableCounter = 0;
-        probabilityForValue.creatingOddArray();
-        for (int horseSpeedCounter = 1; horseSpeedCounter < 11; horseSpeedCounter++) {
-            if (fullStableOfRacerHorses[stableCounter].getHorseSpeed() == horseSpeedCounter) {
-                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= maxHorseWeight) {
-                    int horseOddsFactor = probabilityForValue.randomOddValue();
-                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-                }
-                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= mediumHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < maxHorseWeight) {
-                    int horseOddsFactor = probabilityForValue.randomOddValue();
-                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-                }
-                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= lightHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < mediumHorseWeight) {
-                    int horseOddsFactor = probabilityForValue.randomOddValue();
-                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-                }
-                horseSpeedCounter = -1;
-                stableCounter++;
-                if (stableCounter == 20) {
-                    return;
-                }
-            }
-        }
-    }
+    //endregion
 }

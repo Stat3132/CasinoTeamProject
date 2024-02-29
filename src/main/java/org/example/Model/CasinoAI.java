@@ -9,13 +9,11 @@ public class CasinoAI extends CasinoMembers{
      * than just the player being the only moving cog in the casino.
      */
 
-    //Constructor
+    //region CONSTRUCTOR
     public CasinoAI(){
-        super(" ",1);
-        this.setCurrentMoneyCount(ProbabilityForValue.randomValues(500,2000));
+        //constructor for AI users, sets randomized name and randomized money values
+        super(" ",ProbabilityForValue.randomValues(500,2000));
         this.setAI(true);
     }
-    public CasinoAI(String name,  int currentMoneyCount) {
-        super(name, currentMoneyCount);
-    }
+    //endregion
 }

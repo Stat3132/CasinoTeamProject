@@ -6,12 +6,14 @@ import org.example.UTIL.ProbabilityForValue;
 import java.util.Objects;
 
 public class CasinoMembers {
+    //region VARS
     String name;
     private int totalWinnings = 0, currentMoneyCount = 0;
     private int totalHorseMoney = 0, totalRouletteMoney = 0, totalSlotMoney = 0, totalBlackJackMoney = 0;
     private boolean isAI = false;
+    //endregion
 
-    // getters & setters
+    //region GETTERS & SETTERS
     public String getName() {
         return name;
     }
@@ -75,16 +77,13 @@ public class CasinoMembers {
     public boolean isAI() {
         return isAI;
     }
-
     public void setAI(boolean AI) {
         isAI = AI;
     }
+    //endregion
 
-
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-     //This method randomizes names based on an array of Name enums.
+    //region RANDOMIZING LOGIC
+    //This method randomizes names based on an array of Name enums.
     protected Name randomizingNames() {
         //FIXME
             // This is just an array of names;
@@ -117,8 +116,9 @@ public class CasinoMembers {
     /**
      * This is a constructor for what needs to be implemented for other objects using this constructor.
      */
+    //endregion
 
-    // constructor
+    //region CONSTRUCTOR & TOSTRING
     public CasinoMembers(String name, int currentMoneyCount) {
         setName(name);
         setCurrentMoneyCount(currentMoneyCount);
@@ -133,5 +133,5 @@ public class CasinoMembers {
                 "\nTOTAL WINNINGS: " + totalWinnings +
                 "\nCurrent money: " + currentMoneyCount;
     }
-
+    //endregion
 }

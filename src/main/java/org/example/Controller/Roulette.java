@@ -1,30 +1,33 @@
 package org.example.Controller;
 
 import org.example.Model.CasinoMembers;
-import org.example.Model.Player;
 import org.example.UTIL.ProbabilityForValue;
 import org.example.View.UI;
-
 import java.util.HashMap;
 import java.util.Random;
 
 public class Roulette implements Casino {
+
+    //region VARS
     private final Random rouletteRandom;
-    private HashMap<Integer, Integer> payouts;
+    private final HashMap<Integer, Integer> payouts;
     protected int betType, betAmount;
     UI UI = new UI();
+    //endregion
 
+    //region SPIN LOGIC
     public int spin() {
         return rouletteRandom.nextInt(37);
     }
+    //endregion
 
+    //region CASINO INTERFACE IMPLEMENTED METHODS
     @Override
     public CasinoMembers cashOut(CasinoMembers currentPlayer, int playerBet) {
         currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
         currentPlayer.setTotalRouletteMoney(currentPlayer.getTotalRouletteMoney() + playerBet);
         return currentPlayer;
     }
-
     @Override
     public CasinoMembers play(CasinoMembers currentPlayer, int playerBet, boolean isAI) {
         betAmount = playerBet;
@@ -122,7 +125,9 @@ public class Roulette implements Casino {
         }
         return currentPlayer;
     }
-    //constructor
+    //endregion
+
+    //region CONSTRUCTOR
     public Roulette() {
         rouletteRandom = new Random();
         this.payouts = new HashMap<>();
@@ -135,4 +140,5 @@ public class Roulette implements Casino {
         //The payout for betting on one single number, 50x payout
         payouts.put(4, 50);
     }
+    //endregion
 }

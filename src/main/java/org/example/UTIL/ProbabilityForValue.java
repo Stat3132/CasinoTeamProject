@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ProbabilityForValue {
+
+    //region VARS
     public static ArrayList<Integer> arrayListOfOdds = new ArrayList<Integer>();
     int lastCheck;
     public int[] fullIntArray = new int[100];
+    //endregion
 
     // RANDOM VALUE FROM MIN to MAX. Takes in parameters.
     public static int randomValues(int min, int max) {

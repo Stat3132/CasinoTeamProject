@@ -3,7 +3,7 @@ package org.example.UTIL;
 public class Card {
    protected CardValue[] allCardValues = new CardValue[13];
    protected Suit[] allSuits = new Suit[4];
-    protected Card[] fullDeck = new Card[52];
+   protected Card[] fullDeck = new Card[52];
    CardValue cardValue;
    Suit suit;
 
@@ -36,8 +36,6 @@ public class Card {
     //Makes array of cardValues and Suits
     @Override
     public String toString() {
-       StringBuilder cardBuilder = new StringBuilder();
-       cardBuilder.append(cardValue).append( " of ").append(suit);
-        return cardBuilder.toString();
+        return cardValue + " of " + suit;
     }
 }
