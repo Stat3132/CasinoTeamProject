@@ -62,7 +62,7 @@ public class DeckOfCard extends Card {
             if (fullDeck[removedCard] != null){
                 shuffledDeck[i] = fullDeck[removedCard];
                 fullDeck[removedCard] = null;
-                System.out.println(shuffledDeck[i] + "Index" + i);
+                System.out.println(shuffledDeck[i] + "\nIndex" + i);
                 i++;
             } else {
                 continue;

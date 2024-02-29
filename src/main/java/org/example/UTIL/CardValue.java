@@ -13,7 +13,7 @@ public enum CardValue {
     EIGHT("8"),
     NINE("9"),
     TEN("10"),
-    ELEVEN("Joker"),
+    ELEVEN("Jack"),
     TWELVE("Queen"),
     THIRTEEN("King");
 

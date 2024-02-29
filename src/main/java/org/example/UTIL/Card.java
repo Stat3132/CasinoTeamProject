@@ -3,12 +3,16 @@ package org.example.UTIL;
 public class Card {
    protected CardValue[] allCardValues = new CardValue[13];
    protected Suit[] allSuits = new Suit[4];
+    protected Card[] fullDeck = new Card[52];
    CardValue cardValue;
    Suit suit;
 
    public Card(CardValue cardValue, Suit suit){
     setCardValue(cardValue);
     setSuit(suit);
+   }
+   public Card(){
+
    }
 
     public CardValue getCardValue() {
@@ -33,8 +37,7 @@ public class Card {
     @Override
     public String toString() {
        StringBuilder cardBuilder = new StringBuilder();
-       cardBuilder.append("\t\tCard:").append("\nCard value: ").append(cardValue);
-       cardBuilder.append("\nCard suit: ").append(suit).append("\n\n");
+       cardBuilder.append(cardValue).append( " of ").append(suit);
         return cardBuilder.toString();
     }
 }

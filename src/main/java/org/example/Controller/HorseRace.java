@@ -79,7 +79,7 @@ public class HorseRace implements Casino {
                 }
             }
         } else {
-            playersChoice = ProbabilityForValue.randomValues(1,7);
+            playersChoice = ProbabilityForValue.randomValues(0,6);
             for (int i = 0; i < 8; i++) {
                 if (playersChoice == i) {
                     if (pickedRacingHorses[i] == finalsLineUp[winnerHorse]) {
