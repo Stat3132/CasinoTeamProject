@@ -2,7 +2,6 @@ package org.example.UTIL;
 
 import org.example.Model.Horse;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,29 +15,29 @@ public class ProbabilityForValue {
         return rand.nextInt(min, max + 1);
     }
 
-    //This is creating an array of odds. This is for giving objects or games specific odds but not letting those odds duplicate.
-    public static void creatingArrayOfOdds(int max) {
-        for (int i = 1; i < max; i++) {
-            arrayListOfOdds.add(i);
-        }
-    }
-
     //Randomizing odds and if odds are used removing them from an array for no overlapping odds.
     public int randomOddValue() {
-        Random rand = new Random();
-        int randomOdd = rand.nextInt(0, arrayListOfOdds.size());
-        if (arrayListOfOdds.get(randomOdd) == null) {
-            randomOdd = rand.nextInt(0, arrayListOfOdds.size());
+        int[] fullIntArray = new int[100];
+        for (int i = 0; i < fullIntArray.length; i++) {
+            fullIntArray[i] = i;
         }
-        if (arrayListOfOdds.get(randomOdd) == null) {
-            randomOdd = rand.nextInt(0, arrayListOfOdds.size());
+        int horseOdd = 0;
+        for (int i = 0; i < 100; i++) {
+            int randomOdd = randomValues(1, fullIntArray.length - 1);
+            if (fullIntArray[randomOdd] == 0) {
+                continue;
+            }
+            if (fullIntArray[randomOdd] != 0) {
+                fullIntArray[randomOdd] = 0;
+                horseOdd = randomOdd;
+                break;
+            }
         }
-        arrayListOfOdds.remove(randomOdd);
-        return randomOdd;
+        return horseOdd;
     }
 
     // Making sure odds contributes to the horses winning but still does not guarantee the win.
-    public int makingMathematicalOdds(Horse racerHorse) {
+    public int makingMathematicalHorseOdds(Horse racerHorse) {
         if (racerHorse == null) {
             return 0;
         }
@@ -74,29 +73,14 @@ public class ProbabilityForValue {
      * @param finalLineUp This is the lineup of horses that have already been ordered from the least odds to the greatest odds
      * @return This returns a temporary array that now becomes the new positionings for the final horses.
      */
-    public Horse[] oddsOfOdds(Horse[] finalLineUp) {
+    public Horse[] finalOddCheck(Horse[] finalLineUp) {
         Horse[] tempPlacement = new Horse[7];
         int incrementingTempPlacement = 6;
         for (int i = 6; i > -2; i--) {
             if (i == -1) {
                 i = 6;
             }
-            switch (incrementingTempPlacement) {
-                case 0:
-                    lastCheck = makingMathematicalOdds(finalLineUp[i]);
-                case 1:
-                    lastCheck = makingMathematicalOdds(finalLineUp[i]);
-                case 2:
-                    lastCheck = makingMathematicalOdds(finalLineUp[i]);
-                case 3:
-                    lastCheck = makingMathematicalOdds(finalLineUp[i]);
-                case 4:
-                    lastCheck = makingMathematicalOdds(finalLineUp[i]);
-                case 5:
-                    lastCheck = makingMathematicalOdds(finalLineUp[i]);
-                case 6:
-                    lastCheck = makingMathematicalOdds(finalLineUp[i]);
-            }
+            lastCheck = makingMathematicalHorseOdds(finalLineUp[i]);
             if (tempPlacement[0] != null) {
                 break;
             }
@@ -115,7 +99,6 @@ public class ProbabilityForValue {
                     i = 6;
                 }
                 continue;
-
             }
         }
         return tempPlacement;
