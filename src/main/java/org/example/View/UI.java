@@ -8,7 +8,6 @@ import org.example.UTIL.Console;
 import java.util.ArrayList;
 
 public class UI {
-    //TODO: Slots Prompts
     //TODO: Blackjack prompts
 
     //CASINO MENU & SETTINGS ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,15 +75,24 @@ public class UI {
                 }
                 break;
         }
-        footer();
+        footer(1);
     }
     public int gamePrompt(){
         // game prompt for every game
-        return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) EXIT",true);
+        int userInt = Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) EXIT",true);
+        footer(1);
+        return userInt;
     }
-    public void footer(){
+    public void footer(int type){
         //basic footer for all code to stay consistent
-        System.out.println("--- --------- ---"); //footer
+        switch(type){
+            case 1:
+                Console.write("--- --------- ---\n"); //footer
+                break;
+            case 2:
+                Console.write("---\n");
+                break;
+        }
     }
 
     //AI PROMPTS ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,11 +100,10 @@ public class UI {
         //"populate" AI text
         if(isAiEnabled){
             Console.write("ENABLING AI...\n", Console.TextColor.GREEN);
-            footer();
         } else {
             Console.write("DISABLING AI...\n", Console.TextColor.RED);
-            footer();
         }
+        footer(1);
     }
     public void populateAIPrompt(boolean isAiEnabled, String name){
         //populate AI prompt used for removing or adding AI
@@ -336,19 +343,19 @@ public class UI {
                 System.out.println((i + 1) + " " + allUsers.get(i).getName());
             }
         }
-        footer();
+        footer(1);
     }
     public void displayCurrentUser(Player player){
         System.out.println("[CURRENT USER]:");
         System.out.println("\"" + player.getName() + "\"");
         System.out.println("{TOTAL CASH}: $" + player.getCurrentMoneyCount());
-        footer();
+        footer(1);
         System.out.println("{TOTAL WINNINGS}: $" + player.getTotalWinnings());
         System.out.println("{SLOTS' EARNINGS}: $" + player.getTotalSlotMoney());
         System.out.println("{ROULETTE EARNINGS}: $" + player.getTotalRouletteMoney());
         System.out.println("{BLACK-JACK EARNINGS}: $" + player.getTotalBlackJackMoney());
         System.out.println("{HORSE-RACING EARNINGS}: $" + player.getTotalHorseMoney());
-        footer();
+        footer(1);
     }
 
     /**
@@ -361,7 +368,8 @@ public class UI {
         int userBet; //placeholder int
         do {
             //loop grabs a bet amount from player:
-            System.out.println("Total User Money: $" + totalUserMoney);
+            Console.write("\n-- BET --");
+            System.out.println("\nTotal User Money: $" + totalUserMoney);
             userBet = Console.getUserInt("Enter your bet amount!", true);
             if (userBet > totalUserMoney) {
                 //if bet is too high or too low, loop; else break
@@ -373,7 +381,7 @@ public class UI {
             }
         } while(true);
         System.out.println("You've bet $" + userBet); //confirmation bet amount
-        footer();
+        footer(1);
         return userBet;
     }
     public void bankruptUser(){
@@ -387,30 +395,31 @@ public class UI {
         } else {
             Console.write("\nBad luck! You Lose $" + betAmount + "\n", Console.TextColor.RED);
         }
+        Console.write("-");
     }
     public void displayFinalMoney(Player currentPlayer, int game){
         //display final money for game output.
         String gameText = "";
-        int money = 0;
-        //case and switch statement for game dependent money total and text display
-        switch (game) {
-            case 1:
+        int money = switch (game) {
+            case 1 -> {
                 gameText = "Slots";
-                money = currentPlayer.getTotalSlotMoney(); //slots
-                break;
-            case 2:
+                yield currentPlayer.getTotalSlotMoney(); //slots
+            }
+            case 2 -> {
                 gameText = "Roulette";
-                money = currentPlayer.getTotalRouletteMoney(); //roulette
-                break;
-            case 3:
+                yield currentPlayer.getTotalRouletteMoney(); //roulette
+            }
+            case 3 -> {
                 gameText = "Black-jack";
-                money = currentPlayer.getTotalBlackJackMoney(); //black-jack
-                break;
-            case 4:
+                yield currentPlayer.getTotalBlackJackMoney(); //black-jack
+            }
+            case 4 -> {
                 gameText = "Horse-racing";
-                money = currentPlayer.getTotalHorseMoney(); //horse-racing
-                break;
-        }
+                yield currentPlayer.getTotalHorseMoney(); //horse-racing
+            }
+            default -> 0;
+            //case and switch statement for game dependent money total and text display
+        };
         if(money <= 0){
             Console.write("\nYou are left with: $" + currentPlayer.getCurrentMoneyCount());
             Console.write("\nTotal Money LOST from " + gameText + ": $" + money + "\n",Console.TextColor.RED);
@@ -418,6 +427,7 @@ public class UI {
             Console.write("\nYou are left with: $" + currentPlayer.getCurrentMoneyCount());
             Console.write("\nTotal Money GAINED from " + gameText + ": $" + money + "\n", Console.TextColor.GREEN);
         }
+        footer(1);
     }
 
 
@@ -425,37 +435,46 @@ public class UI {
     // HORSE RACING LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
     public int horseRacingPrompt(){
         //horse racing game prompt that includes list of horses
-        return Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
+        int userInt = Console.getUserInt("1) PLAY \n2) LEADERBOARD \n3) HORSE LIST \n4) EXIT",true);
+        footer(1);
+        return userInt;
     }
     public int bettingHorse(Horse[] displayingBetableHorses){
-        System.out.println("\t\t\tCURRENT HORSES TO BET ON: \n\n ");
-        for (Horse displayingBetableHors : displayingBetableHorses) {
-            System.out.println(displayingBetableHors);
+        Console.write("\n-- BETTING HORSES --\n", Console.TextColor.CYAN);
+        for (int i = 0; i < displayingBetableHorses.length; i++) {
+            Console.write(i + 1 + ")\n", Console.TextColor.CYAN);
+            System.out.println(displayingBetableHorses[i]);
+            footer(2);
         }
-        footer();
-        return Console.getUserInt("Which horse are you betting on? Pick a number from 1-7", true);
+        int userInt = Console.getUserInt("Which horse are you betting on? Pick an index (1-7)", true);
+        footer(1);
+        return userInt;
     }
     public void displayHorseWinner(Horse[] winnerHorse, boolean didWin, int betAmount){
-        System.out.println("After careful evaluation, the winner is... \n\n" + winnerHorse[6]+"!!");
+        Console.write("After careful evaluation, The Winner is....: \n\n");
+        footer(2);
+        Console.write(winnerHorse[6] + "\n");
+        footer(1);
         if (didWin){
-            System.out.println("\nYou picked the correct horse!");
+            Console.write("You picked the correct Horse!\n",Console.TextColor.GREEN);
             didUserWin(didWin,betAmount);
         } else {
-            System.out.println("\nYou picked the wrong horse!");
+            Console.write("You picked the incorrect Horse!\n", Console.TextColor.RED);
             didUserWin(didWin,betAmount);
         }
+        footer(1);
     }
     public void displayBettedHorse(Horse[] bettedHorse, int index){
-        System.out.println("\tBetting on: \n\n" + bettedHorse[index] + "\n\n Let the fastest horse win! \n\n");
+        Console.write("Betting on: \n" + bettedHorse[index] + "\n");
+        footer(1);
+        Console.write("\nLet the Fastest Horse Win!");
     }
     public void displayStable(Horse[] stable){
+        Console.write("-- HORSE STABLE --",Console.TextColor.CYAN);
         for (Horse horse : stable) {
             System.out.println(horse.toString());
+            footer(2);
         }
-//        for (int i = 0; i < stable.length  ; i++) {
-//            System.out.println(stable[i].toString());
-//
-//        }
     }
 
 
@@ -489,9 +508,10 @@ public class UI {
 
     //SLOTS LOGIC & OUTPUT ////////////////////////////////////////////////////////////////////////////////////////////////
     public void displaySlots(String slot){
-        Console.write("|"+ slot.toUpperCase() + "| ",Console.TextColor.BLUE);
+        Console.write(" |"+ slot.toUpperCase() + "| ",Console.TextColor.BLUE);
     }
     public void displaySlotsCheck(String check){
         Console.write("\n!! " + check.toUpperCase() + " !!",Console.TextColor.CYAN);
+        footer(2);
     }
 }

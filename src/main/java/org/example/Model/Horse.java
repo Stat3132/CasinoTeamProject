@@ -48,14 +48,11 @@ public class Horse extends CasinoMembers {
     //TO STRING
     @Override
     public String toString() {
-        String horseBuilder = "\t\tHorse name: " + horseName +
-                "\nHorse coat color: " + horseColor +
-                "\nHorse speed: " + horseSpeed +
-                "\nHorse weight: " + horseWeight +
-                "\n" +
-                //FIXME: FOR TESTING ONLY!!!!!!!!
-                "Horses odds: " + horseOdds +
-                "\n" + "---------------";
+        String horseBuilder = "Horse NAME: \"" + horseName + "\"" +
+                "\nHorse COLOR: " + horseColor +
+                "\nHorse SPEED: " + horseSpeed +
+                "\nHorse WEIGHT: " + horseWeight +
+                "\nHorses ODDS: " + horseOdds + "";
        return horseBuilder;
     }
 }

@@ -22,7 +22,7 @@ public class HorseRace implements Casino {
     }
     // Play method is how the users play the game.
     @Override
-    public Player play(CasinoMembers currentPlayer, int betAmount, boolean isAI) {
+    public CasinoMembers play(CasinoMembers currentPlayer, int betAmount, boolean isAI) {
         betAmount = betAmount * 2;
         //populates 20 horses.
         populatingStable();
@@ -40,6 +40,7 @@ public class HorseRace implements Casino {
         int incrementingHorseArray = 0;
         int incrementingNumberCounter = 1;
         for (int i = 0; i < 7; i++) {
+            assert pickedRacingHorses[i] != null;
             if (pickedRacingHorses[i].getHorseOdds() == incrementingNumberCounter) {
                 finalsLineUp[incrementingHorseArray] = pickedRacingHorses[i];
                 incrementingHorseArray++;
@@ -60,8 +61,9 @@ public class HorseRace implements Casino {
         //Last "random roll" to determine final placements for racer horses.
         finalsLineUp = probabilityForValue.finalOddCheck(finalsLineUp);
         // Switch statement determines the winner and either gives the user money or doesn't.
-        int playersChoice = UI.bettingHorse(pickedRacingHorses) - 1;
+        int playersChoice;
         if (!isAI) {
+            playersChoice = UI.bettingHorse(pickedRacingHorses) - 1;
             for (int i = 0; i < 8; i++) {
                 if (playersChoice == i) {
                     UI.displayBettedHorse(pickedRacingHorses, i);
@@ -76,8 +78,21 @@ public class HorseRace implements Casino {
                     }
                 }
             }
+        } else {
+            playersChoice = ProbabilityForValue.randomValues(1,7);
+            for (int i = 0; i < 8; i++) {
+                if (playersChoice == i) {
+                    if (pickedRacingHorses[i] == finalsLineUp[winnerHorse]) {
+                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        break;
+                    } else {
+                        currentPlayer = cashOut(currentPlayer, -betAmount / 2);
+                        break;
+                    }
+                }
+            }
         }
-            return (Player) currentPlayer;
+        return currentPlayer;
     }
     // Current players money is incremented based on how much they bet.
     @Override
@@ -97,16 +112,13 @@ public class HorseRace implements Casino {
                     int horseOddsFactor = probabilityForValue.randomOddValue();
                     fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
                 }
-
                 if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= mediumHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < maxHorseWeight) {
                     int horseOddsFactor = probabilityForValue.randomOddValue();
                     fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
                 }
-
                 if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= lightHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < mediumHorseWeight) {
                     int horseOddsFactor = probabilityForValue.randomOddValue();
                     fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-
                 }
                 horseSpeedCounter = -1;
                 stableCounter++;
