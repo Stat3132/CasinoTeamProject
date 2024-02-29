@@ -41,56 +41,62 @@ public class SlotMachine implements Casino {
             symbolCounts.put(symbol, symbolCounts.getOrDefault(symbol, 0) + 1);
         }
 
-        // Calculate payout if 2 or more symbols match
-        int pairCount = 0;
+        // Calculate payout if 2 or more symbols
+        double payoutMultiplier = 1.0; // Initialize the payout multiplier to 1.0
+        int totalSymbolsMatched = 0; // Count total symbols matched
+
         for (String symbol : symbolCounts.keySet()) {
             int count = symbolCounts.get(symbol);
-            //get count value from each symbol slot
             switch(count){
                 case 2:
-                    //if count value is 2 (meaning 2 symbols match), return a payout from incremental count + count / 2
-                    pairCount++;
-                    if(pairCount == 2){
-                        playerBet += payouts.getOrDefault(symbol, 0) + count * 3;
+                    //if count value is 2 (meaning 2 symbols match), return a basic payout for doubles
+                    if(totalSymbolsMatched == 2){
+                        payoutMultiplier += .65;
                         slotsWin = "DOUBLE PAIR";
                     } else if(Objects.equals(symbol, symbols[15])){
-                        playerBet += payouts.getOrDefault(symbol, 0) + count * 4;
-                        slotsWin = "DOUBLE 77";
+                        payoutMultiplier += 0.85;
+                        slotsWin = "PAIR 77's";
                     } else {
-                        playerBet += payouts.getOrDefault(symbol, 0) + count * 2;
+                        payoutMultiplier += 0.35;
                         slotsWin = "PAIR";
                     }
+                    totalSymbolsMatched += count;
                     break;
                 case 3:
-                    //if count value is 3 (meaning 3 symbols match), return a payout from incremental count + default count
+                    //if count value is 3 (meaning 3 symbols match), return a modifier for triples
                     if(Objects.equals(symbol, symbols[15])){
-                        playerBet += payouts.getOrDefault(symbol, 0) + count * 5;
-                        slotsWin = "TRIPLE 777";
+                        payoutMultiplier += 1.35; // Increase the payout multiplier by 1.0 for each triple
+                        slotsWin = "TRIPLE 777's";
+                    } else {
+                        payoutMultiplier += 1.05; // Increase the payout multiplier by 1.0 for each triple
+                        slotsWin = "TRIPLE";
                     }
-                    playerBet += payouts.getOrDefault(symbol, 0) + count * 3;
-                    slotsWin = "TRIPLE";
                     break;
                 case 4:
-                    //if count value is 2 (meaning all symbols match), return a payout from incremental count + count / 2
+                    //if count value is 4 (meaning all symbols match), return the highest possible modifier whether it's all 7s (SUPER MEGA LUCKY!) or all other symbol
                     if(Objects.equals(symbol, symbols[15])){
-                        playerBet += payouts.getOrDefault(symbol, 0) + count * 6;
-                        slotsWin = "7777";
+                        payoutMultiplier += 1.65;
+                        slotsWin = "7777's";
+                    } else {
+                        payoutMultiplier += 1.35;
+                        slotsWin = "QUADRUPLE";
                     }
-                    playerBet += payouts.getOrDefault(symbol, 0) + count * 4;
-                    slotsWin = "ALL";
                     break;
                 default:
                     //no symbols match at all, value is subtracted from bet with more harsh take value. (easier to lose than win)
-                    playerBet -= payouts.getOrDefault(symbol, 0) + count * 2;
+                    payoutMultiplier -= .25;
                     if(slotsWin.isEmpty()){
                         slotsWin = "NONE";
                     }
                     break;
             }
         }
-        UI.displaySlotsCheck(slotsWin);
-        slotsWin = "";
-        return playerBet;
+        int payout = (int) (playerBet * payoutMultiplier);
+        if(!isAI) {
+            UI.displaySlotsCheck(slotsWin);
+            slotsWin = "";
+        }
+        return payout;
     }
 
 
@@ -118,7 +124,7 @@ public class SlotMachine implements Casino {
             if (payout <= 0) {
                 //player has lost and will only lose the first bet they inserted.
                 currentPlayer = cashOut(currentPlayer, -playerBet);
-                UI.didUserWin(false, payout + playerBet);
+                UI.didUserWin(false, playerBet);
             } else {
                 //player has won and gets their payout + their initial bet
                 currentPlayer = cashOut(currentPlayer, payout);

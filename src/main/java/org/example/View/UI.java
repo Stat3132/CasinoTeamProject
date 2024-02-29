@@ -195,62 +195,67 @@ public class UI {
      * @param currentPlayer the current user has an appropriate tag within the list.
      * @return new current player
      */
-    public CasinoMembers changeUser(ArrayList<CasinoMembers> allUsers, Player currentPlayer){
-        displayAllUsers(allUsers, currentPlayer);
+    public CasinoMembers changeUser(ArrayList<CasinoMembers> allUsers, CasinoMembers currentPlayer){
         //pass in the total users array as well as the current player.
-        String changeUser = Console.getUserStr("Please type the username or index you would like to change to!",true);
-        CasinoMembers newCurrentPlayer = currentPlayer;
-        for (int i = 0; i < allUsers.size(); i++) {
-            //for loop for array list
-            if(allUsers.get(i) != null) {
-                // if user is NOT null, and string is equal or is contained by a user as a name, set index to new current player
-                try { //trys to parse int, if successful the search is an index, otherwise it is a string
-                    if (Integer.parseInt(changeUser)-1 == i) {
-                        //if user entered string is parsable and equals index
-                        if (allUsers.get(i) != currentPlayer) {
-                            //because index is shifted up by 1 to start from 1, we must check the indexes before it.
-                            if(allUsers.get(i).isAI()) {
-                                Console.write("You cannot control an AI!\n", Console.TextColor.RED);
-                                break;
-                            } else {
-                                //index starts from 1, so we must remove -1 in order to set the new current player.
-                                System.out.println("The current user is now: \"" + allUsers.get(i).getName() + "\"");
-                                newCurrentPlayer = allUsers.get(i);
-                                return newCurrentPlayer;
+        do {
+            displayAllUsers(allUsers, (Player) currentPlayer);
+            String changeUser = Console.getUserStr("Please type the username or index you would like to change to!", true);
+            if(changeUser.isEmpty() || changeUser.contains(" ")){
+                //username cannot be empty or contain spaces
+                Console.write("Your username cannot be empty or contain spaces!\n\n", Console.TextColor.RED);
+            } else {
+                for (int i = 0; i < allUsers.size(); i++) {
+                    //for loop for array list
+                    if (allUsers.get(i) != null) {
+                        // if user is NOT null, and string is equal or is contained by a user as a name, set index to new current player
+                        try { //trys to parse int, if successful the search is an index, otherwise it is a string
+                            if (Integer.parseInt(changeUser) - 1 == i) {
+                                //if user entered string is parsable and equals index
+                                if (allUsers.get(i) != currentPlayer) {
+                                    //because index is shifted up by 1 to start from 1, we must check the indexes before it.
+                                    if (allUsers.get(i).isAI()) {
+                                        Console.write("You cannot control an AI!\n", Console.TextColor.RED);
+                                        return null;
+                                    } else {
+                                        //index starts from 1, so we must remove -1 in order to set the new current player.
+                                        System.out.println("The current user is now: \"" + allUsers.get(i).getName() + "\"");
+                                        currentPlayer = allUsers.get(i);
+                                        return currentPlayer;
+                                    }
+                                } else {
+                                    //else this user is already current user
+                                    Console.write("This is already the current user!\n", Console.TextColor.RED);
+                                    return null;
+                                }
+                            } else if ((Integer.parseInt(changeUser) > allUsers.size() || Integer.parseInt(changeUser) <= -1)) {
+                                //if index is out of bounds from parsable int
+                                Console.write("OUT OF BOUNDS!", Console.TextColor.RED);
+                                return null;
                             }
-                        } else {
-                            //else this user is already current user
-                            Console.write("This is already the current user!\n", Console.TextColor.RED);
-                            break;
-                        }
-                    } else if ((Integer.parseInt(changeUser) > allUsers.size() || Integer.parseInt(changeUser) <= -1)) {
-                        //if index is out of bounds from parsable int
-                        Console.write("OUT OF BOUNDS!", Console.TextColor.RED);
-                        break;
-                    }
-                } catch (NumberFormatException ex) {
-                    if (changeUser.equalsIgnoreCase(allUsers.get(i).getName()) || allUsers.get(i).getName().equalsIgnoreCase(changeUser)) {
-                        if (allUsers.get(i) != currentPlayer) {
-                            if(allUsers.get(i).isAI()) {
-                                //stops the user from controlling an AI player in the lists
-                                Console.write("You cannot control an AI!\n", Console.TextColor.RED);
-                                break;
-                            } else {
-                                //index starts from 1, so we must remove -1 in order to set the new current player.
-                                System.out.println("The current user is now: \"" + allUsers.get(i).getName() + "\"");
-                                newCurrentPlayer = allUsers.get(i);
-                                return newCurrentPlayer;
+                        } catch (NumberFormatException ex) {
+                            if (changeUser.equalsIgnoreCase(allUsers.get(i).getName()) || allUsers.get(i).getName().equalsIgnoreCase(changeUser)) {
+                                if (allUsers.get(i) != currentPlayer) {
+                                    if (allUsers.get(i).isAI()) {
+                                        //stops the user from controlling an AI player in the lists
+                                        Console.write("You cannot control an AI!\n", Console.TextColor.RED);
+                                        return null;
+                                    } else {
+                                        //index starts from 1, so we must remove -1 in order to set the new current player.
+                                        System.out.println("The current user is now: \"" + allUsers.get(i).getName() + "\"");
+                                        currentPlayer = allUsers.get(i);
+                                        return currentPlayer;
+                                    }
+                                } else {
+                                    //check for current player logic, cannot set current player to current player??
+                                    Console.write("This is already the current user!\n", Console.TextColor.RED);
+                                    return null;
+                                }
                             }
-                        } else {
-                            //check for current player logic, cannot set current player to current player??
-                            Console.write("This is already the current user!\n", Console.TextColor.RED);
-                            break;
                         }
                     }
                 }
             }
-        }
-        return newCurrentPlayer;
+        } while(true);
     }
 
     /**
@@ -487,6 +492,6 @@ public class UI {
         Console.write("|"+ slot.toUpperCase() + "| ",Console.TextColor.BLUE);
     }
     public void displaySlotsCheck(String check){
-        Console.write("\n!! " + check.toUpperCase() + " !!",Console.TextColor.BLUE);
+        Console.write("\n!! " + check.toUpperCase() + " !!",Console.TextColor.CYAN);
     }
 }
