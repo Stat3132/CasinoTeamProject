@@ -62,7 +62,7 @@ public class Roulette implements Casino {
                         betAmount = betAmount * 2;
                         currentPlayer = cashOut(currentPlayer, betAmount);
                     } else {
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        currentPlayer = cashOut(currentPlayer, -betAmount);
                     }
                 } else {
                     if (betType == 2 && outcome != 0 && (outcome % 2 == 0)) {
@@ -71,7 +71,7 @@ public class Roulette implements Casino {
                         UI.didUserWin(true, betAmount);
                     } else {
                         UI.didUserWin(false, betAmount);
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        currentPlayer = cashOut(currentPlayer, -betAmount);
                     }
                 }
                 break;
@@ -83,7 +83,7 @@ public class Roulette implements Casino {
                         currentPlayer = cashOut(currentPlayer, betAmount);
 
                     } else {
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        currentPlayer = cashOut(currentPlayer, -betAmount);
                     }
                 } else {
                     if(betType == 3 && outcome != 0 && (outcome % 3 == 0)){
@@ -93,7 +93,7 @@ public class Roulette implements Casino {
 
                     } else {
                         UI.didUserWin(false, betAmount);
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        currentPlayer = cashOut(currentPlayer, -betAmount);
                     }
                 }
                 break;
@@ -105,7 +105,7 @@ public class Roulette implements Casino {
                         betAmount = betAmount * 50;
                         currentPlayer = cashOut(currentPlayer, betAmount);
                     } else {
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        currentPlayer = cashOut(currentPlayer, -betAmount);
                     }
                 } else {
                     int specificNumber = UI.displayRouletteSpecificNum();
@@ -115,7 +115,7 @@ public class Roulette implements Casino {
                         UI.didUserWin(true, betAmount);
                     } else {
                         UI.didUserWin(false, betAmount);
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        currentPlayer = cashOut(currentPlayer, -betAmount);
                     }
                 }
                 break;
