@@ -124,10 +124,10 @@ public class UI {
         //UI prompt for leaderboard
         if(player.isAI()){
             //if user is ai, add tag
-            System.out.println((i + 1) + ". " + player.getName() + " [AI] ($" + money + ")");
+            Console.write((i + 1) + ". " + player.getName() + " [AI] ($" + money + ")");
         } else {
             //otherwise, print out user as well as money count
-            System.out.println((i + 1) + ". " + player.getName() + " ($" + money + ")");
+            Console.write((i + 1) + ". " + player.getName() + " ($" + money + ")");
         }
     }
     public void leaderboardHeader(int game){
@@ -451,7 +451,7 @@ public class UI {
         return userInt;
     }
     public void displayHorseWinner(Horse[] winnerHorse, boolean didWin, int betAmount){
-        Console.write("After careful evaluation, The Winner is....: \n\n");
+        Console.write("\nAfter careful evaluation, The Winner is....: \n\n");
         footer(2);
         Console.write(winnerHorse[6] + "\n");
         footer(1);
