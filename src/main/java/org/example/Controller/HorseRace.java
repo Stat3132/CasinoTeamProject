@@ -90,6 +90,7 @@ public class HorseRace implements Casino {
     //This adds an odd factor to every horse based on speed and weight.
     public void inputtingOddsIntoHorseStable() {
         int stableCounter = 0;
+        probabilityForValue.creatingOddArray();
         for (int horseSpeedCounter = 1; horseSpeedCounter < 11; horseSpeedCounter++) {
             if (fullStableOfRacerHorses[stableCounter].getHorseSpeed() == horseSpeedCounter) {
                 if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= maxHorseWeight) {
