@@ -31,18 +31,8 @@ public class HorseRace implements Casino {
         probabilityForValue.creatingOddArray();
         for (int horseSpeedCounter = 1; horseSpeedCounter < 11; horseSpeedCounter++) {
             if (fullStableOfRacerHorses[stableCounter].getHorseSpeed() == horseSpeedCounter) {
-                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= maxHorseWeight) {
-                    int horseOddsFactor = probabilityForValue.randomOddValue();
-                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-                }
-                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= mediumHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < maxHorseWeight) {
-                    int horseOddsFactor = probabilityForValue.randomOddValue();
-                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-                }
-                if (fullStableOfRacerHorses[stableCounter].getHorseWeight() >= lightHorseWeight && fullStableOfRacerHorses[stableCounter].getHorseWeight() < mediumHorseWeight) {
-                    int horseOddsFactor = probabilityForValue.randomOddValue();
-                    fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
-                }
+                int horseOddsFactor = probabilityForValue.randomOddValue();
+                fullStableOfRacerHorses[stableCounter].setHorseOdds(horseOddsFactor);
                 horseSpeedCounter = -1;
                 stableCounter++;
                 if (stableCounter == 20) {
