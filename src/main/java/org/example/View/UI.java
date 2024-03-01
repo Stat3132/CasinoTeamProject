@@ -3,6 +3,7 @@ package org.example.View;
 import org.example.Model.CasinoMembers;
 import org.example.Model.Horse;
 import org.example.Model.Player;
+import org.example.UTIL.Card;
 import org.example.UTIL.Console;
 
 import java.util.ArrayList;
@@ -508,6 +509,57 @@ public class UI {
             System.out.println(horse.toString());
             footer(2);
         }
+    }
+    //endregion
+    //region BLACK JACK
+    public void blackJackWins(int winnerOptions){
+        switch (winnerOptions){
+            case 1:
+                //Natural 21
+                System.out.println("You got a BLACK JACK!");
+                break;
+            case 2:
+                System.out.println("You got 21 before the dealer!");
+                break;
+            case 3:
+                System.out.println("The dealer got a BLACK JACK!");
+                break;
+            case 4:
+                System.out.println("The dealer got 21 before you!");
+                break;
+            case 5:
+                System.out.println("You busted!");
+                break;
+            case 6:
+                System.out.println("Dealer busted!");
+                break;
+        }
+    }
+    public void firstCards(Card firstCard, Card secondCard, boolean isDealer){
+        if (isDealer == false) {
+            System.out.println("Players current cards:");
+            System.out.println(firstCard);
+            System.out.println(secondCard);
+        }
+        if (isDealer){
+            System.out.println("\nDealer's current cards:");
+            System.out.println(firstCard);
+            System.out.println("\n");
+        }
+    }
+    public void finalCards(ArrayList<Card> allCards,ArrayList<Card> allDealerCards){
+        System.out.println("Player's FINAL cards: \n");
+        for (int i = 0; i < allCards.size(); i++) {
+            System.out.println(allCards.get(i));
+        }
+        System.out.println("Dealer's FINAL cards: \n");
+        for (int i = 0; i < allDealerCards.size(); i++) {
+            System.out.println(allDealerCards.get(i));
+        }
+
+    }
+    public int blackJackPrompt(){
+        return Console.getUserInt("1) Hit? \n 2) Stand",true);
     }
     //endregion
 }

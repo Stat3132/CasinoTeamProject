@@ -6,7 +6,8 @@ public class Card {
    protected Card[] fullDeck = new Card[52];
    CardValue cardValue;
    Suit suit;
-
+//    int cardValue;
+//    String suit;
    public Card(CardValue cardValue, Suit suit){
     setCardValue(cardValue);
     setSuit(suit);
@@ -15,6 +16,23 @@ public class Card {
 
    }
 
+//    public int getCardValue() {
+//        return cardValue;
+//    }
+//
+//    public void setCardValue(int cardValue) {
+//        this.cardValue = cardValue;
+//    }
+//
+//    public String getSuit() {
+//        return suit;
+//    }
+//
+//    public void setSuit(String suit) {
+//        this.suit = suit;
+//    }
+
+    //region REMOVED BRANCH
     public CardValue getCardValue() {
         return cardValue;
     }
@@ -33,6 +51,7 @@ public class Card {
            this.suit = suit;
        }
     }
+    //endregion
     //Makes array of cardValues and Suits
     @Override
     public String toString() {

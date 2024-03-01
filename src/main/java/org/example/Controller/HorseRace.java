@@ -24,6 +24,7 @@ public class HorseRace implements Casino {
         }
         inputtingOddsIntoHorseStable();
     }
+    //end region
     //This adds an odd factor to every horse based on speed and weight.
     public void inputtingOddsIntoHorseStable() {
         int stableCounter = 0;

@@ -13,7 +13,7 @@ public class ProbabilityForValue {
     public int[] fullIntArray = new int[100];
     //endregion
 
-    // RANDOM VALUE FROM MIN to MAX. Takes in parameters.
+    //region RANDOM VALUES
     public static int randomValues(int min, int max) {
         Random rand = new Random();
         return rand.nextInt(min, max + 1);
@@ -41,8 +41,9 @@ public class ProbabilityForValue {
         }
         return horseOdd;
     }
+    //endregion
 
-    // Making sure odds contributes to the horses winning but still does not guarantee the win.
+    //region LAST ODD CHECK FOR HORSE'S
     public int makingMathematicalHorseOdds(Horse racerHorse) {
         if (racerHorse == null) {
             return 0;
@@ -77,8 +78,9 @@ public class ProbabilityForValue {
      * This method uses the horses odds and gives it one more random "spin" to truly randomize the odds.
      *
      * @param finalLineUp This is the lineup of horses that have already been ordered from the least odds to the greatest odds
-     * @return This returns a temporary array that now becomes the new positionings for the final horses.
+     * @return This returns a temporary array that now becomes the new positioning for the final horses.
      */
+
     public Horse[] finalOddCheck(Horse[] finalLineUp) {
         Horse[] tempPlacement = new Horse[7];
         int incrementingTempPlacement = 6;
@@ -109,4 +111,5 @@ public class ProbabilityForValue {
         }
         return tempPlacement;
     }
+    //endregion
 }
