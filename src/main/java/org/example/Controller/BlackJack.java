@@ -136,6 +136,7 @@ public class BlackJack extends Card implements Casino {
                         UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
                         return currentPlayer;
                     }
+
                 case 3:
                     for (int searchingForAce = 0; searchingForAce < playerHand.size(); searchingForAce++) {
                         if (playerHand.get(searchingForAce).getCardValue().getCardCount() == CardValue.ACE.getCardCount()) {
@@ -152,88 +153,89 @@ public class BlackJack extends Card implements Casino {
                             break;
                         }
                     }
-                default:
-                    cardIndex = 1;
+                            default:
+                                cardIndex = 1;
+                                continue;
+                        }
+                    }
+                    //Returns current players money
+                    return currentPlayer;
+
+        }
+
+
+        @Override
+        public CasinoMembers cashOut (CasinoMembers currentPlayer,int playerBet){
+            currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
+            currentPlayer.setTotalBlackJackMoney(currentPlayer.getTotalHorseMoney() + playerBet);
+            return currentPlayer;
+        }
+        //endregion
+        //region CREATING SHUFFLED DECK
+
+        //An array of enums that will be inputted into cards to make multiple cards.
+        public void makingSuitsAndValueArrays () {
+            CardValue[] intForCardValues = CardValue.values();
+            Suit[] intForSuits = Suit.values();
+            for (int i = 0; i < allCardValues.length; i++) {
+                if (allCardValues[i] == null) {
+                    allCardValues[i] = intForCardValues[i];
+                }
+                if (i == intForCardValues.length - 1) {
+                    break;
+                }
+            }
+            for (int i = 0; i < allSuits.length; i++) {
+                if (allSuits[i] == null) {
+                    allSuits[i] = intForSuits[i];
+                }
+                if (i == allSuits.length - 1) {
+                    break;
+                }
+            }
+        }
+
+        //Creates a deck from 1-52 un shuffled, then shuffles the deck.
+        public void populateDeck () {
+            makingSuitsAndValueArrays();
+            int suitCounter = 0;
+            int cardCounter = 0;
+            for (int i = 0; i < 100; i++) {
+                Card newCard = new Card(allCardValues[i], allSuits[suitCounter]);
+                fullDeck[cardCounter] = newCard;
+                cardCounter++;
+                // System.out.println(newCard);
+                if (suitCounter == 3 && i == 12) {
+                    break;
+                }
+                if (i == 12) {
+                    i = -1;
+                    suitCounter++;
+                }
+            }
+
+            for (int i = 0; i < 52; ) {
+                int removedCard = ProbabilityForValue.randomValues(0, 51);
+                if (shuffledDeck[51] != null) {
+                    break;
+                }
+                if (fullDeck[removedCard] != null) {
+                    shuffledDeck[i] = fullDeck[removedCard];
+                    fullDeck[removedCard] = null;
+                    i++;
+                } else {
                     continue;
+                }
+
             }
         }
-        //Returns current players money
-        return currentPlayer;
+
+        public Card randomCard () {
+            if (increasingCardCount == 51) {
+                increasingCardCount = 0;
+            }
+            increasingCardCount++;
+            return shuffledDeck[increasingCardCount];
+        }
+        //endregion
     }
-
-
-    @Override
-    public CasinoMembers cashOut(CasinoMembers currentPlayer, int playerBet) {
-        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-        currentPlayer.setTotalBlackJackMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-        return currentPlayer;
-    }
-    //endregion
-    //region CREATING SHUFFLED DECK
-
-    //An array of enums that will be inputted into cards to make multiple cards.
-    public void makingSuitsAndValueArrays() {
-        CardValue[] intForCardValues = CardValue.values();
-        Suit[] intForSuits = Suit.values();
-        for (int i = 0; i < allCardValues.length; i++) {
-            if (allCardValues[i] == null) {
-                allCardValues[i] = intForCardValues[i];
-            }
-            if (i == intForCardValues.length - 1) {
-                break;
-            }
-        }
-        for (int i = 0; i < allSuits.length; i++) {
-            if (allSuits[i] == null) {
-                allSuits[i] = intForSuits[i];
-            }
-            if (i == allSuits.length - 1) {
-                break;
-            }
-        }
-    }
-
-    //Creates a deck from 1-52 un shuffled, then shuffles the deck.
-    public void populateDeck() {
-        makingSuitsAndValueArrays();
-        int suitCounter = 0;
-        int cardCounter = 0;
-        for (int i = 0; i < 100; i++) {
-            Card newCard = new Card(allCardValues[i], allSuits[suitCounter]);
-            fullDeck[cardCounter] = newCard;
-            cardCounter++;
-            // System.out.println(newCard);
-            if (suitCounter == 3 && i == 12) {
-                break;
-            }
-            if (i == 12) {
-                i = -1;
-                suitCounter++;
-            }
-        }
-
-        for (int i = 0; i < 52; ) {
-            int removedCard = ProbabilityForValue.randomValues(0, 51);
-            if (shuffledDeck[51] != null) {
-                break;
-            }
-            if (fullDeck[removedCard] != null) {
-                shuffledDeck[i] = fullDeck[removedCard];
-                fullDeck[removedCard] = null;
-                i++;
-            } else {
-                continue;
-            }
-
-        }
-    }
-
-    public Card randomCard() {
-        if (increasingCardCount == 51) {
-            increasingCardCount = 0;
-        }
-        increasingCardCount++;
-        return shuffledDeck[increasingCardCount];
-    }
-    //endregion
-}
