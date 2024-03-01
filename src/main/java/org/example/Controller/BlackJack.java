@@ -45,6 +45,7 @@ public class BlackJack extends Card implements Casino {
             UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
             //"Jack pot"
             currentPlayer = cashOut(currentPlayer, playerBet * 5);
+            return currentPlayer;
 
             //Dealer natural 21
         } else if (currentDealerHand == WINNINGNUMBER) {
@@ -52,6 +53,7 @@ public class BlackJack extends Card implements Casino {
             UI.didUserWin(false, playerBet);
             UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
             currentPlayer = cashOut(currentPlayer, -playerBet / 2);
+            return currentPlayer;
         }
 
         for (int cardIndex = 2; cardIndex < 50; cardIndex++) {
