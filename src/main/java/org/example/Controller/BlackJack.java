@@ -7,113 +7,158 @@ import org.example.UTIL.ProbabilityForValue;
 import org.example.UTIL.Suit;
 import org.example.View.UI;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class BlackJack extends Card implements Casino {
+    //region VAR
+    final int WINNINGNUMBER = 21;
     UI UI = new UI();
     Card[] shuffledDeck = new Card[52];
     int currentPlayerHand;
     int currentDealerHand;
+    int increasingCardCount = -1;
 
-    //TODO
+    //endregion
     //region BLACKJACK LOGIC
     @Override
     public CasinoMembers play(CasinoMembers currentPlayer, int playerBet, boolean isAI) {
-        playerBet = playerBet * 2;
         populateDeck();
+        playerBet = playerBet * 2;
+        //Player hand
         ArrayList<Card> playerHand = new ArrayList<>();
+        //Dealer hand
         ArrayList<Card> dealerHand = new ArrayList<>();
-        playerHand.add(populateDeck());
-        playerHand.add(populateDeck());
-        dealerHand.add(populateDeck());
-        dealerHand.add(populateDeck());
-        currentPlayerHand = playerHand.getFirst().getCardValue().ordinal() + 1 + playerHand.get(1).getCardValue().ordinal() + 1;
-        currentDealerHand = dealerHand.getFirst().getCardValue().ordinal() + 1 + dealerHand.get(1).getCardValue().ordinal() + 1;
-        UI.firstCards(playerHand.getFirst(), playerHand.get(1), false);
-        UI.firstCards(playerHand.getFirst(), playerHand.get(1), true);
+        //Player's first 2 cards.
+        playerHand.add(randomCard());
+        playerHand.add(randomCard());
+        //Dealer's first 2 cards.
+        dealerHand.add(randomCard());
+        dealerHand.add(randomCard());
+        //This displays the dealer and the players first hands.
+        currentPlayerHand = playerHand.getFirst().getCardValue().getCardCount() + playerHand.get(1).getCardValue().getCardCount();
+        currentDealerHand = dealerHand.getFirst().getCardValue().getCardCount() + dealerHand.get(1).getCardValue().getCardCount();
+        UI.displayBlackJackCards(playerHand, dealerHand, true, false, false);
         //Player natural 21
-        if (currentPlayerHand == 21) {
-            UI.blackJackWins(1);
+        if (currentPlayerHand == WINNINGNUMBER) {
+            UI.blackJackWins(1, currentPlayerHand, currentDealerHand);
             UI.didUserWin(true, playerBet);
-            currentPlayer = cashOut(currentPlayer, playerBet);
+            UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
+            //"Jack pot"
+            currentPlayer = cashOut(currentPlayer, playerBet * 5);
+
             //Dealer natural 21
-        } else if (currentDealerHand == 21) {
-            UI.blackJackWins(3);
+        } else if (currentDealerHand == WINNINGNUMBER) {
+            UI.blackJackWins(3, currentPlayerHand, currentDealerHand);
             UI.didUserWin(false, playerBet);
+            UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
             currentPlayer = cashOut(currentPlayer, -playerBet / 2);
         }
-        for (int i = 2; i < 30; i++) {
+
+        for (int cardIndex = 2; cardIndex < 50; cardIndex++) {
             //First draw or stand
             switch (UI.blackJackPrompt()) {
+                //HIT
                 case 1:
-                    playerHand.add(i, populateDeck());
-                    currentPlayerHand = playerHand.get(2).getCardValue().ordinal() + 1 + currentPlayerHand;
-                    if (currentPlayerHand > 21) {
-                        UI.blackJackWins(5);
+                    //Gives player one card
+                    playerHand.add(cardIndex, randomCard());
+                    currentPlayerHand = playerHand.get(cardIndex).getCardValue().getCardCount() + currentPlayerHand;
+
+                    //Dealer dont have to draw if their total is 17 or above
+                    if (currentDealerHand >= 17) {
+
+                    } else {
+                        //Dealer has to draw because his card value is worth less than 17
+                        dealerHand.add(cardIndex, randomCard());
+                        currentDealerHand = dealerHand.get(cardIndex).getCardValue().getCardCount() + currentDealerHand;
+                    }
+                    //If player has higher than 21 than the player busted and the dealer wins.
+                    if (currentPlayerHand > WINNINGNUMBER) {
+                        UI.blackJackWins(5, currentPlayerHand, currentDealerHand);
                         UI.didUserWin(false, playerBet / 2);
                         currentPlayer = cashOut(currentPlayer, -playerBet / 2);
-                        UI.finalCards(playerHand, dealerHand);
+                        UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
                         return currentPlayer;
                     }
-                    if (currentPlayerHand < 21) {
-                        UI.finalCards(playerHand, dealerHand);
-                        continue;
-                    }
-
-                    if (currentPlayerHand == 21) {
-                        UI.blackJackWins(2);
+                    //If Players total is 21 they win.
+                    if (currentPlayerHand == WINNINGNUMBER) {
+                        UI.blackJackWins(2, currentPlayerHand, currentDealerHand);
                         UI.didUserWin(true, playerBet);
                         currentPlayer = cashOut(currentPlayer, playerBet);
-                        UI.finalCards(playerHand, dealerHand);
+                        UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
                         return currentPlayer;
                     }
 
 
-                    if (currentDealerHand <= 16) {
-                        dealerHand.add(i, populateDeck());
-                        currentDealerHand = playerHand.get(2).getCardValue().ordinal() + 1 + currentDealerHand;
-
-                        if (currentDealerHand == 21) {
-                            UI.blackJackWins(4);
-                            UI.didUserWin(false, playerBet / 2);
-                            currentPlayer = cashOut(currentPlayer, -playerBet / 2);
-                            UI.finalCards(playerHand, dealerHand);
-                            return currentPlayer;
-
+                    //If dealer has higher than 21 than the dealer busted and the player wins.
+                    if (currentDealerHand > WINNINGNUMBER) {
+                        for (int dealerAce = 0; dealerAce < dealerHand.size(); dealerAce++) {
+                            if (dealerHand.get(dealerAce).getCardValue().getCardCount() == CardValue.ACE.getCardCount()) {
+                                dealerHand.get(dealerAce).getCardValue().setCardCount(1);
+                                break;
+                            }
                         }
-                        if (currentDealerHand > 21) {
-                            UI.blackJackWins(6);
-                            UI.didUserWin(true, playerBet);
-                            currentPlayer = cashOut(currentPlayer, playerBet);
-                            UI.finalCards(playerHand, dealerHand);
-                            return currentPlayer;
-                        }
+
+                        UI.blackJackWins(6, currentPlayerHand, currentDealerHand);
+                        UI.didUserWin(true, playerBet);
+                        currentPlayer = cashOut(currentPlayer, playerBet);
+                        UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
+                        return currentPlayer;
                     }
-                    break;
+
+                    //If dealer has 21 they win and the player loses.
+                    if (currentDealerHand == WINNINGNUMBER) {
+                        UI.blackJackWins(4, currentPlayerHand, currentDealerHand);
+                        UI.didUserWin(false, playerBet / 2);
+                        currentPlayer = cashOut(currentPlayer, -playerBet / 2);
+                        UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
+                        return currentPlayer;
+                    }
+                    //If player card amount is lower than 21 then they can continue and get another card.
+                    UI.displayBlackJackCards(playerHand, dealerHand, false, true, false);
+                    continue;
+                    //STAND
                 case 2:
+                    //If player total is greater than dealer hand the player wins.
                     if (currentPlayerHand > currentDealerHand) {
-                        UI.blackJackWins(2);
+                        UI.blackJackWins(7, currentPlayerHand, currentDealerHand);
                         UI.didUserWin(true, playerBet);
                         currentPlayer = cashOut(currentPlayer, playerBet);
-                        UI.finalCards(playerHand, dealerHand);
+                        UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
                         return currentPlayer;
                     }
+                    //If dealer total is greater than player hand the dealer wins.
                     if (currentDealerHand > currentPlayerHand) {
-                        UI.blackJackWins(4);
+                        UI.blackJackWins(8, currentPlayerHand, currentDealerHand);
                         UI.didUserWin(false, playerBet / 2);
                         currentPlayer = cashOut(currentPlayer, -playerBet / 2);
-                        UI.finalCards(playerHand, dealerHand);
+                        UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
                         return currentPlayer;
                     }
-                    break;
+                case 3:
+                    for (int searchingForAce = 0; searchingForAce < playerHand.size(); searchingForAce++) {
+                        if (playerHand.get(searchingForAce).getCardValue().getCardCount() == CardValue.ACE.getCardCount()) {
+                            switch (UI.changeAce()) {
+                                case 1:
+                                    playerHand.get(searchingForAce).getCardValue().setCardCount(1);
+                                    break;
+                                case 2:
+                                    playerHand.get(searchingForAce).getCardValue().setCardCount(11);
+                                    break;
+                            }
+                        } else {
+                            cardIndex--;
+                            break;
+                        }
+                    }
+                default:
+                    cardIndex = 1;
+                    continue;
             }
-            break;
         }
-        UI.finalCards(playerHand, dealerHand);
-
+        //Returns current players money
         return currentPlayer;
     }
+
 
     @Override
     public CasinoMembers cashOut(CasinoMembers currentPlayer, int playerBet) {
@@ -122,7 +167,6 @@ public class BlackJack extends Card implements Casino {
         return currentPlayer;
     }
     //endregion
-
     //region CREATING SHUFFLED DECK
 
     //An array of enums that will be inputted into cards to make multiple cards.
@@ -148,7 +192,7 @@ public class BlackJack extends Card implements Casino {
     }
 
     //Creates a deck from 1-52 un shuffled, then shuffles the deck.
-    public Card populateDeck() {
+    public void populateDeck() {
         makingSuitsAndValueArrays();
         int suitCounter = 0;
         int cardCounter = 0;
@@ -178,9 +222,16 @@ public class BlackJack extends Card implements Casino {
             } else {
                 continue;
             }
+
         }
-        return shuffledDeck[ProbabilityForValue.randomValues(0, 51)];
+    }
+
+    public Card randomCard() {
+        if (increasingCardCount == 51) {
+            increasingCardCount = 0;
+        }
+        increasingCardCount++;
+        return shuffledDeck[increasingCardCount];
     }
     //endregion
-
 }

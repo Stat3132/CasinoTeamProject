@@ -1,13 +1,15 @@
 package org.example.UTIL;
 
 public class Card {
+    //region VAR
    protected CardValue[] allCardValues = new CardValue[13];
    protected Suit[] allSuits = new Suit[4];
    protected Card[] fullDeck = new Card[52];
    CardValue cardValue;
    Suit suit;
-//    int cardValue;
-//    String suit;
+   //endregion
+
+    //region CONSTRUCTOR and GETTERS AND SETTERS
    public Card(CardValue cardValue, Suit suit){
     setCardValue(cardValue);
     setSuit(suit);
@@ -15,22 +17,6 @@ public class Card {
    public Card(){
 
    }
-
-//    public int getCardValue() {
-//        return cardValue;
-//    }
-//
-//    public void setCardValue(int cardValue) {
-//        this.cardValue = cardValue;
-//    }
-//
-//    public String getSuit() {
-//        return suit;
-//    }
-//
-//    public void setSuit(String suit) {
-//        this.suit = suit;
-//    }
 
     //region REMOVED BRANCH
     public CardValue getCardValue() {
@@ -57,4 +43,5 @@ public class Card {
     public String toString() {
         return cardValue + " of " + suit;
     }
+    //endregion
 }

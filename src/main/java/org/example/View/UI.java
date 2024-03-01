@@ -9,7 +9,6 @@ import org.example.UTIL.Console;
 import java.util.ArrayList;
 
 public class UI {
-    //TODO: Blackjack prompts
 
     //region CASINO MENU/PROMPTS
     public int casinoMenu(){
@@ -511,55 +510,91 @@ public class UI {
         }
     }
     //endregion
+    //TODO: FINISH blackjack prompts (if needed)
     //region BLACK JACK
-    public void blackJackWins(int winnerOptions){
+    public void blackJackWins(int winnerOptions, int currentPlayerTotal, int currentDealerTotal){
         switch (winnerOptions){
             case 1:
                 //Natural 21
-                System.out.println("You got a BLACK JACK!");
+                System.out.println("You got a BLACK JACK!" + "\n\t " +
+                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 2:
-                System.out.println("You got 21 before the dealer!");
+                System.out.println("You got 21 before the dealer!" + "\n\t " +
+                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 3:
-                System.out.println("The dealer got a BLACK JACK!");
+                System.out.println("The dealer got a BLACK JACK!" + "\n\t " +
+                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 4:
-                System.out.println("The dealer got 21 before you!");
+                System.out.println("The dealer got 21 before you!" + "\n\t " +
+                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 5:
-                System.out.println("You busted!");
+                System.out.println("You busted!" + "\n\t " +
+                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal );
                 break;
             case 6:
-                System.out.println("Dealer busted!");
+                System.out.println("Dealer busted!" + "\n\t " +
+                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                break;
+            case 7:
+                System.out.println("Player had the higher card count!" + "\n\t " +
+                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                break;
+            case 8:
+                System.out.println("Dealer had the higher card count!" + "\n\t " +
+                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
         }
     }
-    public void firstCards(Card firstCard, Card secondCard, boolean isDealer){
-        if (isDealer == false) {
-            System.out.println("Players current cards:");
-            System.out.println(firstCard);
-            System.out.println(secondCard);
+    public void displayBlackJackCards(ArrayList<Card> allCards, ArrayList<Card> allDealerCards,boolean startOfGame, boolean inCurrentGame, boolean endGame){
+        //Display first cards
+        if (startOfGame) {
+                System.out.println("______________________");
+                System.out.println("Players FIRST cards:");
+                System.out.println(allCards.getFirst());
+                System.out.println(allCards.get(1));
+                System.out.println("______________________");
+
+                System.out.println("______________________");
+                System.out.println("Dealer's FIRST cards:");
+                System.out.println(allDealerCards.getFirst());
+                System.out.println("______________________");
         }
-        if (isDealer){
-            System.out.println("\nDealer's current cards:");
-            System.out.println(firstCard);
+        //Display current game cards
+        if (inCurrentGame){
+            System.out.println("______________________");
+            System.out.println("Player's CURRENT cards:");
+            for (int i = 0; i < allCards.size(); i++) {
+                System.out.println(allCards.get(i));
+            }
+            System.out.println("_______________________" + "\n");
+        }
+        // Display end game cards
+        if (endGame) {
+            System.out.println("______________________");
+            System.out.println("Player's FINAL cards:");
+            for (int i = 0; i < allCards.size(); i++) {
+                System.out.println(allCards.get(i));
+            }
+            System.out.println("_______________________");
             System.out.println("\n");
-        }
-    }
-    public void finalCards(ArrayList<Card> allCards,ArrayList<Card> allDealerCards){
-        System.out.println("Player's FINAL cards: \n");
-        for (int i = 0; i < allCards.size(); i++) {
-            System.out.println(allCards.get(i));
-        }
-        System.out.println("Dealer's FINAL cards: \n");
-        for (int i = 0; i < allDealerCards.size(); i++) {
-            System.out.println(allDealerCards.get(i));
+            System.out.println("_______________________");
+            System.out.println("Dealer's FINAL cards:");
+            for (int i = 0; i < allDealerCards.size(); i++) {
+                System.out.println(allDealerCards.get(i));
+            }
+            System.out.println("_______________________");
         }
 
     }
     public int blackJackPrompt(){
-        return Console.getUserInt("1) Hit? \n 2) Stand",true);
+        return Console.getUserInt("1) Hit? \n2) Stand! \n3) Change ace?",true);
+    }
+    public int changeAce(){
+        return Console.getUserInt("1) Change into 1 \n 2) Change into 11", true);
     }
     //endregion
 }

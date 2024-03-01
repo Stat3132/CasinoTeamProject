@@ -1,7 +1,7 @@
 package org.example.UTIL;
 
 public enum Name {
-    //enum values for Names
+    //region NAMES
     _0("Henry"),
     _1("Oliver"),
     _2("Dustin"),
@@ -125,7 +125,7 @@ public enum Name {
     _120("Linus"),
     _121("Willy"),
     _122("Diego");
-
+    //endregion
     //toString
     String friendlyString;
     @Override
