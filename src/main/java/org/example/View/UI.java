@@ -98,10 +98,10 @@ public class UI {
         //UI prompt for leaderboard
         if(player.isAI()){
             //if user is ai, add tag
-            Console.write((i + 1) + ". " + player.getName() + " [AI] ($" + money + ")");
+            Console.write((i + 1) + ". " + player.getName() + " [AI] ($" + money + ")\n");
         } else {
             //otherwise, print out user as well as money count
-            Console.write((i + 1) + ". " + player.getName() + " ($" + money + ")");
+            Console.write((i + 1) + ". " + player.getName() + " ($" + money + ")\n");
         }
     }
     public void leaderboardHeader(int game){
@@ -432,7 +432,7 @@ public class UI {
         Console.write(" |"+ slot.toUpperCase() + "| ",Console.TextColor.BLUE);
     }
     public void displaySlotsCheck(String check){
-        Console.write("\n!! " + check.toUpperCase() + " !!",Console.TextColor.CYAN);
+        Console.write("\n!! " + check.toUpperCase() + " !!\n",Console.TextColor.CYAN);
         footer(2);
     }
     //endregion
@@ -503,7 +503,7 @@ public class UI {
         Console.write("\nLet the Fastest Horse Win!");
     }
     public void displayStable(Horse[] stable){
-        Console.write("-- HORSE STABLE --",Console.TextColor.CYAN);
+        Console.write("\n-- HORSE STABLE --\n",Console.TextColor.CYAN);
         for (Horse horse : stable) {
             System.out.println(horse.toString());
             footer(2);

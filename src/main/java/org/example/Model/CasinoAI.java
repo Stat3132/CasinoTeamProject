@@ -12,7 +12,7 @@ public class CasinoAI extends CasinoMembers{
     //region CONSTRUCTOR
     public CasinoAI(){
         //constructor for AI users, sets randomized name and randomized money values
-        super(" ",ProbabilityForValue.randomValues(500,2000));
+        super(" ",ProbabilityForValue.randomValues(100,500));
         this.setAI(true);
     }
     //endregion
