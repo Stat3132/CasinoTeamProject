@@ -107,16 +107,16 @@ public class UI {
     public void leaderboardHeader(int game){
         switch(game){ //headers
             case 1: //slots
-                Console.write("-- Slots Leaderboard! --\n", Console.TextColor.BLUE);
+                Console.write("\n-- Slots Leaderboard! --\n", Console.TextColor.BLUE);
                 break;
             case 2: //roulette
-                Console.write("-- Roulette Leaderboard! --\n", Console.TextColor.RED);
+                Console.write("\n-- Roulette Leaderboard! --\n", Console.TextColor.RED);
                 break;
             case 3: //black-jack
-                Console.write("-- Black-Jack Leaderboard! --\n", Console.TextColor.PURPLE);
+                Console.write("\n-- Black-Jack Leaderboard! --\n", Console.TextColor.PURPLE);
                 break;
             case 4: //horse-racing
-                Console.write("-- Horse-Racing! --\n", Console.TextColor.CYAN);
+                Console.write("\n-- Horse-Racing! --\n", Console.TextColor.CYAN);
                 break;
             default:
                 Console.write("\n-- Casino Leaderboard! --\n", Console.TextColor.GREEN);
