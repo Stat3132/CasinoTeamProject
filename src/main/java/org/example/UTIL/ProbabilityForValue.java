@@ -10,7 +10,7 @@ public class ProbabilityForValue {
     //region VARS
     public static ArrayList<Integer> arrayListOfOdds = new ArrayList<Integer>();
     int lastCheck;
-    public int[] fullIntArray = new int[100];
+    public int[] fullArrayOfOdds = new int[100];
     //endregion
 
     //region RANDOM VALUES
@@ -20,21 +20,21 @@ public class ProbabilityForValue {
     }
 
     public void creatingOddArray(){
-        for (int i = 0; i < fullIntArray.length; i++) {
-            fullIntArray[i] = i;
+        for (int i = 0; i < fullArrayOfOdds.length; i++) {
+            fullArrayOfOdds[i] = i;
         }
     }
 
     //Randomizing odds and if odds are used removing them from an array for no overlapping odds.
     public int randomOddValue() {
         int horseOdd = 0;
-        for (int i = 0; i < fullIntArray.length - 1; i++) {
-            int randomOdd = randomValues(1, fullIntArray.length - 1);
-            if (fullIntArray[randomOdd] == 0) {
+        for (int i = 0; i < fullArrayOfOdds.length - 1; i++) {
+            int randomOdd = randomValues(1, fullArrayOfOdds.length - 1);
+            if (fullArrayOfOdds[randomOdd] == 0) {
                 continue;
             }
-            if (fullIntArray[randomOdd] != 0) {
-                fullIntArray[randomOdd] = 0;
+            if (fullArrayOfOdds[randomOdd] != 0) {
+                fullArrayOfOdds[randomOdd] = 0;
                 horseOdd = randomOdd;
                 break;
             }

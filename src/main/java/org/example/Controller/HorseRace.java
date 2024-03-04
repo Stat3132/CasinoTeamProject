@@ -10,9 +10,9 @@ public class HorseRace implements Casino {
 
     //region VARS
     private static final int winnerHorse = 6;
-    private static final int maxHorseWeight = 1150, mediumHorseWeight = 1000, lightHorseWeight = 900;
     Horse[] fullStableOfRacerHorses = new Horse[20], finalsLineUp = new Horse[7];
     UI UI = new UI();
+    //Odds that are given to horses
     ProbabilityForValue probabilityForValue = new ProbabilityForValue();
     //endregion
 
@@ -25,7 +25,7 @@ public class HorseRace implements Casino {
         inputtingOddsIntoHorseStable();
     }
     //end region
-    //This adds an odd factor to every horse based on speed and weight.
+    //This adds an odd factor to every horse.
     public void inputtingOddsIntoHorseStable() {
         int stableCounter = 0;
         probabilityForValue.creatingOddArray();
