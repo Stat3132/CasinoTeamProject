@@ -1,7 +1,8 @@
 package org.example.UTIL;
 
 public enum Name {
-    //region NAMES
+
+    //region ENUM VALUES (NAMES)
     _0("Henry"),
     _1("Oliver"),
     _2("Dustin"),
@@ -126,14 +127,16 @@ public enum Name {
     _121("Willy"),
     _122("Diego");
     //endregion
-    //toString
+
+    //region CONSTRUCTOR & TOSTRING
+    Name(String friendlyString) {
+        this.friendlyString = friendlyString;
+    }
     String friendlyString;
     @Override
     public String toString() {
         return friendlyString;
     }
-    //constructor
-    Name(String friendlyString) {
-        this.friendlyString = friendlyString;
-    }
+
+    //endregion
 }

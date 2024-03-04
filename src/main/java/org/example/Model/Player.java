@@ -3,6 +3,7 @@ package org.example.Model;
 import org.example.UTIL.ProbabilityForValue;
 
 public class Player extends CasinoMembers{
+
     //region VARS
     //player class that extends from CasinoMembers
     int defaultMoney = 500; //every default player has $500 default money

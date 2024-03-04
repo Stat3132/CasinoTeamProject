@@ -25,6 +25,7 @@ public class Roulette implements Casino {
     @Override
     public CasinoMembers cashOut(CasinoMembers player, int playerBet) {
         player.setCurrentMoneyCount(player.getCurrentMoneyCount() + playerBet);
+        player.setTotalWinnings(player.getTotalWinnings() + playerBet);
         player.setTotalRouletteMoney(player.getTotalRouletteMoney() + playerBet);
         return player;
     }

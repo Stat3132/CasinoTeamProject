@@ -106,6 +106,7 @@ public class SlotMachine implements Casino {
     public CasinoMembers cashOut(CasinoMembers player, int playerBet) {
         //return player cash values and player values
         player.setCurrentMoneyCount(player.getCurrentMoneyCount() + playerBet);
+        player.setTotalWinnings(player.getTotalWinnings() + playerBet);
         player.setTotalSlotMoney(player.getTotalSlotMoney() + playerBet);
         return player;
     }

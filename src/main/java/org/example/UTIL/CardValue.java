@@ -1,6 +1,7 @@
 package org.example.UTIL;
 
 public enum CardValue {
+
     //region ENUM VALUES
     //enums for card values for blackjack
     ACE(11, "ACE"),
@@ -42,6 +43,4 @@ public enum CardValue {
         return friendlyString;
     }
     //endregion
-
-
 }

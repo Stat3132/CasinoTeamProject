@@ -31,5 +31,4 @@ public enum HorseColor {
         return friendlyString;
     }
     //endregion
-
 }

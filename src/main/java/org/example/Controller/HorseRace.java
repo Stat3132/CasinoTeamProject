@@ -120,6 +120,7 @@ public class HorseRace implements Casino {
     @Override
     public CasinoMembers cashOut(CasinoMembers player, int playerBet) {
         player.setCurrentMoneyCount(player.getCurrentMoneyCount() + playerBet);
+        player.setTotalWinnings(player.getTotalWinnings() + playerBet);
         player.setTotalHorseMoney(player.getTotalHorseMoney() + playerBet);
         return player;
     }

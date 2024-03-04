@@ -1,7 +1,8 @@
 package org.example.UTIL;
 
 public class Card {
-    //region VAR
+
+    //region VARS
    protected CardValue[] allCardValues = new CardValue[13];
    protected Suit[] allSuits = new Suit[4];
    protected Card[] fullDeck = new Card[52];
@@ -9,7 +10,7 @@ public class Card {
    Suit suit;
    //endregion
 
-    //region CONSTRUCTOR and GETTERS AND SETTERS
+    //region CONSTRUCTOR and TOSTRING
    public Card(CardValue cardValue, Suit suit){
     setCardValue(cardValue);
     setSuit(suit);

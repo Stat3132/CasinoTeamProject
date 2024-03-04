@@ -6,6 +6,7 @@ import org.example.UTIL.ProbabilityForValue;
 import java.util.Objects;
 
 public class CasinoMembers {
+
     //region VARS
     String name;
     private int totalWinnings = 0, currentMoneyCount = 0;

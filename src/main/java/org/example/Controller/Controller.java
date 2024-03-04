@@ -39,7 +39,7 @@ public class Controller {
         allCasinoPlayers = UI.deleteUser(allCasinoPlayers, getCurrentPlayer());
         doesUserExists();
     }
-    public void deleteUser(Player player){
+    public void deleteUser(CasinoMembers player){
         //overloaded deleteUser method to delete a SPECIFIC user as requested in console.
         if(player.equals(getCurrentPlayer())){
             setCurrentPlayer(null);
@@ -121,15 +121,13 @@ public class Controller {
     //region AI LOGIC
     public int getAIBet(CasinoMembers AI) {
         //gets an AI randomized bet with a low min of 1-100 and a high min of their total money count
-        int lowBet = ProbabilityForValue.randomValues(1, AI.getCurrentMoneyCount() /2);
+        int lowBet = 1;
         int highBet = (AI.getCurrentMoneyCount() - 1);
         int bet;
         //if checks to ENSURE AI bet is not 'broken' before returned
         if (lowBet > highBet) {
             bet = ProbabilityForValue.randomValues(highBet, lowBet);
-        } else if(lowBet == highBet){
-            bet = ProbabilityForValue.randomValues(highBet,lowBet - 1);
-        }else {
+        } else {
             bet = ProbabilityForValue.randomValues(lowBet,highBet);
         }
         return bet;
@@ -137,12 +135,10 @@ public class Controller {
     public void playAI(int game){
         //simulates AI playing the game by looping through every index of array and plays if AI (is AI is inherently enabled)
         if(aiEnabled) {
-            for (int i = 0; i < allCasinoPlayers.size(); i++) {
+            for (int i = 0; i < allCasinoPlayers.size() - 1; i++) {
                 if (allCasinoPlayers.get(i).isAI()) {
                     canUserPlay();
-                    if(allCasinoPlayers.get(i) == null){
-                        i++;
-                    } else {
+                    if(allCasinoPlayers.get(i) != null){
                         switch (game) {
                             case 1: //slots
                                 slotsClass.play(allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)), true);
@@ -158,6 +154,8 @@ public class Controller {
                                 break;
                         }
                     }
+                } else {
+                    i++;
                 }
             }
         }

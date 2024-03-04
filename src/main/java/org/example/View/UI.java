@@ -7,6 +7,7 @@ import org.example.UTIL.Card;
 import org.example.UTIL.Console;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class UI {
 
@@ -14,7 +15,7 @@ public class UI {
     public int casinoMenu(){
         //casino menu prompt for game choosing
         Console.write("\n-- Variables in Vegas! --\n", Console.TextColor.GREEN); //header
-        return Console.getUserInt("1) Slot Machines \n2) Roulette \n3) Black-Jack \n4) Horse-Racing \n5) Casino Settings \n6) EXIT",true);
+        return Console.getUserInt("1) Slot Machines \n2) Roulette \n3) Black-Jack \n4) Horse-Racing \n5) Casino Settings \n6) Exit",true);
     }
     public int casinoSettings(boolean isAiEnabled){
         //casino settings prompt
@@ -209,7 +210,7 @@ public class UI {
                                 }
                             } else if ((Integer.parseInt(changeUser) > allUsers.size() || Integer.parseInt(changeUser) <= -1)) {
                                 //if index is out of bounds from parsable int
-                                Console.write("OUT OF BOUNDS!", Console.TextColor.RED);
+                                Console.write("OUT OF BOUNDS!\n", Console.TextColor.RED);
                                 return null;
                             }
                         } catch (NumberFormatException ex) {
@@ -407,9 +408,9 @@ public class UI {
     public void populateAI(boolean isAiEnabled){
         //"populate" AI text
         if(isAiEnabled){
-            Console.write("ENABLING AI...\n", Console.TextColor.GREEN);
+            Console.write("\nENABLING AI...\n", Console.TextColor.GREEN);
         } else {
-            Console.write("DISABLING AI...\n", Console.TextColor.RED);
+            Console.write("\nDISABLING AI...\n", Console.TextColor.RED);
         }
         footer(1);
     }
@@ -510,107 +511,99 @@ public class UI {
         }
     }
     //endregion
-    //TODO: FINISH blackjack prompts (if needed)
+
     //region BLACK JACK
     public void blackJackWins(int winnerOptions, int currentPlayerTotal, int currentDealerTotal){
         switch (winnerOptions){
             case 1:
                 //Natural 21
-                System.out.println("You got a BLACK JACK!" + "\n\t " +
-                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                Console.write("\nYou have NATURAL BLACK-JACK!\n", Console.TextColor.GREEN);
                 break;
             case 2:
                 //Player got 21
-                System.out.println("You got 21 before the dealer!" + "\n\t " +
-                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                Console.write("\nYou have BLACK-JACK!\n", Console.TextColor.GREEN);
                 break;
             case 3:
                 //Dealer natural 21
-                System.out.println("The dealer got a BLACK JACK!" + "\n\t " +
-                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                Console.write("\nThe Dealer got a NATURAL BLACK-JACK 21!\n", Console.TextColor.RED);
                 break;
             case 4:
                 //Dealer got 21
-                System.out.println("The dealer got 21 before you!" + "\n\t " +
-                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                Console.write("\nThe Dealer got BLACK-JACK!\n", Console.TextColor.RED);
                 break;
             case 5:
                 //Player went over 21
-                System.out.println("You busted!" + "\n\t " +
-                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal );
+                Console.write("\nYou BUSTED!\n", Console.TextColor.RED);
                 break;
             case 6:
                 //Dealer went over 21
-                System.out.println("Dealer busted!" + "\n\t " +
-                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                Console.write("\nThe Dealer BUSTED!\n", Console.TextColor.GREEN);
                 break;
             case 7:
                 //Player had a higher value then dealer
-                System.out.println("Player had the higher card count!" + "\n\t " +
-                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                Console.write("\nYou had a HIGHER card count!\n", Console.TextColor.GREEN);
                 break;
             case 8:
                 //Dealer had a higher value than player
-                System.out.println("Dealer had the higher card count!" + "\n\t " +
-                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                Console.write("\nThe Dealer had a HIGHER card count!\n", Console.TextColor.RED);
                 break;
             case 9:
                 //A tie
-                System.out.println("Both you and the dealer have the same cards! NO WINNER" + "\n\t" +
-                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                Console.write("\nYou & The Dealer TIED!\n", Console.TextColor.GREEN);
                 break;
         }
+        Console.write("\n\tPlayer card value = " + currentPlayerTotal + "\n\tDealer card value = " + currentDealerTotal + "\n", Console.TextColor.PURPLE);
     }
     public void displayBlackJackCards(ArrayList<Card> allCards, ArrayList<Card> allDealerCards,boolean startOfGame, boolean inCurrentGame, boolean endGame){
         //Display first cards
         if (startOfGame) {
-                System.out.println("______________________");
-                System.out.println("Players FIRST cards:");
-                System.out.println(allCards.getFirst());
-                System.out.println(allCards.get(1));
-                System.out.println("______________________");
-
-                System.out.println("______________________");
-                System.out.println("Dealer's FIRST cards:");
-                System.out.println(allDealerCards.getFirst());
-                System.out.println("______________________");
+            footer(2);
+            Console.write("Players FIRST cards:\n", Console.TextColor.PURPLE);
+            System.out.println(allCards.getFirst());
+            System.out.println(allCards.get(1));
+            footer(1);
+            Console.write("\n");
+            footer(2);
+            Console.write("Dealer's FIRST cards:\n", Console.TextColor.PURPLE);
+            System.out.println(allDealerCards.getFirst());
+            footer(1);
         }
         //Display current game cards
         if (inCurrentGame){
-            System.out.println("______________________");
-            System.out.println("Player's CURRENT cards:");
+            Console.write("Player's CURRENT cards:\n", Console.TextColor.PURPLE);
             for (int i = 0; i < allCards.size(); i++) {
                 System.out.println(allCards.get(i));
             }
-            System.out.println("_______________________" + "\n");
+            footer(2);
         }
         // Display end game cards
         if (endGame) {
-            System.out.println("______________________");
-            System.out.println("Player's FINAL cards:");
+            footer(2);
+            Console.write("Player's FINAL cards:\n", Console.TextColor.PURPLE);
             for (int i = 0; i < allCards.size(); i++) {
                 System.out.println(allCards.get(i));
             }
-            System.out.println("_______________________");
-            System.out.println("\n");
-            System.out.println("_______________________");
-            System.out.println("Dealer's FINAL cards:");
+            footer(1);
+            Console.write("\n");
+            footer(2);
+            Console.write("Dealer's FINAL cards:\n", Console.TextColor.PURPLE);
             for (int i = 0; i < allDealerCards.size(); i++) {
                 System.out.println(allDealerCards.get(i));
             }
-            System.out.println("_______________________");
+            footer(1);
         }
 
     }
     public int blackJackPrompt(){
         //User prompt
-        return Console.getUserInt("1) Hit? \n2) Stand! \n3) Change ace?",true);
+        return Console.getUserInt("1) Hit \n2) Stand \n3) Change [ACE]", true);
     }
     public int changeAce(boolean hasAce){
         if (hasAce) {
-            return Console.getUserInt("1) Change into 1 \n 2) Change into 11", true);
+            return Console.getUserInt("1) Change into 1 \n2) Change into 11", true);
         }
-        System.out.println("NO ACE!!!");
+        Console.write("\nYou have NO Ace!\n", Console.TextColor.RED);
+        footer(2);
         return 0;
 
     }

@@ -1,7 +1,8 @@
 package org.example.UTIL;
 
 public enum Suit {
-    //region SUITS
+
+    //region ENUM VALUES (SUITS)
     //enum values for suits for cards.
     SPADE("Spade"),
     CLUB("Club"),
@@ -9,14 +10,16 @@ public enum Suit {
     DIAMOND("Diamond");
     //endregion
 
-    //toString
+    //region CONSTRUCTOR & TOSTRING
+
+
+    Suit(String friendlyString) {
+        this.friendlyString = friendlyString;
+    }
     String friendlyString;
     @Override
     public String toString() {
         return friendlyString;
     }
-    //constructor
-    Suit(String friendlyString) {
-        this.friendlyString = friendlyString;
-    }
+    //endregion
 }
