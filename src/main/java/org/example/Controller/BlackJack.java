@@ -24,23 +24,23 @@ public class BlackJack extends Card implements Casino {
     @Override
     public CasinoMembers play(CasinoMembers currentPlayer, int playerBet, boolean isAI) {
         //region START BLACKJACK
-            populateDeck();
-            CardValue.ACE.setCardCount(11);
-            playerBet = playerBet * 2;
-            //Player hand
-            ArrayList<Card> playerHand = new ArrayList<>();
-            //Dealer hand
-            ArrayList<Card> dealerHand = new ArrayList<>();
-            //Player's first 2 cards.
-            playerHand.add(randomCard());
-            playerHand.add(randomCard());
-            //Dealer's first 2 cards.
-            dealerHand.add(randomCard());
-            dealerHand.add(randomCard());
-            //Keeps the value of both dealer and players cards
-            currentPlayerHand = playerHand.getFirst().getCardValue().getCardCount() + playerHand.get(1).getCardValue().getCardCount();
-            currentDealerHand = dealerHand.getFirst().getCardValue().getCardCount() + dealerHand.get(1).getCardValue().getCardCount();
-            //This displays the dealer and the players first hands.
+        populateDeck();
+        CardValue.ACE.setCardCount(11);
+        playerBet = playerBet * 2;
+        //Player hand
+        ArrayList<Card> playerHand = new ArrayList<>();
+        //Dealer hand
+        ArrayList<Card> dealerHand = new ArrayList<>();
+        //Player's first 2 cards.
+        playerHand.add(randomCard());
+        playerHand.add(randomCard());
+        //Dealer's first 2 cards.
+        dealerHand.add(randomCard());
+        dealerHand.add(randomCard());
+        //Keeps the value of both dealer and players cards
+        currentPlayerHand = playerHand.getFirst().getCardValue().getCardCount() + playerHand.get(1).getCardValue().getCardCount();
+        currentDealerHand = dealerHand.getFirst().getCardValue().getCardCount() + dealerHand.get(1).getCardValue().getCardCount();
+        //This displays the dealer and the players first hands.
         if (!isAI) {
             UI.displayBlackJackCards(playerHand, dealerHand, true, false, false);
         }
@@ -64,7 +64,7 @@ public class BlackJack extends Card implements Casino {
                 return currentPlayer;
             }
         }
-
+        //Dealer natural 21
         if (!isAI) {
             if (currentDealerHand == WINNINGNUMBER) {
                 UI.blackJackWins(3, currentPlayerHand, currentDealerHand);
@@ -89,29 +89,13 @@ public class BlackJack extends Card implements Casino {
                 case 1:
                     //region HIT
                     //Gives player one card
+                    //If player went above 21
                     playerHand.add(cardIndex, randomCard());
                     currentPlayerHand = playerHand.get(cardIndex).getCardValue().getCardCount() + currentPlayerHand;
-                    //If player went above 21
                     if (!isAI) {
-                        if (currentPlayerHand > WINNINGNUMBER) {
-                            for (int playerAce = 0; playerAce < playerHand.size(); playerAce++) {
-                                //If dealer has an ace his ace will become a 1.
-                                if (playerHand.get(playerAce).getCardValue().getCardCount() == CardValue.ACE.getCardCount()) {
-                                    playerHand.get(playerAce).getCardValue().setCardCount(1);
-                                    currentPlayerHand = playerHand.get(playerAce).getCardValue().getCardCount() + currentPlayerHand - 11;
-                                    break;
-                                }
-                            }
-                        }
-                        //Second check
-                        //If no ace then player busted and loses
-                        if (currentPlayerHand > WINNINGNUMBER) {
-                            UI.blackJackWins(5, currentPlayerHand, currentDealerHand);
-                            UI.didUserWin(false, playerBet / 2);
-                            currentPlayer = cashOut(currentPlayer, -playerBet / 2);
-                            UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
-                            return currentPlayer;
-                        }
+                        //Player hand determining if user
+                            currentPlayer = aceLogic(currentPlayerHand, playerHand, playerBet, currentPlayer, playerHand, dealerHand);
+                        return currentPlayer;
                     } else {
                         //TODO: AI IMPLEMENTATION
                         if (currentPlayerHand > WINNINGNUMBER) {
@@ -131,6 +115,8 @@ public class BlackJack extends Card implements Casino {
                             return currentPlayer;
                         }
                     }
+
+
                     //Dealer does not have to draw if their total is 17 or above
                     if (!isAI) {
                         if (currentDealerHand >= 17) {
@@ -140,26 +126,10 @@ public class BlackJack extends Card implements Casino {
                             dealerHand.add(cardIndex, randomCard());
                             currentDealerHand = dealerHand.get(cardIndex).getCardValue().getCardCount() + currentDealerHand;
                             //If dealer has higher than 21 he busts if.
-                            if (currentDealerHand > WINNINGNUMBER) {
-                                for (int dealerAce = 0; dealerAce < dealerHand.size(); dealerAce++) {
-                                    //If dealer has an ace his ace will become a 1.
-                                    if (dealerHand.get(dealerAce).getCardValue().getCardCount() == CardValue.ACE.getCardCount()) {
-                                        dealerHand.get(dealerAce).getCardValue().setCardCount(1);
-                                        currentDealerHand = dealerHand.get(dealerAce).getCardValue().getCardCount() + currentDealerHand - 11;
-                                        break;
-                                    }
-                                }
-                                //Second check
-                                //If no ace then dealer busts.
-                            }
-                            if (currentDealerHand > WINNINGNUMBER) {
-                                UI.blackJackWins(6, currentPlayerHand, currentDealerHand);
-                                UI.didUserWin(true, playerBet);
-                                currentPlayer = cashOut(currentPlayer, playerBet);
-                                UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
-                                return currentPlayer;
-                            }
+                            //If dealer has an ace then he will not bust BUT if there is no ace the dealer busts.
+                            currentPlayer = aceLogic(currentDealerHand, dealerHand, playerBet, currentPlayer, playerHand, dealerHand);
                         }
+                        return currentPlayer;
                     } else {
                         //TODO: AI IMPLEMENTATION
                         if (currentDealerHand >= 17) {
@@ -269,9 +239,9 @@ public class BlackJack extends Card implements Casino {
                     } else {
                         //TODO: AI IMPLEMENTATION
                         currentPlayer = cashOut(currentPlayer, -playerBet / 2);
-                        return currentPlayer;
                     }
-                    //endregion
+                    return currentPlayer;
+                //endregion
                 case 3:
                     //region USER ACE LOGIC
                     boolean hasAce = false;
@@ -315,84 +285,105 @@ public class BlackJack extends Card implements Casino {
         return currentPlayer;
     }
 
+    public CasinoMembers aceLogic(int currentHand, ArrayList<Card> hand, int playerBet, CasinoMembers currentPlayer, ArrayList<Card> playerHand, ArrayList<Card> dealerHand) {
+        if (currentHand > WINNINGNUMBER) {
+            for (int playerAce = 0; playerAce < hand.size(); playerAce++) {
+                //If dealer has an ace his ace will become a 1.
+                if (hand.get(playerAce).getCardValue().getCardCount() == CardValue.ACE.getCardCount()) {
+                    hand.get(playerAce).getCardValue().setCardCount(1);
+                    currentHand = hand.get(playerAce).getCardValue().getCardCount() + currentHand - 11;
 
-        @Override
-        public CasinoMembers cashOut (CasinoMembers currentPlayer,int playerBet){
-            currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-            currentPlayer.setTotalBlackJackMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-            return currentPlayer;
-        }
-        //endregion
-        //region CREATING SHUFFLED DECK
-
-        //An array of enums that will be inputted into cards to make multiple cards.
-        public void makingSuitsAndValueArrays () {
-            CardValue[] intForCardValues = CardValue.values();
-            Suit[] intForSuits = Suit.values();
-            for (int i = 0; i < allCardValues.length; i++) {
-                if (allCardValues[i] == null) {
-                    allCardValues[i] = intForCardValues[i];
-                }
-                if (i == intForCardValues.length - 1) {
-                    break;
-                }
-            }
-            for (int i = 0; i < allSuits.length; i++) {
-                if (allSuits[i] == null) {
-                    allSuits[i] = intForSuits[i];
-                }
-                if (i == allSuits.length - 1) {
-                    break;
                 }
             }
         }
+        //Second check
+        //If no ace then player busted and loses
+        if (currentHand > WINNINGNUMBER) {
+            UI.blackJackWins(5, currentPlayerHand, currentDealerHand);
+            UI.didUserWin(false, playerBet / 2);
+            currentPlayer = cashOut(currentPlayer, -playerBet / 2);
+            UI.displayBlackJackCards(playerHand, dealerHand, false, false, true);
+        }
+        return currentPlayer;
+    }
 
-        //Creates a deck from 1-52 un shuffled, then shuffles the deck.
-        public void populateDeck () {
-            //Un shuffled deck
-            makingSuitsAndValueArrays();
-            int suitCounter = 0;
-            int cardCounter = 0;
-            for (int i = 0; i < 100; i++) {
-                //Putting a card value and a suit into every card to create an instance of a card to input into a deck of 52.
-                Card newCard = new Card(allCardValues[i], allSuits[suitCounter]);
-                fullDeck[cardCounter] = newCard;
-                cardCounter++;
-                // System.out.println(newCard);
-                if (suitCounter == 3 && i == 12) {
-                    break;
-                }
-                if (i == 12) {
-                    i = -1;
-                    suitCounter++;
-                }
+    @Override
+    public CasinoMembers cashOut(CasinoMembers currentPlayer, int playerBet) {
+        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
+        currentPlayer.setTotalBlackJackMoney(currentPlayer.getTotalHorseMoney() + playerBet);
+        return currentPlayer;
+    }
+    //endregion
+    //region CREATING SHUFFLED DECK
+
+    //An array of enums that will be inputted into cards to make multiple cards.
+    public void makingSuitsAndValueArrays() {
+        CardValue[] intForCardValues = CardValue.values();
+        Suit[] intForSuits = Suit.values();
+        for (int i = 0; i < allCardValues.length; i++) {
+            if (allCardValues[i] == null) {
+                allCardValues[i] = intForCardValues[i];
             }
-            //Shuffled deck
-            for (int i = 0; i < 52; ) {
-                int removedCard = ProbabilityForValue.randomValues(0, 51);
-                if (shuffledDeck[51] != null) {
-                    break;
-                }
-                if (fullDeck[removedCard] != null) {
-                    shuffledDeck[i] = fullDeck[removedCard];
-                    fullDeck[removedCard] = null;
-                    i++;
-                } else {
-                    continue;
-                }
-
+            if (i == intForCardValues.length - 1) {
+                break;
             }
         }
-
-        public Card randomCard () {
-            //Not getting out of card array.
-            if (increasingCardCount == 51) {
-                increasingCardCount = 0;
+        for (int i = 0; i < allSuits.length; i++) {
+            if (allSuits[i] == null) {
+                allSuits[i] = intForSuits[i];
             }
-            //Picks the next card from the deck of 52 cards.
-            increasingCardCount++;
-            return shuffledDeck[increasingCardCount];
+            if (i == allSuits.length - 1) {
+                break;
+            }
         }
-        //endregion
+    }
+
+    //Creates a deck from 1-52 un shuffled, then shuffles the deck.
+    public void populateDeck() {
+        //Un shuffled deck
+        makingSuitsAndValueArrays();
+        int suitCounter = 0;
+        int cardCounter = 0;
+        for (int i = 0; i < 100; i++) {
+            //Putting a card value and a suit into every card to create an instance of a card to input into a deck of 52.
+            Card newCard = new Card(allCardValues[i], allSuits[suitCounter]);
+            fullDeck[cardCounter] = newCard;
+            cardCounter++;
+            // System.out.println(newCard);
+            if (suitCounter == 3 && i == 12) {
+                break;
+            }
+            if (i == 12) {
+                i = -1;
+                suitCounter++;
+            }
+        }
+        //Shuffled deck
+        for (int i = 0; i < 52; ) {
+            int removedCard = ProbabilityForValue.randomValues(0, 51);
+            if (shuffledDeck[51] != null) {
+                break;
+            }
+            if (fullDeck[removedCard] != null) {
+                shuffledDeck[i] = fullDeck[removedCard];
+                fullDeck[removedCard] = null;
+                i++;
+            } else {
+                continue;
+            }
+
+        }
+    }
+
+    public Card randomCard() {
+        //Not getting out of card array.
+        if (increasingCardCount == 51) {
+            increasingCardCount = 0;
+        }
+        //Picks the next card from the deck of 52 cards.
+        increasingCardCount++;
+        return shuffledDeck[increasingCardCount];
+    }
+    //endregion
 
 }
