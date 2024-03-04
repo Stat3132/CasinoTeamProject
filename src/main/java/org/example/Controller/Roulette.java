@@ -23,13 +23,13 @@ public class Roulette implements Casino {
 
     //region CASINO INTERFACE IMPLEMENTED METHODS
     @Override
-    public CasinoMembers cashOut(CasinoMembers currentPlayer, int playerBet) {
-        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-        currentPlayer.setTotalRouletteMoney(currentPlayer.getTotalRouletteMoney() + playerBet);
-        return currentPlayer;
+    public CasinoMembers cashOut(CasinoMembers player, int playerBet) {
+        player.setCurrentMoneyCount(player.getCurrentMoneyCount() + playerBet);
+        player.setTotalRouletteMoney(player.getTotalRouletteMoney() + playerBet);
+        return player;
     }
     @Override
-    public CasinoMembers play(CasinoMembers currentPlayer, int playerBet, boolean isAI) {
+    public CasinoMembers play(CasinoMembers player, int playerBet, boolean isAI) {
         betAmount = playerBet;
         int outcome;
         if(isAI){
@@ -43,18 +43,18 @@ public class Roulette implements Casino {
                 if(isAI){
                     if (betType == 1 && (outcome % 2 == 1)) {
                         betAmount = betAmount * 2;
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        player = cashOut(player, betAmount);
                     } else {
-                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                        player = cashOut(player, -betAmount);
                     }
                 } else {
                     if (betType == 1 && (outcome % 2 == 1)) {
                         betAmount = betAmount * 2;
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        player = cashOut(player, betAmount);
                         UI.didUserWin(true, betAmount);
                     } else {
                         UI.didUserWin(false, betAmount);
-                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                        player = cashOut(player, -betAmount);
                     }
                 }
                 break;
@@ -63,18 +63,18 @@ public class Roulette implements Casino {
                 if(isAI){
                     if (betType == 2 && outcome != 0 && (outcome % 2 == 0)) {
                         betAmount = betAmount * 2;
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        player = cashOut(player, betAmount);
                     } else {
-                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                        player = cashOut(player, -betAmount);
                     }
                 } else {
                     if (betType == 2 && outcome != 0 && (outcome % 2 == 0)) {
                         betAmount = betAmount * 2;
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        player = cashOut(player, betAmount);
                         UI.didUserWin(true, betAmount);
                     } else {
                         UI.didUserWin(false, betAmount);
-                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                        player = cashOut(player, -betAmount);
                     }
                 }
                 break;
@@ -83,20 +83,20 @@ public class Roulette implements Casino {
                 if(isAI){
                     if(betType == 3 && outcome != 0 && (outcome % 3 == 0)){
                         betAmount = betAmount*10;
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        player = cashOut(player, betAmount);
 
                     } else {
-                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                        player = cashOut(player, -betAmount);
                     }
                 } else {
                     if(betType == 3 && outcome != 0 && (outcome % 3 == 0)){
                         betAmount = betAmount*10;
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        player = cashOut(player, betAmount);
                         UI.didUserWin(true, betAmount);
 
                     } else {
                         UI.didUserWin(false, betAmount);
-                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                        player = cashOut(player, -betAmount);
                     }
                 }
                 break;
@@ -106,24 +106,24 @@ public class Roulette implements Casino {
                     int specificNumber = ProbabilityForValue.randomValues(1,36);
                     if (betType == 4 && outcome != 0 && outcome == specificNumber) {
                         betAmount = betAmount * 50;
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        player = cashOut(player, betAmount);
                     } else {
-                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                        player = cashOut(player, -betAmount);
                     }
                 } else {
                     int specificNumber = UI.displayRouletteSpecificNum();
                     if (betType == 4 && outcome != 0 && outcome == specificNumber) {
                         betAmount = betAmount * 50;
-                        currentPlayer = cashOut(currentPlayer, betAmount);
+                        player = cashOut(player, betAmount);
                         UI.didUserWin(true, betAmount);
                     } else {
                         UI.didUserWin(false, betAmount);
-                        currentPlayer = cashOut(currentPlayer, -betAmount);
+                        player = cashOut(player, -betAmount);
                     }
                 }
                 break;
         }
-        return currentPlayer;
+        return player;
     }
     //endregion
 

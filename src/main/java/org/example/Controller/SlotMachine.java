@@ -53,13 +53,13 @@ public class SlotMachine implements Casino {
                 case 2:
                     //if count value is 2 (meaning 2 symbols match), return a basic payout for doubles
                     if(totalSymbolsMatched == 2){
-                        payoutMultiplier += .65;
+                        payoutMultiplier += .45;
                         slotsWin = "DOUBLE PAIR";
                     } else if(Objects.equals(symbol, symbols[15])){
-                        payoutMultiplier += 0.85;
+                        payoutMultiplier += 0.65;
                         slotsWin = "PAIR 77's";
                     } else {
-                        payoutMultiplier += 0.35;
+                        payoutMultiplier += 0.25;
                         slotsWin = "PAIR";
                     }
                     totalSymbolsMatched += count;
@@ -67,7 +67,7 @@ public class SlotMachine implements Casino {
                 case 3:
                     //if count value is 3 (meaning 3 symbols match), return a modifier for triples
                     if(Objects.equals(symbol, symbols[15])){
-                        payoutMultiplier += 1.35; // Increase the payout multiplier by 1.0 for each triple
+                        payoutMultiplier += 1.25; // Increase the payout multiplier by 1.0 for each triple
                         slotsWin = "TRIPLE 777's";
                     } else {
                         payoutMultiplier += 1.05; // Increase the payout multiplier by 1.0 for each triple
@@ -77,10 +77,10 @@ public class SlotMachine implements Casino {
                 case 4:
                     //if count value is 4 (meaning all symbols match), return the highest possible modifier whether it's all 7s (SUPER MEGA LUCKY!) or all other symbol
                     if(Objects.equals(symbol, symbols[15])){
-                        payoutMultiplier += 1.65;
+                        payoutMultiplier += 1.45;
                         slotsWin = "7777's";
                     } else {
-                        payoutMultiplier += 1.35;
+                        payoutMultiplier += 1.25;
                         slotsWin = "QUADRUPLE";
                     }
                     break;
@@ -96,7 +96,6 @@ public class SlotMachine implements Casino {
         int payout = (int) (playerBet * payoutMultiplier);
         if(!isAI) {
             UI.displaySlotsCheck(slotsWin);
-            slotsWin = "";
         }
         return payout;
     }
@@ -104,36 +103,36 @@ public class SlotMachine implements Casino {
 
     //region CASINO INTERFACE IMPLEMENTED METHODS
     @Override
-    public CasinoMembers cashOut(CasinoMembers currentPlayer, int playerBet) {
+    public CasinoMembers cashOut(CasinoMembers player, int playerBet) {
         //return player cash values and player values
-        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-        currentPlayer.setTotalSlotMoney(currentPlayer.getTotalSlotMoney() + playerBet);
-        return currentPlayer;
+        player.setCurrentMoneyCount(player.getCurrentMoneyCount() + playerBet);
+        player.setTotalSlotMoney(player.getTotalSlotMoney() + playerBet);
+        return player;
     }
     @Override
-    public CasinoMembers play(CasinoMembers currentPlayer, int playerBet, boolean isAI) {
+    public CasinoMembers play(CasinoMembers player, int playerBet, boolean isAI) {
         //play method
         int payout = spin(playerBet,isAI); //take in spin and return new money int amount
         if(isAI){
             if (payout <= 0) {
-                //player has lost and will only lose the first bet they inserted.
-                currentPlayer = cashOut(currentPlayer, -playerBet);
+                //AI has lost and will only lose the first bet they inserted.
+                player = cashOut(player, -playerBet);
             } else {
-                //player has won and gets their payout + their initial bet
-                currentPlayer = cashOut(currentPlayer, payout);
+                //AI has won and gets their payout + their initial bet
+                player = cashOut(player, payout);
             }
         } else {
             if (payout <= 0) {
                 //player has lost and will only lose the first bet they inserted.
-                currentPlayer = cashOut(currentPlayer, -playerBet);
+                player = cashOut(player, -playerBet);
                 UI.didUserWin(false, playerBet);
             } else {
                 //player has won and gets their payout + their initial bet
-                currentPlayer = cashOut(currentPlayer, payout);
+                player = cashOut(player, payout);
                 UI.didUserWin(true, payout + playerBet);
             }
         }
-        return currentPlayer;
+        return player;
     }
     //endregion
 

@@ -31,12 +31,14 @@ public class Player extends CasinoMembers{
                 this.setTotalWinnings(999999999);
                 break;
             } else if(_name.equalsIgnoreCase(names[5])) {
+                //random name & money
                 this.setName(" ");
-                this.setCurrentMoneyCount(defaultMoney);
+                this.setCurrentMoneyCount(ProbabilityForValue.randomValues(1,500));
             } else if(_name.equalsIgnoreCase(names[6])){
+                //bankrupt user
                 this.setCurrentMoneyCount(0);
             } else {
-                //else default money value
+                //else default user values
                 this.setName(_name);
                 if(this.name == null){
                     this.setName(" ");

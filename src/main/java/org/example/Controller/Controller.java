@@ -104,12 +104,10 @@ public class Controller {
         } else {
             setUserExists(false);
             for (CasinoMembers allCasinoPlayer : allCasinoPlayers) {
-                if (allCasinoPlayer != null) {
-                    if (!allCasinoPlayer.isAI()) {
-                        //if user is NOT AI, set true and immediately break as least one user exists
-                        setUserExists(true);
-                        return userExists;
-                    }
+                if (!allCasinoPlayer.isAI()) {
+                    //if user is NOT AI, set true and immediately break as least one user exists
+                    setUserExists(true);
+                    return userExists;
                 }
             }
         }
@@ -121,14 +119,17 @@ public class Controller {
     //endregion
 
     //region AI LOGIC
-    public int getAIBet(CasinoMembers AI){
+    public int getAIBet(CasinoMembers AI) {
         //gets an AI randomized bet with a low min of 1-100 and a high min of their total money count
-        int lowBet = ProbabilityForValue.randomValues(1,100);
-        int highBet = (AI.getCurrentMoneyCount() / 2) - 2;
-        int bet = 0;
-        if(lowBet > highBet){
-            bet = ProbabilityForValue.randomValues(highBet,lowBet);
-        } else {
+        int lowBet = ProbabilityForValue.randomValues(1, AI.getCurrentMoneyCount() /2);
+        int highBet = (AI.getCurrentMoneyCount() - 1);
+        int bet;
+        //if checks to ENSURE AI bet is not 'broken' before returned
+        if (lowBet > highBet) {
+            bet = ProbabilityForValue.randomValues(highBet, lowBet);
+        } else if(lowBet == highBet){
+            bet = ProbabilityForValue.randomValues(highBet,lowBet - 1);
+        }else {
             bet = ProbabilityForValue.randomValues(lowBet,highBet);
         }
         return bet;
@@ -138,19 +139,24 @@ public class Controller {
         if(aiEnabled) {
             for (int i = 0; i < allCasinoPlayers.size(); i++) {
                 if (allCasinoPlayers.get(i).isAI()) {
-                    switch (game) {
-                        case 1: //slots
-                            slotsClass.play(allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)),aiEnabled);
-                            break;
-                        case 2: //roulette
-                            rouletteClass.play(allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)),aiEnabled);
-                            break;
-                        case 3: //black-jack
-                            bjClass.play(allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)),aiEnabled);
-                            break;
-                        case 4: //horse-racing
-                            horseClass.play(allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)),aiEnabled);
-                            break;
+                    canUserPlay();
+                    if(allCasinoPlayers.get(i) == null){
+                        i++;
+                    } else {
+                        switch (game) {
+                            case 1: //slots
+                                slotsClass.play(allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)), true);
+                                break;
+                            case 2: //roulette
+                                rouletteClass.play(allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)), true);
+                                break;
+                            case 3: //black-jack
+                                bjClass.play(allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)), true);
+                                break;
+                            case 4: //horse-racing
+                                horseClass.play(allCasinoPlayers.get(i), getAIBet(allCasinoPlayers.get(i)), true);
+                                break;
+                        }
                     }
                 }
             }
@@ -162,21 +168,20 @@ public class Controller {
         UI.populateAI(aiEnabled);
         if(!aiEnabled){ //if boolean is false, delete AI members
             for (int i = 0; i < allCasinoPlayers.size(); i++) {
-                if(allCasinoPlayers.get(i) != null){
-                    if (allCasinoPlayers.get(i).isAI()){
-                        UI.populateAIPrompt(aiEnabled, allCasinoPlayers.get(i).getName());
-                        //calls UI with boolean to check if ai is being enabled or disabled, as well as the string name
-                        allCasinoPlayers.remove(i);
-                        i--;
-                    }
+                if (allCasinoPlayers.get(i).isAI()){
+                    UI.populateAIPrompt(aiEnabled, allCasinoPlayers.get(i).getName());
+                    //calls UI with boolean to check if AI is being enabled or disabled, as well as the string name
+                    allCasinoPlayers.remove(i);
+                    i--;
                 }
             }
         } else { //add new AI members
             int totalAI = ProbabilityForValue.randomValues(1,10);
+            //randomizes ai values between 1 or 10 random ai
             for (int i = 0; i < totalAI; i++) {
-                CasinoAI playerAI = new CasinoAI();
-                UI.populateAIPrompt(aiEnabled,  playerAI.getName());
+                CasinoMembers playerAI = new CasinoAI();
                 allCasinoPlayers.add(playerAI);
+                UI.populateAIPrompt(aiEnabled,  playerAI.getName());
             }
         }
     }

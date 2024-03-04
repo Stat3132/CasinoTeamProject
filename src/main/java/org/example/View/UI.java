@@ -98,25 +98,25 @@ public class UI {
         //UI prompt for leaderboard
         if(player.isAI()){
             //if user is ai, add tag
-            Console.write((i + 1) + ". " + player.getName() + " [AI] ($" + money + ")");
+            Console.write((i + 1) + ". " + player.getName() + " [AI] ($" + money + ")\n");
         } else {
             //otherwise, print out user as well as money count
-            Console.write((i + 1) + ". " + player.getName() + " ($" + money + ")");
+            Console.write((i + 1) + ". " + player.getName() + " ($" + money + ")\n");
         }
     }
     public void leaderboardHeader(int game){
         switch(game){ //headers
             case 1: //slots
-                Console.write("-- Slots Leaderboard! --\n", Console.TextColor.BLUE);
+                Console.write("\n-- Slots Leaderboard! --\n", Console.TextColor.BLUE);
                 break;
             case 2: //roulette
-                Console.write("-- Roulette Leaderboard! --\n", Console.TextColor.RED);
+                Console.write("\n-- Roulette Leaderboard! --\n", Console.TextColor.RED);
                 break;
             case 3: //black-jack
-                Console.write("-- Black-Jack Leaderboard! --\n", Console.TextColor.PURPLE);
+                Console.write("\n-- Black-Jack Leaderboard! --\n", Console.TextColor.PURPLE);
                 break;
             case 4: //horse-racing
-                Console.write("-- Horse-Racing! --\n", Console.TextColor.CYAN);
+                Console.write("\n-- Horse-Racing! --\n", Console.TextColor.CYAN);
                 break;
             default:
                 Console.write("\n-- Casino Leaderboard! --\n", Console.TextColor.GREEN);
@@ -432,7 +432,7 @@ public class UI {
         Console.write(" |"+ slot.toUpperCase() + "| ",Console.TextColor.BLUE);
     }
     public void displaySlotsCheck(String check){
-        Console.write("\n!! " + check.toUpperCase() + " !!",Console.TextColor.CYAN);
+        Console.write("\n!! " + check.toUpperCase() + " !!\n",Console.TextColor.CYAN);
         footer(2);
     }
     //endregion
@@ -503,7 +503,7 @@ public class UI {
         Console.write("\nLet the Fastest Horse Win!");
     }
     public void displayStable(Horse[] stable){
-        Console.write("-- HORSE STABLE --",Console.TextColor.CYAN);
+        Console.write("\n-- HORSE STABLE --\n",Console.TextColor.CYAN);
         for (Horse horse : stable) {
             System.out.println(horse.toString());
             footer(2);

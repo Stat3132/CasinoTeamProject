@@ -46,7 +46,7 @@ public class HorseRace implements Casino {
     //region CASINO INTERFACE IMPLEMENTED METHODS
     // Play method is how the users play the game.
     @Override
-    public CasinoMembers play(CasinoMembers currentPlayer, int betAmount, boolean isAI) {
+    public CasinoMembers play(CasinoMembers player, int betAmount, boolean isAI) {
         betAmount = betAmount * 2;
         //populates 20 horses.
         populatingStable();
@@ -93,37 +93,35 @@ public class HorseRace implements Casino {
                     UI.displayBettedHorse(pickedRacingHorses, i);
                     if (pickedRacingHorses[i] == finalsLineUp[winnerHorse]) {
                         UI.displayHorseWinner(finalsLineUp, true, betAmount);
-                        currentPlayer = cashOut(currentPlayer, betAmount);
-                        break;
+                        player = cashOut(player, betAmount);
                     } else {
                         UI.displayHorseWinner(finalsLineUp, false, betAmount / 2);
-                        currentPlayer = cashOut(currentPlayer, -betAmount / 2);
-                        break;
+                        player = cashOut(player, -betAmount / 2);
                     }
+                    break;
                 }
             }
         } else {
-            playersChoice = ProbabilityForValue.randomValues(0,6);
+            playersChoice = 6;
             for (int i = 0; i < 8; i++) {
                 if (playersChoice == i) {
                     if (pickedRacingHorses[i] == finalsLineUp[winnerHorse]) {
-                        currentPlayer = cashOut(currentPlayer, betAmount);
-                        break;
+                        player = cashOut(player, betAmount);
                     } else {
-                        currentPlayer = cashOut(currentPlayer, -betAmount / 2);
-                        break;
+                        player = cashOut(player, -betAmount / 2);
                     }
+                    break;
                 }
             }
         }
-        return currentPlayer;
+        return player;
     }
     // Current players money is incremented based on how much they bet.
     @Override
-    public CasinoMembers cashOut(CasinoMembers currentPlayer, int playerBet) {
-        currentPlayer.setCurrentMoneyCount(currentPlayer.getCurrentMoneyCount() + playerBet);
-        currentPlayer.setTotalHorseMoney(currentPlayer.getTotalHorseMoney() + playerBet);
-        return currentPlayer;
+    public CasinoMembers cashOut(CasinoMembers player, int playerBet) {
+        player.setCurrentMoneyCount(player.getCurrentMoneyCount() + playerBet);
+        player.setTotalHorseMoney(player.getTotalHorseMoney() + playerBet);
+        return player;
     }
 
     //endregion
