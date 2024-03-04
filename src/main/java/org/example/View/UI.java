@@ -520,31 +520,43 @@ public class UI {
                         "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 2:
+                //Player got 21
                 System.out.println("You got 21 before the dealer!" + "\n\t " +
                         "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 3:
+                //Dealer natural 21
                 System.out.println("The dealer got a BLACK JACK!" + "\n\t " +
                         "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 4:
+                //Dealer got 21
                 System.out.println("The dealer got 21 before you!" + "\n\t " +
                         "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 5:
+                //Player went over 21
                 System.out.println("You busted!" + "\n\t " +
                         "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal );
                 break;
             case 6:
+                //Dealer went over 21
                 System.out.println("Dealer busted!" + "\n\t " +
                         "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 7:
+                //Player had a higher value then dealer
                 System.out.println("Player had the higher card count!" + "\n\t " +
                         "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
             case 8:
+                //Dealer had a higher value than player
                 System.out.println("Dealer had the higher card count!" + "\n\t " +
+                        "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
+                break;
+            case 9:
+                //A tie
+                System.out.println("Both you and the dealer have the same cards! NO WINNER" + "\n\t" +
                         "Player card value = " + currentPlayerTotal + "\n\t Dealer card value = " + currentDealerTotal);
                 break;
         }
@@ -591,10 +603,16 @@ public class UI {
 
     }
     public int blackJackPrompt(){
+        //User prompt
         return Console.getUserInt("1) Hit? \n2) Stand! \n3) Change ace?",true);
     }
-    public int changeAce(){
-        return Console.getUserInt("1) Change into 1 \n 2) Change into 11", true);
+    public int changeAce(boolean hasAce){
+        if (hasAce) {
+            return Console.getUserInt("1) Change into 1 \n 2) Change into 11", true);
+        }
+        System.out.println("NO ACE!!!");
+        return 0;
+
     }
     //endregion
 }
