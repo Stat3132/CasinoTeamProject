@@ -161,10 +161,10 @@ This is a team project for educational purposes. When contributing:
 3. Add appropriate comments and documentation
 4. Test your changes thoroughly
 
-## 📝 License
+## Author(s)
 
-This project is developed for educational purposes as part of a team assignment.
-
----
+- [**Ethan Townsend (snxethan)**](www.ethantownsend.dev)
+- Diego Perez Benitez
+- Antonio Bateman
 
 **Enjoy playing Variables in Vegas! 🎰🃏🎲**
