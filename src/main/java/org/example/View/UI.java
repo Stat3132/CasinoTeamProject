@@ -559,13 +559,13 @@ public class UI {
         if (startOfGame) {
             footer(2);
             Console.write("Players FIRST cards:\n", Console.TextColor.PURPLE);
-            System.out.println(allCards.getFirst());
+            System.out.println(allCards.get(0));
             System.out.println(allCards.get(1));
             footer(1);
             Console.write("\n");
             footer(2);
             Console.write("Dealer's FIRST cards:\n", Console.TextColor.PURPLE);
-            System.out.println(allDealerCards.getFirst());
+            System.out.println(allDealerCards.get(0));
             footer(1);
         }
         //Display current game cards
