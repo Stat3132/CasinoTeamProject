@@ -37,8 +37,8 @@ public class BlackJack extends Card implements Casino {
         dealerHand.add(randomCard());
         dealerHand.add(randomCard());
         //Keeps the value of both dealer and players cards
-        this.playerHand = playerHand.getFirst().getCardValue().getCardCount() + playerHand.get(1).getCardValue().getCardCount();
-        this.dealerHand = dealerHand.getFirst().getCardValue().getCardCount() + dealerHand.get(1).getCardValue().getCardCount();
+        this.playerHand = playerHand.get(0).getCardValue().getCardCount() + playerHand.get(1).getCardValue().getCardCount();
+        this.dealerHand = dealerHand.get(0).getCardValue().getCardCount() + dealerHand.get(1).getCardValue().getCardCount();
 
         if(!isAI) {
             //This displays the dealer and the players first hands.
