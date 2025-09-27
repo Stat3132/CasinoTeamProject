@@ -163,7 +163,7 @@ This is a team project for educational purposes. When contributing:
 
 ## Author(s)
 
-- [**Ethan Townsend (snxethan)**](www.ethantownsend.dev)
+- [**Ethan Townsend (snxethan)**](https://www.ethantownsend.dev)
 - Diego Perez Benitez
 - Antonio Bateman
 
